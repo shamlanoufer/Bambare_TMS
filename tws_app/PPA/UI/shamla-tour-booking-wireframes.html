@@ -1,0 +1,1550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bambare TMS – Tour & Booking Module | Shamla Noufer</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal: #0D7377;
+    --teal-light: #14A0A5;
+    --teal-dark: #094E51;
+    --coral: #F4A261;
+    --coral-dark: #E07B3A;
+    --sand: #FDF6EC;
+    --bg: #F0F7F7;
+    --surface: #FFFFFF;
+    --text: #1A2B2C;
+    --text-muted: #6B8E8F;
+    --border: #D8EAEB;
+    --star: #F5C842;
+    --green: #2ECC71;
+    --red: #E74C3C;
+    --phone-w: 320px;
+    --phone-h: 660px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #0D1B1C;
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ---- PAGE HEADER ---- */
+  .page-header {
+    background: linear-gradient(135deg, var(--teal-dark) 0%, var(--teal) 50%, #1A8F94 100%);
+    padding: 48px 60px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .page-header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .header-label {
+    font-size: 11px; font-weight: 600; letter-spacing: 3px;
+    color: var(--coral); text-transform: uppercase; margin-bottom: 8px;
+  }
+  .header-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 38px; color: #fff; line-height: 1.15; margin-bottom: 10px;
+  }
+  .header-sub { color: rgba(255,255,255,0.7); font-size: 15px; margin-bottom: 24px; }
+  .header-meta {
+    display: flex; gap: 24px; flex-wrap: wrap;
+  }
+  .meta-chip {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 20px; padding: 6px 16px;
+    font-size: 12px; color: rgba(255,255,255,0.9); font-weight: 500;
+  }
+
+  /* ---- NAV ---- */
+  .screen-nav {
+    background: #0A1718;
+    padding: 0 60px;
+    display: flex; gap: 0; overflow-x: auto;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    position: sticky; top: 0; z-index: 100;
+  }
+  .nav-btn {
+    background: none; border: none; cursor: pointer;
+    color: rgba(255,255,255,0.45);
+    font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500;
+    padding: 14px 18px; white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+  }
+  .nav-btn:hover { color: rgba(255,255,255,0.75); }
+  .nav-btn.active { color: var(--coral); border-bottom-color: var(--coral); }
+
+  /* ---- MAIN ---- */
+  .main { padding: 50px 60px; }
+  
+  .section-label {
+    font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--coral); font-weight: 600; margin-bottom: 6px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px; color: #fff; margin-bottom: 6px;
+  }
+  .section-desc { color: rgba(255,255,255,0.5); font-size: 13px; margin-bottom: 36px; }
+
+  /* ---- SCREEN GROUP ---- */
+  .screen-group { margin-bottom: 70px; scroll-margin-top: 60px; }
+  .screens-row {
+    display: flex; gap: 32px; flex-wrap: wrap;
+  }
+
+  /* ---- PHONE FRAME ---- */
+  .phone-wrap {
+    display: flex; flex-direction: column; align-items: center; gap: 12px;
+  }
+  .phone-label {
+    font-size: 11px; font-weight: 600; letter-spacing: 1.5px;
+    text-transform: uppercase; color: rgba(255,255,255,0.4);
+  }
+  .phone-num {
+    width: 22px; height: 22px; border-radius: 50%;
+    background: var(--teal); color: #fff;
+    font-size: 10px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .phone-frame {
+    width: var(--phone-w);
+    height: var(--phone-h);
+    background: #111;
+    border-radius: 42px;
+    padding: 12px;
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,0.08),
+      0 30px 80px rgba(0,0,0,0.5),
+      inset 0 1px 0 rgba(255,255,255,0.1);
+    position: relative;
+    flex-shrink: 0;
+  }
+  .phone-inner {
+    width: 100%; height: 100%;
+    border-radius: 32px;
+    overflow: hidden;
+    position: relative;
+    background: var(--bg);
+  }
+  .phone-notch {
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 100px; height: 28px;
+    background: #111; border-radius: 0 0 16px 16px;
+    z-index: 20;
+  }
+
+  /* ---- SHARED MOBILE COMPONENTS ---- */
+  .status-bar {
+    height: 44px; background: inherit;
+    display: flex; align-items: flex-end; justify-content: space-between;
+    padding: 0 20px 6px;
+    font-size: 11px; font-weight: 600; color: inherit;
+    position: relative; z-index: 10;
+  }
+  .status-icons { display: flex; gap: 4px; align-items: center; }
+
+  .bottom-nav {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 68px;
+    background: #fff;
+    border-top: 1px solid var(--border);
+    display: flex; align-items: center;
+    padding: 0 4px 8px;
+    z-index: 10;
+  }
+  .bn-item {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; gap: 3px; padding-top: 8px;
+    font-size: 10px; color: var(--text-muted); font-weight: 500;
+  }
+  .bn-item.active { color: var(--teal); }
+  .bn-icon { font-size: 18px; line-height: 1; }
+  .bn-dot {
+    width: 4px; height: 4px; border-radius: 50%;
+    background: var(--coral); margin: 0 auto;
+  }
+
+  /* ===========================
+     SCREEN 1: TOUR BROWSE / DISCOVER
+  =========================== */
+  .s1-header {
+    background: linear-gradient(170deg, var(--teal-dark) 0%, var(--teal) 100%);
+    padding: 44px 20px 24px;
+    color: #fff;
+  }
+  .s1-greeting { font-size: 13px; opacity: 0.75; margin-bottom: 2px; }
+  .s1-title { font-family: 'Playfair Display', serif; font-size: 22px; margin-bottom: 16px; }
+  .s1-search {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 12px; padding: 10px 14px;
+    display: flex; align-items: center; gap: 8px;
+    font-size: 12px; color: rgba(255,255,255,0.7);
+  }
+  .s1-body { padding: 16px; overflow-y: auto; height: calc(100% - 210px - 68px); }
+  .filter-row { display: flex; gap: 8px; margin-bottom: 16px; overflow-x: auto; }
+  .filter-chip {
+    flex-shrink: 0; padding: 6px 14px;
+    border-radius: 20px; font-size: 11px; font-weight: 600;
+    border: 1.5px solid var(--border); background: #fff;
+    color: var(--text-muted); cursor: pointer;
+  }
+  .filter-chip.active {
+    background: var(--teal); border-color: var(--teal); color: #fff;
+  }
+  .section-heading { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 12px; }
+  .featured-card {
+    background: #fff; border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    overflow: hidden; margin-bottom: 12px;
+  }
+  .featured-img {
+    height: 140px;
+    background: linear-gradient(135deg, #1a8f94 0%, #0d5e63 100%);
+    position: relative;
+    display: flex; align-items: flex-end;
+    padding: 12px;
+  }
+  .featured-img-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 60%);
+  }
+  .featured-badge {
+    position: absolute; top: 10px; left: 10px;
+    background: var(--coral); color: #fff;
+    font-size: 9px; font-weight: 700; padding: 3px 8px;
+    border-radius: 10px; text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .featured-save {
+    position: absolute; top: 8px; right: 10px;
+    width: 28px; height: 28px; border-radius: 50%;
+    background: rgba(255,255,255,0.9); display: flex; align-items: center;
+    justify-content: center; font-size: 14px;
+  }
+  .featured-title-overlay {
+    position: relative; z-index: 1;
+    font-size: 13px; font-weight: 700; color: #fff;
+  }
+  .featured-info { padding: 12px; }
+  .tour-meta-row {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 6px;
+  }
+  .tour-loc { font-size: 11px; color: var(--text-muted); }
+  .tour-rating {
+    display: flex; align-items: center; gap: 3px;
+    font-size: 11px; font-weight: 600; color: var(--star);
+  }
+  .tour-footer {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .tour-price { font-size: 16px; font-weight: 700; color: var(--teal); }
+  .tour-price span { font-size: 10px; font-weight: 400; color: var(--text-muted); }
+  .tour-dur { font-size: 11px; color: var(--text-muted); }
+  .mini-card-row { display: flex; gap: 10px; overflow-x: auto; }
+  .mini-card {
+    width: 130px; flex-shrink: 0;
+    background: #fff; border-radius: 12px;
+    overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .mini-img {
+    height: 80px;
+    background: linear-gradient(135deg, #e07b3a 0%, #f4a261 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px;
+  }
+  .mini-info { padding: 8px; }
+  .mini-name { font-size: 11px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+  .mini-price { font-size: 12px; font-weight: 700; color: var(--teal); }
+
+  /* ===========================
+     SCREEN 2: TOUR DETAIL
+  =========================== */
+  .s2-hero {
+    height: 220px;
+    background: linear-gradient(135deg, #0d5e63 0%, #1a8f94 50%, #2ab5bb 100%);
+    position: relative; display: flex; align-items: flex-end;
+    padding: 16px;
+  }
+  .s2-hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.1) 60%, transparent 100%);
+  }
+  .s2-back {
+    position: absolute; top: 44px; left: 16px;
+    width: 32px; height: 32px; border-radius: 50%;
+    background: rgba(255,255,255,0.2); display: flex; align-items: center;
+    justify-content: center; font-size: 14px; color: #fff;
+  }
+  .s2-fav {
+    position: absolute; top: 44px; right: 16px;
+    width: 32px; height: 32px; border-radius: 50%;
+    background: rgba(255,255,255,0.2); display: flex; align-items: center;
+    justify-content: center; font-size: 14px; color: #fff;
+  }
+  .s2-hero-title {
+    position: relative; z-index: 1;
+    font-family: 'Playfair Display', serif;
+    font-size: 20px; font-weight: 700; color: #fff; line-height: 1.2;
+  }
+  .s2-body {
+    padding: 0 16px; height: calc(100% - 220px - 68px);
+    overflow-y: auto; background: #fff;
+  }
+  .s2-quick-info {
+    display: flex; gap: 0;
+    border-bottom: 1px solid var(--border); padding: 12px 0;
+  }
+  .qi-item {
+    flex: 1; text-align: center;
+    border-right: 1px solid var(--border); padding: 4px 0;
+  }
+  .qi-item:last-child { border-right: none; }
+  .qi-val { font-size: 14px; font-weight: 700; color: var(--teal); margin-bottom: 2px; }
+  .qi-label { font-size: 10px; color: var(--text-muted); }
+  .rating-row { display: flex; align-items: center; gap: 6px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+  .stars { color: var(--star); font-size: 14px; }
+  .rating-num { font-size: 16px; font-weight: 700; color: var(--text); }
+  .rating-count { font-size: 11px; color: var(--text-muted); }
+  .desc-section { padding: 14px 0; border-bottom: 1px solid var(--border); }
+  .desc-section-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+  .desc-text { font-size: 12px; color: var(--text-muted); line-height: 1.6; }
+  .inclusion-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .incl-chip {
+    display: flex; align-items: center; gap: 4px;
+    background: var(--bg); border-radius: 8px; padding: 5px 10px;
+    font-size: 11px; color: var(--teal);
+  }
+  .itinerary-item {
+    display: flex; gap: 12px; margin-bottom: 10px;
+  }
+  .iti-dot-col {
+    display: flex; flex-direction: column; align-items: center; gap: 0;
+  }
+  .iti-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--teal); flex-shrink: 0;
+    margin-top: 3px;
+  }
+  .iti-line { width: 2px; flex: 1; background: var(--border); }
+  .iti-content { flex: 1; padding-bottom: 10px; }
+  .iti-title { font-size: 12px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+  .iti-desc { font-size: 11px; color: var(--text-muted); }
+  .s2-footer {
+    position: absolute; bottom: 68px; left: 0; right: 0;
+    background: #fff; border-top: 1px solid var(--border);
+    padding: 12px 16px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .s2-price { font-size: 18px; font-weight: 700; color: var(--teal); }
+  .s2-price span { font-size: 11px; font-weight: 400; color: var(--text-muted); }
+  .book-btn {
+    background: var(--teal); color: #fff;
+    border-radius: 12px; padding: 10px 24px;
+    font-size: 13px; font-weight: 600;
+    border: none;
+  }
+
+  /* ===========================
+     SCREEN 3: DATE & GUEST SELECTION
+  =========================== */
+  .s3-header {
+    background: var(--teal); padding: 44px 16px 16px;
+    color: #fff;
+  }
+  .s3-back { font-size: 14px; margin-bottom: 8px; opacity: 0.8; }
+  .s3-title { font-family: 'Playfair Display', serif; font-size: 18px; }
+  .s3-body { padding: 16px; height: calc(100% - 110px - 68px); overflow-y: auto; }
+  .cal-card { background: #fff; border-radius: 14px; padding: 14px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); margin-bottom: 14px; }
+  .cal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .cal-month { font-size: 13px; font-weight: 700; color: var(--text); }
+  .cal-nav { font-size: 16px; color: var(--teal); }
+  .cal-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; text-align: center; }
+  .cal-day-label { font-size: 9px; font-weight: 600; color: var(--text-muted); padding: 4px 0; }
+  .cal-day {
+    font-size: 11px; padding: 5px 2px; border-radius: 8px; cursor: pointer;
+    color: var(--text);
+  }
+  .cal-day.today { font-weight: 700; color: var(--teal); }
+  .cal-day.selected { background: var(--teal); color: #fff; font-weight: 700; }
+  .cal-day.in-range { background: rgba(13,115,119,0.1); color: var(--teal); }
+  .cal-day.disabled { color: var(--border); }
+  .guest-card { background: #fff; border-radius: 14px; padding: 14px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); margin-bottom: 14px; }
+  .guest-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 0; border-bottom: 1px solid var(--border);
+  }
+  .guest-row:last-child { border-bottom: none; }
+  .guest-label { font-size: 13px; font-weight: 600; color: var(--text); }
+  .guest-sub { font-size: 10px; color: var(--text-muted); }
+  .guest-ctrl { display: flex; align-items: center; gap: 12px; }
+  .ctrl-btn {
+    width: 28px; height: 28px; border-radius: 50%;
+    border: 1.5px solid var(--teal); color: var(--teal);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: 600;
+  }
+  .ctrl-num { font-size: 14px; font-weight: 700; color: var(--text); width: 20px; text-align: center; }
+  .price-summary { background: var(--bg); border-radius: 12px; padding: 12px; margin-bottom: 14px; }
+  .ps-row { display: flex; justify-content: space-between; font-size: 12px; padding: 3px 0; color: var(--text-muted); }
+  .ps-total { display: flex; justify-content: space-between; font-size: 14px; font-weight: 700; color: var(--text); border-top: 1px solid var(--border); padding-top: 8px; margin-top: 4px; }
+  .continue-btn {
+    background: var(--teal); color: #fff; width: 100%;
+    border-radius: 14px; padding: 14px; font-size: 14px; font-weight: 700;
+    text-align: center; margin-top: 4px;
+  }
+
+  /* ===========================
+     SCREEN 4: BOOKING FORM / CHECKOUT
+  =========================== */
+  .s4-header {
+    background: var(--teal); padding: 44px 16px 16px;
+    color: #fff; display: flex; align-items: center; gap: 12px;
+  }
+  .s4-title { font-size: 16px; font-weight: 700; }
+  .s4-body { padding: 16px; height: calc(100% - 98px - 68px); overflow-y: auto; }
+  .steps-bar {
+    display: flex; align-items: center; gap: 0; margin-bottom: 16px;
+  }
+  .step-dot {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--teal); color: #fff;
+    font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center;
+  }
+  .step-dot.inactive { background: var(--border); color: var(--text-muted); }
+  .step-line { flex: 1; height: 2px; background: var(--border); }
+  .step-line.done { background: var(--teal); }
+  .form-section { background: #fff; border-radius: 14px; padding: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 12px; }
+  .form-section-title { font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 12px; letter-spacing: 0.5px; text-transform: uppercase; }
+  .form-group { margin-bottom: 10px; }
+  .form-label { font-size: 11px; font-weight: 600; color: var(--text-muted); margin-bottom: 4px; }
+  .form-input {
+    width: 100%; border: 1.5px solid var(--border); border-radius: 10px;
+    padding: 9px 12px; font-size: 12px; color: var(--text);
+    background: var(--bg);
+  }
+  .form-input.active { border-color: var(--teal); background: #fff; }
+  .form-row { display: flex; gap: 10px; }
+  .form-row .form-group { flex: 1; }
+  .booking-summary {
+    background: linear-gradient(135deg, var(--teal) 0%, var(--teal-light) 100%);
+    border-radius: 14px; padding: 14px; color: #fff; margin-bottom: 12px;
+  }
+  .bs-title { font-size: 11px; opacity: 0.8; margin-bottom: 4px; }
+  .bs-tour { font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .bs-row { display: flex; justify-content: space-between; font-size: 11px; opacity: 0.85; margin-bottom: 3px; }
+  .pay-btn {
+    background: var(--coral); color: #fff; width: 100%;
+    border-radius: 14px; padding: 14px; font-size: 14px; font-weight: 700;
+    text-align: center;
+  }
+
+  /* ===========================
+     SCREEN 5: PAYMENT
+  =========================== */
+  .s5-body { padding: 16px; height: calc(100% - 98px - 68px); overflow-y: auto; }
+  .payment-methods { display: flex; gap: 8px; margin-bottom: 14px; }
+  .pay-method {
+    flex: 1; background: #fff; border-radius: 12px; padding: 10px 8px;
+    border: 2px solid var(--border); text-align: center;
+    font-size: 11px; color: var(--text-muted); font-weight: 500;
+  }
+  .pay-method.active { border-color: var(--teal); color: var(--teal); background: rgba(13,115,119,0.06); }
+  .pay-method-icon { font-size: 22px; margin-bottom: 4px; }
+  .card-section { background: #fff; border-radius: 14px; padding: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 12px; }
+  .card-visual {
+    background: linear-gradient(135deg, var(--teal-dark) 0%, var(--teal-light) 100%);
+    border-radius: 12px; padding: 14px; color: #fff; margin-bottom: 14px;
+    height: 90px; position: relative; overflow: hidden;
+  }
+  .card-visual::before {
+    content: '';
+    position: absolute; right: -20px; top: -20px;
+    width: 100px; height: 100px; border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+  }
+  .card-num { font-size: 13px; letter-spacing: 2px; margin-bottom: 12px; }
+  .card-footer-row { display: flex; justify-content: space-between; font-size: 10px; opacity: 0.8; }
+  .total-section { background: var(--bg); border-radius: 12px; padding: 12px; margin-bottom: 14px; }
+  .ts-row { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); margin-bottom: 4px; }
+  .ts-total { display: flex; justify-content: space-between; font-size: 15px; font-weight: 700; color: var(--text); border-top: 1px solid var(--border); padding-top: 8px; margin-top: 4px; }
+  .pay-now-btn {
+    background: linear-gradient(135deg, var(--teal) 0%, var(--teal-light) 100%);
+    color: #fff; width: 100%; border-radius: 14px; padding: 14px;
+    font-size: 14px; font-weight: 700; text-align: center;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .secure-note { font-size: 10px; color: var(--text-muted); text-align: center; margin-top: 8px; }
+
+  /* ===========================
+     SCREEN 6: BOOKING CONFIRMED
+  =========================== */
+  .s6-body {
+    background: #fff; height: calc(100% - 68px);
+    display: flex; flex-direction: column; align-items: center;
+    padding: 50px 20px 20px; overflow-y: auto;
+  }
+  .confirm-icon-wrap {
+    width: 80px; height: 80px; border-radius: 50%;
+    background: rgba(46,204,113,0.12);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 36px; margin-bottom: 16px;
+  }
+  .confirm-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; font-weight: 700; color: var(--text);
+    text-align: center; margin-bottom: 6px;
+  }
+  .confirm-sub { font-size: 12px; color: var(--text-muted); text-align: center; margin-bottom: 20px; }
+  .booking-ref {
+    background: var(--bg); border-radius: 12px;
+    padding: 12px 20px; width: 100%; text-align: center; margin-bottom: 16px;
+  }
+  .ref-label { font-size: 10px; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+  .ref-code { font-size: 18px; font-weight: 700; color: var(--teal); letter-spacing: 2px; }
+  .booking-detail-card {
+    background: var(--bg); border-radius: 14px; padding: 14px; width: 100%; margin-bottom: 14px;
+  }
+  .bdc-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--border); }
+  .bdc-row:last-child { border-bottom: none; }
+  .bdc-key { font-size: 11px; color: var(--text-muted); }
+  .bdc-val { font-size: 11px; font-weight: 600; color: var(--text); }
+  .action-btns { display: flex; gap: 10px; width: 100%; }
+  .btn-outline {
+    flex: 1; border: 1.5px solid var(--teal); color: var(--teal);
+    border-radius: 12px; padding: 10px; font-size: 12px; font-weight: 600;
+    text-align: center;
+  }
+  .btn-solid {
+    flex: 1; background: var(--teal); color: #fff;
+    border-radius: 12px; padding: 10px; font-size: 12px; font-weight: 600;
+    text-align: center;
+  }
+
+  /* ===========================
+     SCREEN 7: MY BOOKINGS
+  =========================== */
+  .s7-header {
+    background: var(--teal); padding: 44px 16px 16px; color: #fff;
+  }
+  .s7-title { font-family: 'Playfair Display', serif; font-size: 20px; margin-bottom: 2px; }
+  .s7-sub { font-size: 12px; opacity: 0.75; }
+  .s7-body { padding: 16px; height: calc(100% - 130px - 68px); overflow-y: auto; }
+  .tabs-row { display: flex; gap: 0; background: var(--bg); border-radius: 10px; padding: 3px; margin-bottom: 14px; }
+  .tab-btn {
+    flex: 1; padding: 7px; border-radius: 8px;
+    font-size: 11px; font-weight: 600; text-align: center;
+    color: var(--text-muted);
+  }
+  .tab-btn.active { background: #fff; color: var(--teal); box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
+  .booking-card {
+    background: #fff; border-radius: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    margin-bottom: 10px; overflow: hidden;
+  }
+  .bc-top { display: flex; gap: 10px; padding: 12px; border-bottom: 1px solid var(--border); }
+  .bc-img {
+    width: 60px; height: 60px; border-radius: 10px;
+    background: linear-gradient(135deg, var(--teal) 0%, var(--teal-light) 100%);
+    display: flex; align-items: center; justify-content: center; font-size: 22px;
+    flex-shrink: 0;
+  }
+  .bc-info { flex: 1; }
+  .bc-name { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+  .bc-loc { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
+  .status-badge {
+    display: inline-block; padding: 2px 8px; border-radius: 10px;
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+  }
+  .status-confirmed { background: rgba(46,204,113,0.12); color: var(--green); }
+  .status-pending { background: rgba(245,200,66,0.15); color: #d4a00a; }
+  .status-cancelled { background: rgba(231,76,60,0.12); color: var(--red); }
+  .bc-bottom { display: flex; justify-content: space-between; padding: 10px 12px; align-items: center; }
+  .bc-date { font-size: 11px; color: var(--text-muted); }
+  .bc-amount { font-size: 14px; font-weight: 700; color: var(--teal); }
+  .bc-actions { display: flex; gap: 6px; }
+  .bc-btn {
+    padding: 5px 10px; border-radius: 8px;
+    font-size: 10px; font-weight: 600;
+    border: 1.5px solid var(--border); color: var(--text-muted);
+  }
+  .bc-btn.primary { border-color: var(--teal); color: var(--teal); }
+  .bc-btn.danger { border-color: var(--red); color: var(--red); }
+
+  /* ===========================
+     SCREEN 8: BOOKING DETAIL
+  =========================== */
+  .s8-hero {
+    height: 160px;
+    background: linear-gradient(135deg, var(--teal-dark) 0%, var(--teal-light) 100%);
+    position: relative; display: flex; align-items: flex-end; padding: 12px 16px;
+  }
+  .s8-hero-label { font-size: 11px; color: rgba(255,255,255,0.7); margin-bottom: 2px; position: relative; z-index: 1; }
+  .s8-hero-title { font-family: 'Playfair Display', serif; font-size: 16px; color: #fff; position: relative; z-index: 1; }
+  .s8-body { padding: 14px 16px; height: calc(100% - 160px - 68px); overflow-y: auto; }
+  .timeline-card { background: #fff; border-radius: 14px; padding: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 12px; }
+  .tl-title { font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+  .tl-item { display: flex; gap: 10px; margin-bottom: 12px; }
+  .tl-icon { width: 30px; height: 30px; border-radius: 50%; background: rgba(13,115,119,0.1); display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+  .tl-content { flex: 1; }
+  .tl-event { font-size: 12px; font-weight: 600; color: var(--text); margin-bottom: 1px; }
+  .tl-time { font-size: 10px; color: var(--text-muted); }
+  .cancel-zone { background: rgba(231,76,60,0.06); border: 1.5px solid rgba(231,76,60,0.2); border-radius: 12px; padding: 12px; }
+  .cz-title { font-size: 12px; font-weight: 700; color: var(--red); margin-bottom: 4px; }
+  .cz-text { font-size: 11px; color: var(--text-muted); margin-bottom: 10px; line-height: 1.4; }
+  .cancel-btn { width: 100%; text-align: center; padding: 10px; border-radius: 10px; border: 1.5px solid var(--red); color: var(--red); font-size: 12px; font-weight: 700; }
+
+  /* ===========================
+     SCREEN 9: SEARCH / FILTER
+  =========================== */
+  .s9-header { background: #fff; padding: 44px 16px 12px; border-bottom: 1px solid var(--border); }
+  .s9-search-row { display: flex; align-items: center; gap: 10px; }
+  .s9-input-wrap { flex: 1; background: var(--bg); border-radius: 12px; padding: 10px 12px; display: flex; align-items: center; gap: 8px; }
+  .s9-input { font-size: 13px; color: var(--text); flex: 1; border: none; background: none; }
+  .s9-filter-btn { background: var(--teal); border-radius: 12px; padding: 10px 14px; color: #fff; font-size: 13px; }
+  .s9-body { padding: 14px 16px; height: calc(100% - 104px - 68px); overflow-y: auto; }
+  .filter-section { margin-bottom: 16px; }
+  .filter-section-title { font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+  .filter-options { display: flex; flex-wrap: wrap; gap: 6px; }
+  .fopt { padding: 6px 12px; border-radius: 20px; border: 1.5px solid var(--border); font-size: 11px; font-weight: 500; color: var(--text-muted); }
+  .fopt.selected { background: rgba(13,115,119,0.1); border-color: var(--teal); color: var(--teal); }
+  .price-range { margin-top: 6px; }
+  .range-track { height: 4px; background: var(--border); border-radius: 2px; position: relative; margin-bottom: 6px; }
+  .range-fill { position: absolute; left: 20%; right: 30%; top: 0; bottom: 0; background: var(--teal); border-radius: 2px; }
+  .range-thumb { position: absolute; width: 14px; height: 14px; border-radius: 50%; background: var(--teal); border: 2px solid #fff; top: 50%; transform: translateY(-50%); box-shadow: 0 1px 4px rgba(0,0,0,0.2); }
+  .range-vals { display: flex; justify-content: space-between; font-size: 11px; font-weight: 600; color: var(--teal); }
+  .apply-filter-btn { width: 100%; text-align: center; padding: 13px; border-radius: 14px; background: var(--teal); color: #fff; font-size: 14px; font-weight: 700; margin-top: 6px; }
+
+  /* ===========================
+     SCREEN 10: TOUR REVIEWS
+  =========================== */
+  .s10-header { background: var(--teal); padding: 44px 16px 14px; color: #fff; display: flex; align-items: center; gap: 12px; }
+  .s10-title { font-size: 16px; font-weight: 700; }
+  .s10-body { padding: 14px; height: calc(100% - 96px - 68px); overflow-y: auto; }
+  .rating-overview { background: #fff; border-radius: 14px; padding: 14px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); display: flex; gap: 16px; align-items: center; }
+  .rating-big { text-align: center; }
+  .rating-big-num { font-size: 40px; font-weight: 700; color: var(--teal); line-height: 1; }
+  .rating-big-stars { color: var(--star); font-size: 14px; margin: 4px 0; }
+  .rating-big-count { font-size: 10px; color: var(--text-muted); }
+  .rating-bars { flex: 1; }
+  .rb-row { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
+  .rb-label { font-size: 10px; color: var(--text-muted); width: 14px; }
+  .rb-track { flex: 1; height: 6px; background: var(--border); border-radius: 3px; }
+  .rb-fill { height: 100%; background: var(--star); border-radius: 3px; }
+  .rb-pct { font-size: 10px; color: var(--text-muted); width: 24px; text-align: right; }
+  .review-card { background: #fff; border-radius: 12px; padding: 12px; margin-bottom: 8px; box-shadow: 0 1px 6px rgba(0,0,0,0.05); }
+  .rev-header { display: flex; gap: 8px; margin-bottom: 6px; }
+  .rev-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--teal); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; }
+  .rev-name { font-size: 12px; font-weight: 700; color: var(--text); }
+  .rev-date { font-size: 10px; color: var(--text-muted); }
+  .rev-stars { color: var(--star); font-size: 11px; }
+  .rev-text { font-size: 11px; color: var(--text-muted); line-height: 1.5; }
+
+  /* ===========================
+     SHARED
+  =========================== */
+  .annotation {
+    max-width: 280px;
+    margin-top: 10px;
+  }
+  .ann-item {
+    display: flex; gap: 8px; align-items: flex-start; margin-bottom: 8px;
+  }
+  .ann-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--coral); flex-shrink: 0; margin-top: 4px;
+  }
+  .ann-text { font-size: 11px; color: rgba(255,255,255,0.5); line-height: 1.4; }
+
+  .screen-hidden { display: none !important; }
+  
+  .grid-view { display: flex; flex-wrap: wrap; gap: 28px; }
+</style>
+</head>
+<body>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="header-label">Bambare TMS · SA24610780</div>
+  <div class="header-title">Tour & Booking Module</div>
+  <div class="header-sub">High-Fidelity Wireframes — Shamla Noufer | Tour & Activity Planning, Booking Management</div>
+  <div class="header-meta">
+    <div class="meta-chip">📱 10 Screens</div>
+    <div class="meta-chip">🎨 Teal / Coral Theme</div>
+    <div class="meta-chip">⚛️ React Native</div>
+    <div class="meta-chip">🔥 Firestore Backend</div>
+    <div class="meta-chip">FR2 · UC-02</div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="screen-nav" id="screenNav">
+  <button class="nav-btn active" onclick="showGroup('all')">All Screens</button>
+  <button class="nav-btn" onclick="showGroup('browse')">Browse & Discovery</button>
+  <button class="nav-btn" onclick="showGroup('booking')">Booking Flow</button>
+  <button class="nav-btn" onclick="showGroup('manage')">Manage Bookings</button>
+  <button class="nav-btn" onclick="showGroup('search')">Search & Reviews</button>
+</nav>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- GROUP 1: BROWSE & DISCOVERY -->
+  <div class="screen-group" id="group-browse" data-group="browse">
+    <div class="section-label">Browse & Discovery</div>
+    <div class="section-title">Tour Discovery Interface</div>
+    <div class="section-desc">Home feed, tour listings and detailed tour information</div>
+    <div class="screens-row">
+
+      <!-- SCREEN 1: Tour Browse/Home -->
+      <div class="phone-wrap" id="screen-1">
+        <div class="phone-num">1</div>
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="phone-inner" style="background:var(--bg);">
+            <!-- Header -->
+            <div class="s1-header">
+              <div class="status-bar" style="background:transparent;color:#fff;padding-top:0;">
+                <span>9:41</span>
+                <div class="status-icons"><span>●●●</span><span>▐</span><span>🔋</span></div>
+              </div>
+              <div class="s1-greeting">Good morning, Priya 👋</div>
+              <div class="s1-title">Discover Sri Lanka</div>
+              <div class="s1-search">
+                <span>🔍</span>
+                <span>Search tours, destinations...</span>
+              </div>
+            </div>
+            <!-- Body -->
+            <div class="s1-body">
+              <!-- Filters -->
+              <div class="filter-row">
+                <div class="filter-chip active">🌊 All</div>
+                <div class="filter-chip">🏛️ Culture</div>
+                <div class="filter-chip">🌿 Nature</div>
+                <div class="filter-chip">🏄 Adventure</div>
+                <div class="filter-chip">🍜 Food</div>
+              </div>
+              <!-- Featured -->
+              <div class="section-heading">Featured Tours</div>
+              <div class="featured-card">
+                <div class="featured-img">
+                  <div class="featured-img-overlay"></div>
+                  <div class="featured-badge">⭐ Top Pick</div>
+                  <div class="featured-save">❤️</div>
+                  <div class="featured-title-overlay">Sigiriya Rock & Cultural Triangle</div>
+                </div>
+                <div class="featured-info">
+                  <div class="tour-meta-row">
+                    <div class="tour-loc">📍 Dambulla, Sri Lanka</div>
+                    <div class="tour-rating">★ 4.8 <span style="color:var(--text-muted);font-weight:400">(124)</span></div>
+                  </div>
+                  <div class="tour-footer">
+                    <div class="tour-price">LKR 12,500 <span>/person</span></div>
+                    <div class="tour-dur">⏱ 2 Days</div>
+                  </div>
+                </div>
+              </div>
+              <!-- Popular -->
+              <div class="section-heading">Popular Experiences</div>
+              <div class="mini-card-row">
+                <div class="mini-card">
+                  <div class="mini-img">🐘</div>
+                  <div class="mini-info">
+                    <div class="mini-name">Elephant Safari</div>
+                    <div class="mini-price">LKR 6,800</div>
+                  </div>
+                </div>
+                <div class="mini-card">
+                  <div class="mini-img" style="background:linear-gradient(135deg,#1a6b8a,#2ab5bb)">🌊</div>
+                  <div class="mini-info">
+                    <div class="mini-name">Whale Watching</div>
+                    <div class="mini-price">LKR 8,500</div>
+                  </div>
+                </div>
+                <div class="mini-card">
+                  <div class="mini-img" style="background:linear-gradient(135deg,#2d7d4a,#52c78a)">🍵</div>
+                  <div class="mini-info">
+                    <div class="mini-name">Tea Plantation</div>
+                    <div class="mini-price">LKR 4,200</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Bottom Nav -->
+            <div class="bottom-nav">
+              <div class="bn-item active"><div class="bn-icon">🏠</div><div>Home</div><div class="bn-dot"></div></div>
+              <div class="bn-item"><div class="bn-icon">🔍</div><div>Search</div></div>
+              <div class="bn-item"><div class="bn-icon">📋</div><div>Bookings</div></div>
+              <div class="bn-item"><div class="bn-icon">💬</div><div>Chat</div></div>
+              <div class="bn-item"><div class="bn-icon">👤</div><div>Profile</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="phone-label">Tour Browse</div>
+        <div class="annotation">
+          <div class="ann-item"><div class="ann-dot"></div><div class="ann-text">Personalized greeting with location-aware discovery feed</div></div>
+          <div class="ann-item"><div class="ann-dot"></div><div class="ann-text">Category filter chips for quick type-based filtering</div></div>
+          <div class="ann-item"><div class="ann-dot"></div><div class="ann-text">Featured card with hero image, rating, price/person</div></div>
+        </div>
+      </div>
+
+      <!-- SCREEN 2: Tour Detail -->
+      <div class="phone-wrap" id="screen-2">
+        <div class="phone-num">2</div>
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="phone-inner" style="background:#fff;">
+            <!-- Hero -->
+            <div class="s2-hero">
+              <div class="s2-back">←</div>
+              <div class="s2-fav">♡</div>
+              <div class="s2-hero-title">Sigiriya Rock &<br>Cultural Triangle</div>
+            </div>
+            <!-- Content -->
+            <div class="s2-body">
+              <!-- Quick Info Bar -->
+              <div class="s2-quick-info">
+                <div class="qi-item"><div class="qi-val">2</div><div class="qi-label">Days</div></div>
+                <div class="qi-item"><div class="qi-val">12</div><div class="qi-label">Max Guests</div></div>
+                <div class="qi-item"><div class="qi-val">3</div><div class="qi-label">Sites</div></div>
+                <div class="qi-item"><div class="qi-val">EN / SI</div><div class="qi-label">Language</div></div>
+              </div>
+              <!-- Rating -->
+              <div class="rating-row">
+                <div class="stars">★★★★★</div>
+                <div class="rating-num">4.8</div>
+                <div class="rating-count">124 reviews</div>
+                <div style="margin-left:auto;font-size:11px;color:var(--teal);">See all →</div>
+              </div>
+              <!-- Description -->
+              <div class="desc-section">
+                <div class="desc-section-title">About This Tour</div>
+                <div class="desc-text">Explore the ancient wonders of Sri Lanka's Cultural Triangle. Visit the iconic Sigiriya Rock Fortress, ancient Polonnaruwa ruins, and sacred temples of Dambulla.</div>
+              </div>
+              <!-- Inclusions -->
+              <div class="desc-section">
+                <div class="desc-section-title">What's Included</div>
+                <div class="inclusion-row">
+                  <div class="incl-chip">✓ Transport</div>
+                  <div class="incl-chip">✓ Hotel (2N)</div>
+                  <div class="incl-chip">✓ Meals</div>
+                  <div class="incl-chip">✓ Guide</div>
+                  <div class="incl-chip">✓ Entry Tickets</div>
+                </div>
+              </div>
+              <!-- Itinerary -->
+              <div class="desc-section">
+                <div class="desc-section-title">Itinerary</div>
+                <div class="itinerary-item">
+                  <div class="iti-dot-col"><div class="iti-dot"></div><div class="iti-line"></div></div>
+                  <div class="iti-content"><div class="iti-title">Day 1 — Dambulla Cave Temple</div><div class="iti-desc">Depart Colombo at 6AM, visit the UNESCO cave temples</div></div>
+                </div>
+                <div class="itinerary-item">
+                  <div class="iti-dot-col"><div class="iti-dot" style="background:var(--coral)"></div></div>
+                  <div class="iti-content"><div class="iti-title">Day 2 — Sigiriya Rock Fortress</div><div class="iti-desc">Sunrise climb, Polonnaruwa ruins, return by 7PM</div></div>
+                </div>
+              </div>
+            </div>
+            <!-- Footer CTA -->
+            <div class="s2-footer">
+              <div>
+                <div class="s2-price">LKR 12,500 <span>/person</span></div>
+                <div style="font-size:10px;color:var(--green);">✓ Free cancellation (48h)</div>
+              </div>
+              <div class="book-btn">Book Now</div>
+            </div>
+            <!-- Bottom Nav -->
+            <div class="bottom-nav">
+              <div class="bn-item"><div class="bn-icon">🏠</div><div>Home</div></div>
+              <div class="bn-item"><div class="bn-icon">🔍</div><div>Search</div></div>
+              <div class="bn-item"><div class="bn-icon">📋</div><div>Bookings</div></div>
+              <div class="bn-item"><div class="bn-icon">💬</div><div>Chat</div></div>
+              <div class="bn-item"><div class="bn-icon">👤</div><div>Profile</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="phone-label">Tour Detail</div>
+        <div class="annotation">
+          <div class="ann-item"><div class="ann-dot"></div><div class="ann-text">Hero image with gradient overlay and back/save actions</div></div>
+          <div class="ann-item"><div class="ann-dot"></div><div class="ann-text">Quick-info strip: duration, group size, language</div></div>
+          <div class="ann-item"><div class="ann-dot"></div><div class="ann-text">Sticky footer CTA with price and free-cancel badge</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- GROUP 2: BOOKING FLOW -->
+  <div class="screen-group" id="group-booking" data-group="booking">
+    <div class="section-label">Booking Flow</div>
+    <div class="section-title">Complete Booking Journey</div>
+    <div class="section-desc">Date selection → Guest details → Payment → Confirmation</div>
+    <div class="screens-row">
+
+      <!-- SCREEN 3: Date & Guest Selection -->
+      <div class="phone-wrap" id="screen-3">
+        <div class="phone-num">3</div>
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="phone-inner" style="background:var(--bg);">
+            <div class="s3-header">
+              <div class="status-bar" style="background:transparent;color:#fff;padding-top:0;"><span>9:41</span><div class="status-icons">🔋</div></div>
+              <div class="s3-back">← Select Date & Guests</div>
+              <div class="s3-title">Sigiriya Cultural Tour</div>
+            </div>
+            <div class="s3-body">
+              <!-- Calendar -->
+              <div class="cal-card">
+                <div class="cal-header">
+                  <div class="cal-nav">‹</div>
+                  <div class="cal-month">March 2025</div>
+                  <div class="cal-nav">›</div>
+                </div>
+                <div class="cal-days">
+                  <div class="cal-day-label">S</div><div class="cal-day-label">M</div><div class="cal-day-label">T</div><div class="cal-day-label">W</div><div class="cal-day-label">T</div><div class="cal-day-label">F</div><div class="cal-day-label">S</div>
+                  <div class="cal-day disabled">25</div><div class="cal-day disabled">26</div><div class="cal-day disabled">27</div><div class="cal-day disabled">28</div><div class="cal-day disabled">1</div><div class="cal-day">2</div><div class="cal-day">3</div>
+                  <div class="cal-day">4</div><div class="cal-day">5</div><div class="cal-day">6</div><div class="cal-day">7</div><div class="cal-day">8</div><div class="cal-day selected">9</div><div class="cal-day in-range">10</div>
+                  <div class="cal-day in-range">11</div><div class="cal-day in-range">12</div><div class="cal-day selected">13</div><div class="cal-day">14</div><div class="cal-day">15</div><div class="cal-day">16</div><div class="cal-day">17</div>
+                  <div class="cal-day">18</div><div class="cal-day">19</div><div class="cal-day">20</div><div class="cal-day">21</div><div class="cal-day today">22</div><div class="cal-day">23</div><div class="cal-day">24</div>
+                  <div class="cal-day">25</div><div class="cal-day">26</div><div class="cal-day">27</div><div class="cal-day">28</div><div class="cal-day">29</div><div class="cal-day">30</div><div class="cal-day">31</div>
+                </div>
+              </div>
+              <!-- Guests -->
+              <div class="guest-card">
+                <div class="guest-row">
+                  <div><div class="guest-label">Adults</div><div class="guest-sub">Age 13+</div></div>
+                  <div class="guest-ctrl"><div class="ctrl-btn">−</div><div class="ctrl-num">2</div><div class="ctrl-btn">+</div></div>
+                </div>
+                <div class="guest-row">
+                  <div><div class="guest-label">Children</div><div class="guest-sub">Age 2–12</div></div>
+                  <div class="guest-ctrl"><div class="ctrl-btn">−</div><div class="ctrl-num">1</div><div class="ctrl-btn">+</div></div>
+                </div>
+                <div class="guest-row">
+                  <div><div class="guest-label">Infants</div><div class="guest-sub">Under 2</div></div>
+                  <div class="guest-ctrl"><div class="ctrl-btn" style="border-color:var(--border);color:var(--border)">−</div><div class="ctrl-num">0</div><div class="ctrl-btn">+</div></div>
+                </div>
+              </div>
+              <!-- Summary -->
+              <div class="price-summary">
+                <div class="ps-row"><span>Adult × 2</span><span>LKR 25,000</span></div>
+                <div class="ps-row"><span>Child × 1</span><span>LKR 6,250</span></div>
+                <div class="ps-row"><span>Service fee</span><span>LKR 1,500</span></div>
+                <div class="ps-total"><span>Total</span><span style="color:var(--teal)">LKR 32,750</span></div>
+              </div>
+              <div class="continue-btn">Continue to Details →</div>
+            </div>
+            <div class="bottom-nav">
+              <div class="bn-item"><div class="bn-icon">🏠</div><div>Home</div></div>
+              <div class="bn-item"><div class="bn-icon">🔍</div><div>Search</div></div>
+              <div class="bn-item active"><div class="bn-icon">📋</div><div>Bookings</div><div class="bn-dot"></div></div>
+              <div class="bn-item"><div class="bn-icon">💬</div><div>Chat</div></div>
+              <div class="bn-item"><div class="bn-icon">👤</div><div>Profile</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="phone-label">Date & Guests</div>
+        <div class="annotation">
+          <div class="ann-item"><div class="ann-dot"></div><div class="ann-text">Range-select calendar with disabled past dates</div></div>
+          <div class="ann-item"><div class="ann-dot"></div><div class="ann-text">Guest counter with adult/child/infant tiered pricing</div></div>
+          <div class="ann-item"><div class="ann-dot"></div><div class="ann-text">Real-time price summary breakdown</div></div>
+        </div>
+      </div>
+
+      <!-- SCREEN 4: Booking Form -->
+      <div class="phone-wrap" id="screen-4">
+        <div class="phone-num">4</div>
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="phone-inner" style="background:var(--bg);">
+            <div class="s4-header">
+              <div class="status-bar" style="background:transparent;color:#fff;padding-top:0;margin-bottom:4px;"><span>9:41</span><div class="status-icons">🔋</div></div>
+              <span style="font-size:14px">←</span>
+              <div class="s4-title">Guest Details</div>
+            </div>
+            <div class="s4-body">
+              <!-- Progress Steps -->
+              <div class="steps-bar">
+                <div class="step-dot">✓</div>
+                <div class="step-line done"></div>
+                <div class="step-dot">2</div>
+                <div class="step-line"></div>
+                <div class="step-dot inactive">3</div>
+                <div class="step-line"></div>
+                <div class="step-dot inactive">✓</div>
+              </div>
+              <!-- Booking Summary -->
+              <div class="booking-summary">
+                <div class="bs-title">YOUR BOOKING</div>
+                <div class="bs-tour">Sigiriya Rock & Cultural Triangle</div>
+                <div class="bs-row"><span>📅 Mar 9–10, 2025</span><span>👥 2A + 1C</span></div>
+                <div class="bs-row"><span>⏱ 2 Days</span><span style="font-weight:700;font-size:13px">LKR 32,750</span></div>
+              </div>
+              <!-- Lead Guest -->
+              <div class="form-section">
+                <div class="form-section-title">Lead Guest</div>
+                <div class="form-row">
+                  <div class="form-group"><div class="form-label">First Name</div><div class="form-input active">Priya</div></div>
+                  <div class="form-group"><div class="form-label">Last Name</div><div class="form-input">Perera</div></div>
+                </div>
+                <div class="form-group"><div class="form-label">Email Address</div><div class="form-input">priya@email.com</div></div>
+                <div class="form-group"><div class="form-label">Phone Number</div><div class="form-input">+94 71 234 5678</div></div>
+                <div class="form-group"><div class="form-label">Nationality</div><div class="form-input">Sri Lankan</div></div>
+              </div>
+              <!-- Special Requests -->
+              <div class="form-section">
+                <div class="form-section-title">Special Requests</div>
+                <div class="form-group"><div class="form-label">Any dietary or accessibility needs?</div><div class="form-input" style="height:50px;padding-top:8px;font-size:11px;color:var(--text-muted)">E.g. vegetarian meals, wheelchair access...</div></div>
+              </div>
+              <div class="pay-btn">Proceed to Payment →</div>
+            </div>
+            <div class="bottom-nav">
+              <div class="bn-item"><div class="bn-icon">🏠</div><div>Home</div></div>
+              <div class="bn-item"><div class="bn-icon">🔍</div><div>Search</div></div>
+              <div class="bn-item active"><div class="bn-icon">📋</div><div>Bookings</div><div class="bn-dot"></div></div>
+              <div class="bn-item"><div class="bn-icon">💬</div><div>Chat</div></div>
+              <div class="bn-item"><div class="bn-icon">👤</div><div>Profile</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="phone-label">Guest Details Form</div>
+        <div class="annotation">
+          <div class="ann-item"><div class="ann-dot"></div><div class="ann-text">4-step progress indicator for booking flow</div></div>
+          <div class="ann-item"><div class="ann-dot"></div><div class="ann-text">Collapsed booking summary for context</div></div>
+          <div class="ann-item"><div class="ann-dot"></div><div class="ann-text">Lead guest info + special requests field</div></div>
+        </div>
+      </div>
+
+      <!-- SCREEN 5: Payment -->
+      <div class="phone-wrap" id="screen-5">
+        <div class="phone-num">5</div>
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="phone-inner" style="background:var(--bg);">
+            <div class="s4-header">
+              <div class="status-bar" style="background:transparent;color:#fff;padding-top:0;margin-bottom:4px;"><span>9:41</span><div class="status-icons">🔋</div></div>
+              <span style="font-size:14px">←</span>
+              <div class="s4-title">Payment</div>
+            </div>
+            <div class="s5-body">
+              <!-- Steps -->
+              <div class="steps-bar">
+                <div class="step-dot">✓</div>
+                <div class="step-line done"></div>
+                <div class="step-dot">✓</div>
+                <div class="step-line done"></div>
+                <div class="step-dot">3</div>
+                <div class="step-line"></div>
+                <div class="step-dot inactive">✓</div>
+              </div>
+              <!-- Payment Methods -->
+              <div class="payment-methods">
+                <div class="pay-method active"><div class="pay-method-icon">💳</div>Card</div>
+                <div class="pay-method"><div class="pay-method-icon">🏦</div>Bank</div>
+                <div class="pay-method"><div class="pay-method-icon">📱</div>eZ Cash</div>
+                <div class="pay-method"><div class="pay-method-icon">💰</div>Cash</div>
+              </div>
+              <!-- Card Visual + Fields -->
+              <div class="card-section">
+                <div class="card-visual">
+                  <div class="card-num">•••• •••• •••• 4521</div>
+                  <div class="card-footer-row"><span>PRIYA PERERA</span><span>08/27</span></div>
+                </div>
+                <div class="form-group"><div class="form-label">Card Number</div><div class="form-input active">4521 •••• •••• ••••</div></div>
+                <div class="form-row">
+                  <div class="form-group"><div class="form-label">Expiry</div><div class="form-input">08/27</div></div>
+                  <div class="form-group"><div class="form-label">CVV</div><div class="form-input">•••</div></div>
+                </div>
+              </div>
+              <!-- Total -->
+              <div class="total-section">
+                <div class="ts-row"><span>Tour price (3 guests)</span><span>LKR 31,250</span></div>
+                <div class="ts-row"><span>Service fee</span><span>LKR 1,500</span></div>
+                <div class="ts-total"><span>Total Due</span><span>LKR 32,750</span></div>
+              </div>
+              <div class="pay-now-btn">🔒 Pay LKR 32,750</div>
+              <div class="secure-note">🔐 Secured by 256-bit SSL encryption</div>
+            </div>
+            <div class="bottom-nav">
+              <div class="bn-item"><div class="bn-icon">🏠</div><div>Home</div></div>
+              <div class="bn-item"><div class="bn-icon">🔍</div><div>Search</div></div>
+              <div class="bn-item active"><div class="bn-icon">📋</div><div>Bookings</div><div class="bn-dot"></div></div>
+              <div class="bn-item"><div class="bn-icon">💬</div><div>Chat</div></div>
+              <div class="bn-item"><div class="bn-icon">👤</div><div>Profile</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="phone-label">Payment Screen</div>
+        <div class="annotation">
+          <div class="ann-item"><div class="ann-dot"></div><div class="ann-text">Multiple payment methods: Card, Bank, eZ Cash, Cash</div></div>
+          <div class="ann-item"><div class="ann-dot"></div><div class="ann-text">Visual card preview updates as user types</div></div>
+          <div class="ann-item"><div class="ann-dot"></div><div class="ann-text">Secure payment badge with final amount confirmation</div></div>
+        </div>
+      </div>
+
+      <!-- SCREEN 6: Booking Confirmed -->
+      <div class="phone-wrap" id="screen-6">
+        <div class="phone-num">6</div>
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="phone-inner" style="background:#fff;">
+            <div class="phone-notch" style="background:#fff;z-index:25;"></div>
+            <div class="s6-body">
+              <div style="height:20px"></div>
+              <div class="confirm-icon-wrap">✅</div>
+              <div class="confirm-title">Booking Confirmed!</div>
+              <div class="confirm-sub">Your adventure is booked. A confirmation has been<br>sent to priya@email.com</div>
+              <div class="booking-ref">
+                <div class="ref-label">Booking Reference</div>
+                <div class="ref-code">BTM-2025-4782</div>
+              </div>
+              <div class="booking-detail-card">
+                <div class="bdc-row"><div class="bdc-key">🗺️ Tour</div><div class="bdc-val">Sigiriya Cultural Trip</div></div>
+                <div class="bdc-row"><div class="bdc-key">📅 Date</div><div class="bdc-val">Mar 9–10, 2025</div></div>
+                <div class="bdc-row"><div class="bdc-key">👥 Guests</div><div class="bdc-val">2 Adults, 1 Child</div></div>
+                <div class="bdc-row"><div class="bdc-key">📍 Pickup</div><div class="bdc-val">Colombo Fort, 5:30 AM</div></div>
+                <div class="bdc-row"><div class="bdc-key">💰 Paid</div><div class="bdc-val" style="color:var(--teal)">LKR 32,750</div></div>
+              </div>
+              <div class="action-btns">
+                <div class="btn-outline">📥 Download</div>
+                <div class="btn-solid">View Booking</div>
+              </div>
+              <div style="margin-top:12px;font-size:11px;color:var(--text-muted);text-align:center">← Back to Home</div>
+            </div>
+            <div class="bottom-nav">
+              <div class="bn-item"><div class="bn-icon">🏠</div><div>Home</div></div>
+              <div class="bn-item"><div class="bn-icon">🔍</div><div>Search</div></div>
+              <div class="bn-item active"><div class="bn-icon">📋</div><div>Bookings</div><div class="bn-dot"></div></div>
+              <div class="bn-item"><div class="bn-icon">💬</div><div>Chat</div></div>
+              <div class="bn-item"><div class="bn-icon">👤</div><div>Profile</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="phone-label">Booking Confirmed</div>
+        <div class="annotation">
+          <div class="ann-item"><div class="ann-dot"></div><div class="ann-text">Success state with animated checkmark icon</div></div>
+          <div class="ann-item"><div class="ann-dot"></div><div class="ann-text">Unique booking reference code (FCM + email triggered)</div></div>
+          <div class="ann-item"><div class="ann-dot"></div><div class="ann-text">Download PDF ticket or navigate to booking view</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GROUP 3: MANAGE BOOKINGS -->
+  <div class="screen-group" id="group-manage" data-group="manage">
+    <div class="section-label">Manage Bookings</div>
+    <div class="section-title">Booking History & Detail</div>
+    <div class="section-desc">View all bookings, track status, cancel or reschedule</div>
+    <div class="screens-row">
+
+      <!-- SCREEN 7: My Bookings List -->
+      <div class="phone-wrap" id="screen-7">
+        <div class="phone-num">7</div>
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="phone-inner" style="background:var(--bg);">
+            <div class="s7-header">
+              <div class="status-bar" style="background:transparent;color:#fff;padding-top:0;"><span>9:41</span><div class="status-icons">🔋</div></div>
+              <div class="s7-title">My Bookings</div>
+              <div class="s7-sub">3 upcoming, 1 past</div>
+            </div>
+            <div class="s7-body">
+              <div class="tabs-row">
+                <div class="tab-btn active">Upcoming</div>
+                <div class="tab-btn">Completed</div>
+                <div class="tab-btn">Cancelled</div>
+              </div>
+              <!-- Booking Card 1 -->
+              <div class="booking-card">
+                <div class="bc-top">
+                  <div class="bc-img">🏛️</div>
+                  <div class="bc-info">
+                    <div class="bc-name">Sigiriya Cultural Tour</div>
+                    <div class="bc-loc">📍 Dambulla</div>
+                    <div class="status-badge status-confirmed">✓ Confirmed</div>
+                  </div>
+                </div>
+                <div class="bc-bottom">
+                  <div>
+                    <div class="bc-date">📅 Mar 9–10, 2025</div>
+                    <div class="bc-amount">LKR 32,750</div>
+                  </div>
+                  <div class="bc-actions">
+                    <div class="bc-btn">Details</div>
+                    <div class="bc-btn primary">📄 Ticket</div>
+                  </div>
+                </div>
+              </div>
+              <!-- Booking Card 2 -->
+              <div class="booking-card">
+                <div class="bc-top">
+                  <div class="bc-img" style="background:linear-gradient(135deg,#e07b3a,#f4a261)">🐘</div>
+                  <div class="bc-info">
+                    <div class="bc-name">Udawalawe Elephant Safari</div>
+                    <div class="bc-loc">📍 Udawalawe</div>
+                    <div class="status-badge status-pending">⏳ Pending</div>
+                  </div>
+                </div>
+                <div class="bc-bottom">
+                  <div>
+                    <div class="bc-date">📅 Mar 22, 2025</div>
+                    <div class="bc-amount">LKR 6,800</div>
+                  </div>
+                  <div class="bc-actions">
+                    <div class="bc-btn">Details</div>
+                    <div class="bc-btn danger">Cancel</div>
+                  </div>
+                </div>
+              </div>
+              <!-- Booking Card 3 -->
+              <div class="booking-card">
+                <div class="bc-top">
+                  <div class="bc-img" style="background:linear-gradient(135deg,#1a6b8a,#2ab5bb)">🌊</div>
+                  <div class="bc-info">
+                    <div class="bc-name">Mirissa Whale Watching</div>
+                    <div class="bc-loc">📍 Mirissa, Southern</div>
+                    <div class="status-badge status-confirmed">✓ Confirmed</div>
+                  </div>
+                </div>
+                <div class="bc-bottom">
+                  <div>
+                    <div class="bc-date">📅 Apr 5, 2025</div>
+                    <div class="bc-amount">LKR 8,500</div>
+                  </div>
+                  <div class="bc-actions">
+                    <div class="bc-btn">Details</div>
+                    <div class="bc-btn danger">Cancel</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="bottom-nav">
+              <div class="bn-item"><div class="bn-icon">🏠</div><div>Home</div></div>
+              <div class="bn-item"><div class="bn-icon">🔍</div><div>Search</div></div>
+              <div class="bn-item active"><div class="bn-icon">📋</div><div>Bookings</div><div class="bn-dot"></div></div>
+              <div class="bn-item"><div class="bn-icon">💬</div><div>Chat</div></div>
+              <div class="bn-item"><div class="bn-icon">👤</div><div>Profile</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="phone-label">My Bookings</div>
+        <div class="annotation">
+          <div class="ann-item"><div class="ann-dot"></div><div class="ann-text">Tabbed view: Upcoming / Completed / Cancelled</div></div>
+          <div class="ann-item"><div class="ann-dot"></div><div class="ann-text">Status badges: Confirmed (green), Pending (yellow), Cancelled (red)</div></div>
+          <div class="ann-item"><div class="ann-dot"></div><div class="ann-text">Quick action buttons per booking card</div></div>
+        </div>
+      </div>
+
+      <!-- SCREEN 8: Booking Detail / Timeline -->
+      <div class="phone-wrap" id="screen-8">
+        <div class="phone-num">8</div>
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="phone-inner" style="background:var(--bg);">
+            <div class="s8-hero">
+              <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.5) 0%,transparent 60%)"></div>
+              <div class="s2-back">←</div>
+              <div>
+                <div class="s8-hero-label">Booking #BTM-2025-4782</div>
+                <div class="s8-hero-title">Sigiriya Rock &<br>Cultural Triangle</div>
+              </div>
+            </div>
+            <div class="s8-body">
+              <!-- Status Card -->
+              <div style="background:#fff;border-radius:14px;padding:12px;box-shadow:0 2px 8px rgba(0,0,0,0.05);margin-bottom:12px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                  <div style="font-size:12px;font-weight:700;color:var(--text)">Booking Status</div>
+                  <div class="status-badge status-confirmed" style="font-size:11px">✓ Confirmed</div>
+                </div>
+                <div style="display:flex;gap:0;">
+                  <div style="flex:1;text-align:center;border-right:1px solid var(--border);padding:4px">
+                    <div style="font-size:11px;font-weight:700;color:var(--teal)">Mar 9</div>
+                    <div style="font-size:9px;color:var(--text-muted)">Check-in</div>
+                  </div>
+                  <div style="flex:1;text-align:center;border-right:1px solid var(--border);padding:4px">
+                    <div style="font-size:11px;font-weight:700;color:var(--teal)">Mar 10</div>
+                    <div style="font-size:9px;color:var(--text-muted)">Check-out</div>
+                  </div>
+                  <div style="flex:1;text-align:center;padding:4px">
+                    <div style="font-size:11px;font-weight:700;color:var(--teal)">3</div>
+                    <div style="font-size:9px;color:var(--text-muted)">Guests</div>
+                  </div>
+                </div>
+              </div>
+              <!-- Timeline -->
+              <div class="timeline-card">
+                <div class="tl-title">Booking Timeline</div>
+                <div class="tl-item">
+                  <div class="tl-icon">✅</div>
+                  <div class="tl-content"><div class="tl-event">Booking Confirmed</div><div class="tl-time">Feb 22, 2025 · 9:41 AM</div></div>
+                </div>
+                <div class="tl-item">
+                  <div class="tl-icon">💳</div>
+                  <div class="tl-content"><div class="tl-event">Payment Received</div><div class="tl-time">Feb 22, 2025 · 9:42 AM · LKR 32,750</div></div>
+                </div>
+                <div class="tl-item">
+                  <div class="tl-icon">📧</div>
+                  <div class="tl-content"><div class="tl-event">Confirmation Email Sent</div><div class="tl-time">Feb 22, 2025 · 9:43 AM</div></div>
+                </div>
+                <div class="tl-item" style="opacity:0.4">
+                  <div class="tl-icon" style="background:var(--border)">🚌</div>
+                  <div class="tl-content"><div class="tl-event">Tour Starts</div><div class="tl-time">Mar 9, 2025 · 5:30 AM — Colombo Fort</div></div>
+                </div>
+              </div>
+              <!-- Cancel Zone -->
+              <div class="cancel-zone">
+                <div class="cz-title">Cancel This Booking</div>
+                <div class="cz-text">Free cancellation until Mar 7, 2025. After that, a 50% cancellation fee applies per our policy.</div>
+                <div class="cancel-btn">Request Cancellation</div>
+              </div>
+            </div>
+            <div class="bottom-nav">
+              <div class="bn-item"><div class="bn-icon">🏠</div><div>Home</div></div>
+              <div class="bn-item"><div class="bn-icon">🔍</div><div>Search</div></div>
+              <div class="bn-item active"><div class="bn-icon">📋</div><div>Bookings</div><div class="bn-dot"></div></div>
+              <div class="bn-item"><div class="bn-icon">💬</div><div>Chat</div></div>
+              <div class="bn-item"><div class="bn-icon">👤</div><div>Profile</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="phone-label">Booking Detail</div>
+        <div class="annotation">
+          <div class="ann-item"><div class="ann-dot"></div><div class="ann-text">Booking status overview with check-in/out dates</div></div>
+          <div class="ann-item"><div class="ann-dot"></div><div class="ann-text">Activity timeline: confirmed → paid → email → upcoming tour</div></div>
+          <div class="ann-item"><div class="ann-dot"></div><div class="ann-text">Cancellation zone with policy & deadline info</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GROUP 4: SEARCH & REVIEWS -->
+  <div class="screen-group" id="group-search" data-group="search">
+    <div class="section-label">Search & Reviews</div>
+    <div class="section-title">Advanced Filtering & Reviews</div>
+    <div class="section-desc">Search, filter and review system for tour discovery</div>
+    <div class="screens-row">
+
+      <!-- SCREEN 9: Search & Filter -->
+      <div class="phone-wrap" id="screen-9">
+        <div class="phone-num">9</div>
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="phone-inner" style="background:var(--bg);">
+            <div class="s9-header">
+              <div class="status-bar" style="color:var(--text);padding-top:0;background:transparent;"><span>9:41</span><div class="status-icons">🔋</div></div>
+              <div class="s9-search-row">
+                <div class="s9-input-wrap"><span>🔍</span><div class="s9-input">Sigiriya tours...</div></div>
+                <div class="s9-filter-btn">⚙️</div>
+              </div>
+            </div>
+            <div class="s9-body">
+              <!-- Category -->
+              <div class="filter-section">
+                <div class="filter-section-title">Category</div>
+                <div class="filter-options">
+                  <div class="fopt selected">🏛️ Cultural</div>
+                  <div class="fopt">🌿 Nature</div>
+                  <div class="fopt selected">🏔️ Adventure</div>
+                  <div class="fopt">🍜 Food & Drink</div>
+                  <div class="fopt">🧘 Wellness</div>
+                  <div class="fopt">🌊 Water Sports</div>
+                </div>
+              </div>
+              <!-- Duration -->
+              <div class="filter-section">
+                <div class="filter-section-title">Duration</div>
+                <div class="filter-options">
+                  <div class="fopt">Half Day</div>
+                  <div class="fopt selected">Full Day</div>
+                  <div class="fopt selected">2–3 Days</div>
+                  <div class="fopt">4+ Days</div>
+                </div>
+              </div>
+              <!-- Price -->
+              <div class="filter-section">
+                <div class="filter-section-title">Price Range (LKR)</div>
+                <div class="price-range">
+                  <div class="range-track">
+                    <div class="range-fill"></div>
+                    <div class="range-thumb" style="left:18%"></div>
+                    <div class="range-thumb" style="left:68%"></div>
+                  </div>
+                  <div class="range-vals"><span>5,000</span><span>40,000</span></div>
+                </div>
+              </div>
+              <!-- Rating -->
+              <div class="filter-section">
+                <div class="filter-section-title">Minimum Rating</div>
+                <div class="filter-options">
+                  <div class="fopt">Any</div>
+                  <div class="fopt">★ 3+</div>
+                  <div class="fopt selected">★ 4+</div>
+                  <div class="fopt">★ 4.5+</div>
+                </div>
+              </div>
+              <!-- Group Size -->
+              <div class="filter-section">
+                <div class="filter-section-title">Group Type</div>
+                <div class="filter-options">
+                  <div class="fopt selected">Private</div>
+                  <div class="fopt">Group</div>
+                  <div class="fopt">Family-friendly</div>
+                </div>
+              </div>
+              <div class="apply-filter-btn">Apply Filters (12 results)</div>
+            </div>
+            <div class="bottom-nav">
+              <div class="bn-item"><div class="bn-icon">🏠</div><div>Home</div></div>
+              <div class="bn-item active"><div class="bn-icon">🔍</div><div>Search</div><div class="bn-dot"></div></div>
+              <div class="bn-item"><div class="bn-icon">📋</div><div>Bookings</div></div>
+              <div class="bn-item"><div class="bn-icon">💬</div><div>Chat</div></div>
+              <div class="bn-item"><div class="bn-icon">👤</div><div>Profile</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="phone-label">Search & Filter</div>
+        <div class="annotation">
+          <div class="ann-item"><div class="ann-dot"></div><div class="ann-text">Multi-select category and duration filters</div></div>
+          <div class="ann-item"><div class="ann-dot"></div><div class="ann-text">Range slider for price (LKR) and star rating filter</div></div>
+          <div class="ann-item"><div class="ann-dot"></div><div class="ann-text">Live result count updates as filters are applied</div></div>
+        </div>
+      </div>
+
+      <!-- SCREEN 10: Tour Reviews -->
+      <div class="phone-wrap" id="screen-10">
+        <div class="phone-num">10</div>
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="phone-inner" style="background:var(--bg);">
+            <div class="s10-header">
+              <div class="status-bar" style="background:transparent;color:#fff;padding-top:0;margin-bottom:4px;"><span>9:41</span><div class="status-icons">🔋</div></div>
+              <span style="font-size:14px">←</span>
+              <div class="s10-title">Reviews (124)</div>
+            </div>
+            <div class="s10-body">
+              <!-- Rating Overview -->
+              <div class="rating-overview">
+                <div class="rating-big">
+                  <div class="rating-big-num">4.8</div>
+                  <div class="rating-big-stars">★★★★★</div>
+                  <div class="rating-big-count">124 reviews</div>
+                </div>
+                <div class="rating-bars">
+                  <div class="rb-row"><div class="rb-label">5</div><div class="rb-track"><div class="rb-fill" style="width:78%"></div></div><div class="rb-pct">78%</div></div>
+                  <div class="rb-row"><div class="rb-label">4</div><div class="rb-track"><div class="rb-fill" style="width:15%"></div></div><div class="rb-pct">15%</div></div>
+                  <div class="rb-row"><div class="rb-label">3</div><div class="rb-track"><div class="rb-fill" style="width:5%"></div></div><div class="rb-pct">5%</div></div>
+                  <div class="rb-row"><div class="rb-label">2</div><div class="rb-track"><div class="rb-fill" style="width:1%;background:var(--red)"></div></div><div class="rb-pct">1%</div></div>
+                  <div class="rb-row"><div class="rb-label">1</div><div class="rb-track"><div class="rb-fill" style="width:1%;background:var(--red)"></div></div><div class="rb-pct">1%</div></div>
+                </div>
+              </div>
+              <!-- Sort -->
+              <div style="display:flex;justify-content:flex-end;margin-bottom:10px;">
+                <div style="font-size:11px;color:var(--teal);font-weight:600;">Sort: Most Recent ▾</div>
+              </div>
+              <!-- Reviews -->
+              <div class="review-card">
+                <div class="rev-header">
+                  <div class="rev-avatar">K</div>
+                  <div class="rev-info">
+                    <div class="rev-name">Kavya Sharma</div>
+                    <div class="rev-date">Feb 15, 2025 <span class="rev-stars">★★★★★</span></div>
+                  </div>
+                </div>
+                <div class="rev-text">Absolutely breathtaking experience! Our guide Roshan was incredibly knowledgeable. Sigiriya at sunrise is something I'll never forget. Highly recommend the 2-day package.</div>
+              </div>
+              <div class="review-card">
+                <div class="rev-header">
+                  <div class="rev-avatar" style="background:var(--coral)">R</div>
+                  <div class="rev-info">
+                    <div class="rev-name">Ramesh Fernando</div>
+                    <div class="rev-date">Jan 28, 2025 <span class="rev-stars">★★★★★</span></div>
+                  </div>
+                </div>
+                <div class="rev-text">Excellent organization. Pick-up was on time, hotel was clean and meals were great. A perfect weekend getaway with the family.</div>
+              </div>
+              <div class="review-card">
+                <div class="rev-header">
+                  <div class="rev-avatar" style="background:#6B8E8F">N</div>
+                  <div class="rev-info">
+                    <div class="rev-name">Nisha Patel</div>
+                    <div class="rev-date">Jan 14, 2025 <span class="rev-stars">★★★★☆</span></div>
+                  </div>
+                </div>
+                <div class="rev-text">Great tour overall. The sites were amazing. Only minor issue was the van was a bit cramped with 10 people. Still worth every rupee!</div>
+              </div>
+            </div>
+            <div class="bottom-nav">
+              <div class="bn-item"><div class="bn-icon">🏠</div><div>Home</div></div>
+              <div class="bn-item"><div class="bn-icon">🔍</div><div>Search</div></div>
+              <div class="bn-item"><div class="bn-icon">📋</div><div>Bookings</div></div>
+              <div class="bn-item"><div class="bn-icon">💬</div><div>Chat</div></div>
+              <div class="bn-item"><div class="bn-icon">👤</div><div>Profile</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="phone-label">Tour Reviews</div>
+        <div class="annotation">
+          <div class="ann-item"><div class="ann-dot"></div><div class="ann-text">Star distribution bar chart with overall rating score</div></div>
+          <div class="ann-item"><div class="ann-dot"></div><div class="ann-text">Individual review cards with avatar, date, star rating</div></div>
+          <div class="ann-item"><div class="ann-dot"></div><div class="ann-text">Sortable by most recent, highest/lowest rating</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FLOW DIAGRAM -->
+  <div class="screen-group">
+    <div class="section-label">User Flow</div>
+    <div class="section-title">Booking Journey Map</div>
+    <div class="section-desc">Complete user flow from discovery to confirmed booking</div>
+    <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:32px 40px;">
+      <div style="display:flex;align-items:center;gap:0;flex-wrap:wrap;justify-content:center;gap:8px;">
+        <div style="background:var(--teal);color:#fff;border-radius:12px;padding:10px 18px;font-size:12px;font-weight:700;text-align:center;">1<br><span style="font-weight:400;opacity:.8">Browse Tours</span></div>
+        <div style="color:var(--coral);font-size:20px;">→</div>
+        <div style="background:var(--teal);color:#fff;border-radius:12px;padding:10px 18px;font-size:12px;font-weight:700;text-align:center;">2<br><span style="font-weight:400;opacity:.8">Tour Detail</span></div>
+        <div style="color:var(--coral);font-size:20px;">→</div>
+        <div style="background:var(--teal);color:#fff;border-radius:12px;padding:10px 18px;font-size:12px;font-weight:700;text-align:center;">3<br><span style="font-weight:400;opacity:.8">Date & Guests</span></div>
+        <div style="color:var(--coral);font-size:20px;">→</div>
+        <div style="background:var(--teal);color:#fff;border-radius:12px;padding:10px 18px;font-size:12px;font-weight:700;text-align:center;">4<br><span style="font-weight:400;opacity:.8">Guest Details</span></div>
+        <div style="color:var(--coral);font-size:20px;">→</div>
+        <div style="background:var(--coral);color:#fff;border-radius:12px;padding:10px 18px;font-size:12px;font-weight:700;text-align:center;">5<br><span style="font-weight:400;opacity:.8">Payment</span></div>
+        <div style="color:var(--coral);font-size:20px;">→</div>
+        <div style="background:var(--green);color:#fff;border-radius:12px;padding:10px 18px;font-size:12px;font-weight:700;text-align:center;">6<br><span style="font-weight:400;opacity:.8">Confirmed ✓</span></div>
+      </div>
+      <div style="margin-top:24px;display:flex;gap:20px;justify-content:center;flex-wrap:wrap;">
+        <div style="font-size:11px;color:rgba(255,255,255,0.45);">→ Post-booking: <span style="color:rgba(255,255,255,0.7)">Manage Bookings (Screen 7 & 8)</span></div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.45);">→ Discovery path: <span style="color:rgba(255,255,255,0.7)">Search & Filter (Screen 9) → Reviews (Screen 10)</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function showGroup(group) {
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  
+  if (group === 'all') {
+    document.querySelectorAll('.screen-group').forEach(g => g.style.display = '');
+  } else {
+    document.querySelectorAll('.screen-group').forEach(g => {
+      g.style.display = g.getAttribute('data-group') === group ? '' : 'none';
+    });
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,2354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bambare TMS — High Fidelity Wireframes</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #0A0A0A;
+  --black-2: #111111;
+  --black-3: #1A1A1A;
+  --black-4: #222222;
+  --card: #161616;
+  --card-2: #1E1E1E;
+  --gold: #F5C842;
+  --gold-2: #E8B800;
+  --gold-soft: rgba(245,200,66,0.12);
+  --gold-soft2: rgba(245,200,66,0.06);
+  --white: #FFFFFF;
+  --white-60: rgba(255,255,255,0.6);
+  --white-30: rgba(255,255,255,0.3);
+  --white-10: rgba(255,255,255,0.1);
+  --white-6: rgba(255,255,255,0.06);
+  --green: #4ADE80;
+  --red: #F87171;
+  --blue: #60A5FA;
+  --orange: #FB923C;
+  --border: rgba(255,255,255,0.08);
+  --border-gold: rgba(245,200,66,0.2);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: #0D0D0D;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--white);
+  min-height: 100vh;
+}
+
+/* ── HEADER ────────────────────────────────────── */
+.doc-header {
+  background: linear-gradient(135deg, #0A0A0A 0%, #111111 100%);
+  border-bottom: 1px solid var(--border-gold);
+  padding: 48px 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.doc-logo { display:flex; align-items:center; gap:16px; }
+.doc-logo svg { width:44px; height:44px; }
+.doc-logo-text { font-family:'Syne',sans-serif; font-size:28px; font-weight:800; letter-spacing:-0.5px; }
+.doc-logo-text span { color: var(--gold); }
+.doc-meta { text-align:right; }
+.doc-meta p { font-size:12px; color:var(--white-30); letter-spacing:0.08em; text-transform:uppercase; }
+.doc-meta h3 { font-size:14px; color:var(--white-60); font-weight:400; margin-top:4px; }
+
+/* ── SECTION LABELS ─────────────────────────────── */
+.section-label {
+  padding: 32px 64px 16px;
+  display:flex; align-items:center; gap:16px;
+}
+.section-label h2 {
+  font-family:'Syne',sans-serif;
+  font-size:13px; font-weight:700;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:var(--gold);
+}
+.section-label::after {
+  content:'';
+  flex:1;
+  height:1px;
+  background:var(--border);
+}
+
+/* ── SCREEN GRID ────────────────────────────────── */
+.screens-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  padding: 0 64px 64px;
+  justify-content: flex-start;
+}
+
+/* ── PHONE FRAME ────────────────────────────────── */
+.phone-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+.phone-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--white-30);
+  text-align: center;
+}
+.phone-frame {
+  width: 300px;
+  height: 620px;
+  background: var(--black-2);
+  border-radius: 40px;
+  border: 1.5px solid rgba(255,255,255,0.12);
+  overflow: hidden;
+  position: relative;
+  box-shadow:
+    0 0 0 6px rgba(0,0,0,0.8),
+    0 40px 80px rgba(0,0,0,0.6),
+    inset 0 1px 0 rgba(255,255,255,0.06);
+}
+.phone-frame::before {
+  content:'';
+  position:absolute;
+  top:0; left:50%; transform:translateX(-50%);
+  width:100px; height:28px;
+  background: var(--black);
+  border-radius: 0 0 18px 18px;
+  z-index:100;
+}
+.phone-screen {
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  background: var(--black);
+  position:relative;
+}
+
+/* ── STATUS BAR ─────────────────────────────────── */
+.status-bar {
+  height:44px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding: 28px 20px 0;
+  position:relative;
+  z-index:10;
+}
+.status-time { font-size:13px; font-weight:600; color:var(--white); }
+.status-icons { display:flex; gap:5px; align-items:center; }
+.status-icons span { font-size:11px; color:var(--white); }
+
+/* ── COMMON COMPONENTS ──────────────────────────── */
+.screen-content { padding: 0 18px; }
+
+.gold-pill {
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  background: var(--gold-soft);
+  border: 1px solid var(--border-gold);
+  border-radius:100px;
+  padding:4px 12px;
+  font-size:11px;
+  font-weight:600;
+  color:var(--gold);
+  letter-spacing:0.05em;
+}
+
+.section-title {
+  font-family:'Syne',sans-serif;
+  font-size:22px;
+  font-weight:800;
+  line-height:1.1;
+  margin-bottom:6px;
+}
+.section-title span { color:var(--gold); }
+.section-subtitle { font-size:13px; color:var(--white-60); line-height:1.5; }
+
+.input-field {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius:14px;
+  padding:14px 16px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:12px;
+}
+.input-field .icon { font-size:16px; }
+.input-field .placeholder { font-size:13px; color:var(--white-30); }
+.input-field .value { font-size:13px; color:var(--white); }
+.input-field.active { border-color: var(--gold); background: var(--gold-soft2); }
+
+.btn-primary {
+  background: var(--gold);
+  color: var(--black);
+  border:none;
+  border-radius:16px;
+  padding:16px;
+  width:100%;
+  font-family:'Syne',sans-serif;
+  font-size:15px;
+  font-weight:700;
+  letter-spacing:0.02em;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+}
+.btn-ghost {
+  background: var(--white-6);
+  border: 1px solid var(--border);
+  border-radius:16px;
+  padding:14px;
+  width:100%;
+  font-size:13px;
+  font-weight:500;
+  color:var(--white-60);
+  cursor:pointer;
+  text-align:center;
+}
+
+.nav-bar {
+  position:absolute;
+  bottom:0;
+  left:0; right:0;
+  height:72px;
+  background: rgba(16,16,16,0.95);
+  backdrop-filter:blur(20px);
+  border-top: 1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:space-around;
+  padding:0 8px 8px;
+  z-index:50;
+}
+.nav-item {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:4px;
+  padding:8px 12px;
+  border-radius:12px;
+  flex:1;
+}
+.nav-item.active { background: var(--gold-soft); }
+.nav-icon { font-size:20px; }
+.nav-text { font-size:10px; font-weight:600; color:var(--white-30); }
+.nav-item.active .nav-text { color:var(--gold); }
+.nav-item.active .nav-icon { filter: sepia(1) saturate(3) hue-rotate(10deg); }
+
+/* ── SPLASH / ONBOARDING ────────────────────────── */
+.splash-bg {
+  position:absolute;
+  inset:0;
+  background: linear-gradient(180deg, #0A0A0A 0%, #111111 50%, #0A0A0A 100%);
+}
+.splash-pattern {
+  position:absolute;
+  inset:0;
+  background-image:
+    radial-gradient(circle at 20% 80%, rgba(245,200,66,0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(245,200,66,0.05) 0%, transparent 50%);
+}
+.splash-content {
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:40px 28px;
+}
+.bee-logo {
+  width:72px;
+  height:72px;
+  background: var(--gold-soft);
+  border: 1.5px solid var(--border-gold);
+  border-radius:22px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:32px;
+  margin-bottom:24px;
+}
+.splash-brand {
+  font-family:'Syne',sans-serif;
+  font-size:42px;
+  font-weight:800;
+  letter-spacing:-1px;
+  margin-bottom:6px;
+}
+.splash-brand span { color:var(--gold); }
+.splash-tagline {
+  font-size:13px;
+  color:var(--white-30);
+  letter-spacing:0.15em;
+  text-transform:uppercase;
+  margin-bottom:48px;
+}
+.splash-illustration {
+  width:100%;
+  height:140px;
+  background: linear-gradient(135deg, var(--card) 0%, var(--card-2) 100%);
+  border-radius:20px;
+  border:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:56px;
+  margin-bottom:36px;
+  position:relative;
+  overflow:hidden;
+}
+.splash-illustration::before {
+  content:'';
+  position:absolute;
+  inset:0;
+  background: radial-gradient(circle at 50% 50%, rgba(245,200,66,0.1) 0%, transparent 70%);
+}
+
+/* ── HOME SCREEN ────────────────────────────────── */
+.home-hero {
+  background: linear-gradient(135deg, var(--card) 0%, #1C1C1C 100%);
+  border-radius:20px;
+  padding:20px;
+  margin-bottom:16px;
+  position:relative;
+  overflow:hidden;
+  border: 1px solid var(--border);
+}
+.home-hero::before {
+  content:'';
+  position:absolute;
+  top:-20px; right:-20px;
+  width:100px; height:100px;
+  background: radial-gradient(circle, rgba(245,200,66,0.2) 0%, transparent 70%);
+  border-radius:50%;
+}
+.hero-greeting { font-size:12px; color:var(--white-30); margin-bottom:4px; letter-spacing:0.05em; }
+.hero-name { font-family:'Syne',sans-serif; font-size:20px; font-weight:800; margin-bottom:12px; }
+.hero-search {
+  background: rgba(0,0,0,0.4);
+  border: 1px solid var(--border);
+  border-radius:12px;
+  padding:12px 14px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.hero-search span { font-size:14px; color:var(--white-30); }
+
+.quick-stats {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-bottom:16px;
+}
+.stat-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius:16px;
+  padding:16px;
+}
+.stat-icon { font-size:20px; margin-bottom:8px; }
+.stat-value { font-family:'Syne',sans-serif; font-size:18px; font-weight:800; }
+.stat-label { font-size:11px; color:var(--white-30); margin-top:2px; }
+.stat-card.gold-card {
+  background: var(--gold);
+  border-color: var(--gold-2);
+}
+.stat-card.gold-card .stat-value,
+.stat-card.gold-card .stat-label { color: var(--black); }
+
+.horizontal-scroll-row { display:flex; gap:12px; overflow-x:auto; padding-bottom:4px; margin-bottom:16px; }
+.horizontal-scroll-row::-webkit-scrollbar { display:none; }
+
+.tour-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius:18px;
+  width:160px;
+  flex-shrink:0;
+  overflow:hidden;
+}
+.tour-card-img {
+  height:90px;
+  background: linear-gradient(135deg, #1E3A2F 0%, #2D5A3D 100%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:30px;
+  position:relative;
+}
+.tour-card-img::after {
+  content:'';
+  position:absolute;
+  inset:0;
+  background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.5));
+}
+.tour-badge {
+  position:absolute;
+  top:8px; right:8px;
+  background:var(--gold);
+  color:var(--black);
+  font-size:9px;
+  font-weight:700;
+  padding:3px 7px;
+  border-radius:100px;
+  z-index:2;
+}
+.tour-card-body { padding:12px; }
+.tour-name { font-family:'Syne',sans-serif; font-size:12px; font-weight:700; margin-bottom:4px; }
+.tour-meta { font-size:10px; color:var(--white-30); margin-bottom:8px; }
+.tour-price { font-size:13px; font-weight:700; color:var(--gold); }
+
+.row-header {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:12px;
+}
+.row-title { font-family:'Syne',sans-serif; font-size:15px; font-weight:700; }
+.row-see-all { font-size:12px; color:var(--gold); font-weight:600; }
+
+/* ── BOOKING CARD ───────────────────────────────── */
+.booking-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius:16px;
+  padding:14px;
+  margin-bottom:10px;
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+}
+.booking-thumb {
+  width:50px;
+  height:50px;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  flex-shrink:0;
+}
+.booking-info { flex:1; }
+.booking-title { font-family:'Syne',sans-serif; font-size:13px; font-weight:700; margin-bottom:3px; }
+.booking-date { font-size:11px; color:var(--white-30); margin-bottom:6px; }
+.booking-status {
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  font-size:10px;
+  font-weight:700;
+  padding:3px 8px;
+  border-radius:100px;
+}
+.status-confirmed { background:rgba(74,222,128,0.15); color:var(--green); }
+.status-pending { background:rgba(251,146,60,0.15); color:var(--orange); }
+.status-cancelled { background:rgba(248,113,113,0.15); color:var(--red); }
+.booking-price { font-family:'Syne',sans-serif; font-size:14px; font-weight:800; color:var(--gold); text-align:right; }
+
+/* ── MAP SCREEN ─────────────────────────────────── */
+.map-bg {
+  position:absolute;
+  inset:0;
+  background: #1a2332;
+  overflow:hidden;
+}
+.map-grid {
+  position:absolute;
+  inset:0;
+  opacity:0.15;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+.map-roads {
+  position:absolute;
+  inset:0;
+}
+.map-pin {
+  position:absolute;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:2px;
+  cursor:pointer;
+}
+.map-pin-dot {
+  width:32px;
+  height:32px;
+  border-radius:50% 50% 50% 0;
+  transform:rotate(-45deg);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 4px 12px rgba(0,0,0,0.4);
+}
+.map-pin-dot span { transform:rotate(45deg); font-size:14px; }
+.map-pin-label {
+  background:rgba(0,0,0,0.8);
+  color:var(--white);
+  font-size:9px;
+  font-weight:600;
+  padding:3px 7px;
+  border-radius:100px;
+  white-space:nowrap;
+}
+.map-pin.active .map-pin-dot { background:var(--gold); }
+.map-pin.poi .map-pin-dot { background:var(--card); border:2px solid var(--white-30); }
+
+.map-search-bar {
+  position:absolute;
+  top:56px;
+  left:12px; right:12px;
+  background:rgba(22,22,22,0.95);
+  backdrop-filter:blur(20px);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:13px 16px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  z-index:20;
+}
+.map-search-bar span { font-size:14px; color:var(--white-30); }
+
+.map-sheet {
+  position:absolute;
+  bottom:72px;
+  left:0; right:0;
+  background:rgba(16,16,16,0.97);
+  backdrop-filter:blur(20px);
+  border-top: 1px solid var(--border);
+  border-radius:24px 24px 0 0;
+  padding:12px 18px 16px;
+  z-index:30;
+}
+.sheet-handle {
+  width:36px;
+  height:4px;
+  background:var(--white-10);
+  border-radius:100px;
+  margin: 0 auto 14px;
+}
+.place-card-h {
+  display:flex;
+  gap:12px;
+  align-items:center;
+  padding:10px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:14px;
+  margin-bottom:8px;
+}
+.place-icon { font-size:24px; width:44px; text-align:center; }
+.place-info { flex:1; }
+.place-name { font-family:'Syne',sans-serif; font-size:13px; font-weight:700; margin-bottom:2px; }
+.place-dist { font-size:11px; color:var(--white-30); }
+.place-rating { font-size:12px; color:var(--gold); font-weight:600; }
+
+/* ── EXPENSE SCREEN ─────────────────────────────── */
+.expense-hero {
+  background: linear-gradient(135deg, #1A1A00 0%, #2A2600 50%, var(--card) 100%);
+  border: 1px solid var(--border-gold);
+  border-radius:20px;
+  padding:20px;
+  margin-bottom:14px;
+  position:relative;
+  overflow:hidden;
+}
+.expense-hero::before {
+  content:'';
+  position:absolute;
+  top:-30px; right:-30px;
+  width:120px; height:120px;
+  background:radial-gradient(circle, rgba(245,200,66,0.15) 0%, transparent 70%);
+}
+.expense-label { font-size:11px; color:var(--gold); font-weight:600; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:4px; }
+.expense-amount { font-family:'Syne',sans-serif; font-size:36px; font-weight:800; line-height:1; margin-bottom:4px; }
+.expense-sub { font-size:12px; color:var(--white-30); }
+
+.category-chips { display:flex; gap:8px; overflow-x:auto; padding-bottom:4px; margin-bottom:14px; }
+.category-chips::-webkit-scrollbar { display:none; }
+.chip {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:4px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:10px 12px;
+  flex-shrink:0;
+  min-width:60px;
+}
+.chip.active { background:var(--gold-soft); border-color:var(--border-gold); }
+.chip-icon { font-size:20px; }
+.chip-label { font-size:9px; color:var(--white-30); font-weight:600; }
+.chip.active .chip-label { color:var(--gold); }
+
+.expense-item {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px 0;
+  border-bottom:1px solid var(--border);
+}
+.expense-item-icon {
+  width:40px; height:40px;
+  border-radius:12px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:18px;
+  flex-shrink:0;
+}
+.expense-item-info { flex:1; }
+.expense-item-name { font-size:13px; font-weight:600; margin-bottom:2px; }
+.expense-item-date { font-size:11px; color:var(--white-30); }
+.expense-item-amount { font-family:'Syne',sans-serif; font-size:14px; font-weight:700; }
+
+.fab {
+  position:absolute;
+  bottom:88px;
+  right:18px;
+  width:52px;
+  height:52px;
+  background:var(--gold);
+  border-radius:18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:24px;
+  color:var(--black);
+  font-weight:700;
+  box-shadow:0 8px 24px rgba(245,200,66,0.4);
+  z-index:40;
+}
+
+/* ── CURRENCY SCREEN ────────────────────────────── */
+.currency-card {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:16px;
+  margin-bottom:12px;
+}
+.currency-from-label { font-size:11px; color:var(--white-30); margin-bottom:8px; letter-spacing:0.05em; }
+.currency-amount-row { display:flex; align-items:center; justify-content:space-between; }
+.currency-flag { font-size:24px; }
+.currency-code { font-family:'Syne',sans-serif; font-size:16px; font-weight:700; }
+.currency-input-val { font-family:'Syne',sans-serif; font-size:28px; font-weight:800; color:var(--gold); }
+.swap-btn {
+  background:var(--gold-soft);
+  border:1px solid var(--border-gold);
+  border-radius:100px;
+  padding:10px;
+  font-size:20px;
+  text-align:center;
+  margin:10px auto;
+  width:44px;
+  height:44px;
+  display:flex; align-items:center; justify-content:center;
+}
+.rate-info {
+  background:var(--gold-soft2);
+  border:1px solid var(--border-gold);
+  border-radius:12px;
+  padding:10px 14px;
+  text-align:center;
+}
+.rate-text { font-size:12px; color:var(--white-60); }
+.rate-value { font-family:'Syne',sans-serif; font-size:16px; font-weight:700; color:var(--gold); }
+
+/* ── ADMIN DASHBOARD ────────────────────────────── */
+.admin-kpi-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-bottom:14px;
+}
+.kpi-card {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:14px;
+}
+.kpi-card.primary { background:var(--gold); border-color:var(--gold-2); }
+.kpi-icon-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+.kpi-icon { font-size:20px; }
+.kpi-trend { font-size:10px; font-weight:700; padding:2px 7px; border-radius:100px; }
+.trend-up { background:rgba(74,222,128,0.15); color:var(--green); }
+.trend-down { background:rgba(248,113,113,0.15); color:var(--red); }
+.kpi-card.primary .trend-up { background:rgba(0,0,0,0.15); color:var(--black); }
+.kpi-value { font-family:'Syne',sans-serif; font-size:22px; font-weight:800; margin-bottom:2px; }
+.kpi-label { font-size:11px; color:var(--white-30); }
+.kpi-card.primary .kpi-value, .kpi-card.primary .kpi-label { color:var(--black); }
+
+.mini-chart {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:14px;
+  margin-bottom:12px;
+}
+.chart-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+.chart-title { font-family:'Syne',sans-serif; font-size:13px; font-weight:700; }
+.chart-period { font-size:11px; color:var(--gold); background:var(--gold-soft); padding:3px 8px; border-radius:100px; }
+.bar-chart { display:flex; align-items:flex-end; gap:6px; height:60px; }
+.bar {
+  flex:1;
+  border-radius:6px 6px 0 0;
+  background:var(--white-6);
+  min-height:8px;
+}
+.bar.active { background:var(--gold); }
+.bar-labels { display:flex; gap:6px; margin-top:6px; }
+.bar-label { flex:1; font-size:8px; color:var(--white-30); text-align:center; }
+
+/* ── TOUR DETAIL ────────────────────────────────── */
+.tour-detail-hero {
+  height:200px;
+  background:linear-gradient(135deg, #0D2B1F 0%, #1A4A33 50%, #0D2B1F 100%);
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:64px;
+  margin-bottom:0;
+}
+.tour-detail-hero::after {
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to bottom, transparent 40%, var(--black) 100%);
+}
+.tour-detail-back {
+  position:absolute;
+  top:56px; left:18px;
+  background:rgba(0,0,0,0.6);
+  backdrop-filter:blur(10px);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:8px 12px;
+  font-size:14px;
+  z-index:10;
+}
+.tour-detail-fav {
+  position:absolute;
+  top:56px; right:18px;
+  background:rgba(0,0,0,0.6);
+  backdrop-filter:blur(10px);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:8px 12px;
+  font-size:14px;
+  z-index:10;
+}
+.tour-detail-body { padding:0 18px; }
+.tour-detail-tag { display:flex; gap:8px; margin-bottom:10px; }
+.tag {
+  font-size:10px;
+  font-weight:700;
+  padding:4px 10px;
+  border-radius:100px;
+  letter-spacing:0.05em;
+}
+.tag-gold { background:var(--gold-soft); color:var(--gold); border:1px solid var(--border-gold); }
+.tag-green { background:rgba(74,222,128,0.1); color:var(--green); }
+.tour-detail-title { font-family:'Syne',sans-serif; font-size:22px; font-weight:800; margin-bottom:6px; }
+.tour-detail-location { font-size:12px; color:var(--white-30); margin-bottom:14px; }
+
+.info-row { display:flex; gap:10px; margin-bottom:14px; }
+.info-chip {
+  flex:1;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:10px;
+  text-align:center;
+}
+.info-chip-icon { font-size:16px; margin-bottom:4px; }
+.info-chip-val { font-family:'Syne',sans-serif; font-size:13px; font-weight:700; }
+.info-chip-label { font-size:9px; color:var(--white-30); }
+
+.price-book-bar {
+  position:absolute;
+  bottom:0; left:0; right:0;
+  background:rgba(16,16,16,0.97);
+  backdrop-filter:blur(20px);
+  border-top:1px solid var(--border);
+  padding:14px 18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  z-index:50;
+}
+.price-col { flex-shrink:0; }
+.price-from { font-size:10px; color:var(--white-30); }
+.price-main { font-family:'Syne',sans-serif; font-size:22px; font-weight:800; color:var(--gold); }
+.book-btn {
+  flex:1;
+  background:var(--gold);
+  color:var(--black);
+  border:none;
+  border-radius:14px;
+  padding:14px;
+  font-family:'Syne',sans-serif;
+  font-size:14px;
+  font-weight:700;
+  cursor:pointer;
+  text-align:center;
+}
+
+/* ── PROFILE SCREEN ─────────────────────────────── */
+.profile-hero {
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:14px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:18px;
+  margin-bottom:14px;
+}
+.avatar {
+  width:56px; height:56px;
+  border-radius:18px;
+  background:var(--gold);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:'Syne',sans-serif;
+  font-size:20px;
+  font-weight:800;
+  color:var(--black);
+  flex-shrink:0;
+}
+.profile-name { font-family:'Syne',sans-serif; font-size:16px; font-weight:800; margin-bottom:2px; }
+.profile-email { font-size:12px; color:var(--white-30); margin-bottom:6px; }
+
+.profile-menu-item {
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:14px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:14px;
+  margin-bottom:8px;
+}
+.pmi-icon { font-size:20px; width:38px; height:38px; border-radius:10px; display:flex; align-items:center; justify-content:center; }
+.pmi-info { flex:1; }
+.pmi-label { font-size:13px; font-weight:600; margin-bottom:1px; }
+.pmi-sub { font-size:11px; color:var(--white-30); }
+.pmi-arrow { font-size:14px; color:var(--white-30); }
+
+/* ── REGISTRATION ───────────────────────────────── */
+.reg-top {
+  padding:60px 18px 24px;
+  text-align:center;
+}
+.divider {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin:14px 0;
+}
+.divider-line { flex:1; height:1px; background:var(--border); }
+.divider-text { font-size:11px; color:var(--white-30); }
+
+.social-btn {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:13px;
+  font-size:13px;
+  color:var(--white-60);
+  font-weight:500;
+  margin-bottom:10px;
+}
+
+/* ── NOTIFICATIONS ──────────────────────────────── */
+.notif-item {
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+  padding:12px;
+  border-radius:14px;
+  margin-bottom:8px;
+}
+.notif-item.unread { background:var(--gold-soft2); border:1px solid var(--border-gold); }
+.notif-item.read { background:var(--card); border:1px solid var(--border); }
+.notif-icon-wrap { width:40px; height:40px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+.notif-content { flex:1; }
+.notif-title { font-size:12px; font-weight:700; margin-bottom:3px; }
+.notif-msg { font-size:11px; color:var(--white-30); line-height:1.4; }
+.notif-time { font-size:10px; color:var(--white-30); margin-top:4px; }
+.notif-dot { width:8px; height:8px; border-radius:50%; background:var(--gold); flex-shrink:0; margin-top:4px; }
+
+/* ── BOOKING FLOW ───────────────────────────────── */
+.step-bar { display:flex; gap:6px; align-items:center; margin-bottom:20px; }
+.step { flex:1; height:4px; border-radius:100px; background:var(--border); }
+.step.done { background:var(--gold); }
+.step.active { background:var(--gold); opacity:0.5; }
+
+.date-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:4px; margin-bottom:14px; }
+.date-cell { aspect-ratio:1; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:600; color:var(--white-30); }
+.date-cell.today { background:var(--card); border:1px solid var(--border); color:var(--white); }
+.date-cell.selected { background:var(--gold); color:var(--black); font-weight:800; }
+.date-cell.available { color:var(--white-60); }
+
+.guest-counter {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:14px 16px;
+  margin-bottom:10px;
+}
+.counter-info { font-size:13px; font-weight:600; }
+.counter-sub { font-size:11px; color:var(--white-30); }
+.counter-controls { display:flex; gap:12px; align-items:center; }
+.counter-btn { width:32px; height:32px; border-radius:10px; background:var(--gold-soft); border:1px solid var(--border-gold); display:flex; align-items:center; justify-content:center; font-size:18px; color:var(--gold); font-weight:700; }
+.counter-val { font-family:'Syne',sans-serif; font-size:18px; font-weight:800; min-width:24px; text-align:center; }
+
+/* ── SEARCH/FILTER ──────────────────────────────── */
+.filter-chips { display:flex; gap:8px; overflow-x:auto; padding-bottom:4px; margin-bottom:14px; }
+.filter-chips::-webkit-scrollbar { display:none; }
+.filter-chip {
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:100px;
+  padding:8px 14px;
+  font-size:12px;
+  font-weight:600;
+  color:var(--white-60);
+  white-space:nowrap;
+  flex-shrink:0;
+}
+.filter-chip.active { background:var(--gold-soft); border-color:var(--border-gold); color:var(--gold); }
+
+/* ── DECORATIVE LINE ─────────────────────────────── */
+.separator { height:1px; background:var(--border); margin:40px 0; }
+
+/* ── SCROLL CONTAINER ─────────────────────────────── */
+.phone-screen-scroll {
+  width:100%;
+  height:100%;
+  overflow-y:auto;
+  overflow-x:hidden;
+  padding-bottom:72px;
+}
+.phone-screen-scroll::-webkit-scrollbar { display:none; }
+
+</style>
+</head>
+<body>
+
+<!-- DOC HEADER -->
+<div class="doc-header">
+  <div class="doc-logo">
+    <svg viewBox="0 0 44 44" fill="none">
+      <rect width="44" height="44" rx="14" fill="rgba(245,200,66,0.12)" stroke="rgba(245,200,66,0.3)" stroke-width="1.5"/>
+      <text x="22" y="30" text-anchor="middle" font-family="serif" font-size="22" fill="#F5C842">🐝</text>
+    </svg>
+    <div>
+      <div class="doc-logo-text">BAM<span>BARE</span></div>
+      <div style="font-size:11px; color:rgba(255,255,255,0.3); letter-spacing:0.15em; text-transform:uppercase;">Travel Management System</div>
+    </div>
+  </div>
+  <div class="doc-meta">
+    <p>High Fidelity Wireframes · v1.0</p>
+    <h3>Group 01 — TMS · SCU</h3>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- SECTION 1: ONBOARDING -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="section-label"><h2>01 · Onboarding & Authentication</h2></div>
+<div class="screens-grid">
+
+  <!-- SPLASH -->
+  <div class="phone-wrap">
+    <div class="phone-frame">
+      <div class="phone-screen">
+        <div class="splash-bg"></div>
+        <div class="splash-pattern"></div>
+        <div class="splash-content">
+          <div class="bee-logo">🐝</div>
+          <div class="splash-brand">BAM<span>BARE</span></div>
+          <div class="splash-tagline">Travel Management</div>
+          <div class="splash-illustration">🌏</div>
+          <div style="width:100%">
+            <button class="btn-primary" style="margin-bottom:12px">✦ &nbsp;Get Started</button>
+            <button class="btn-ghost">I already have an account</button>
+          </div>
+          <div style="margin-top:20px; font-size:10px; color:rgba(255,255,255,0.2); text-align:center; letter-spacing:0.05em;">
+            By continuing, you agree to our Terms & Privacy Policy
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="phone-label">Splash / Welcome</div>
+  </div>
+
+  <!-- REGISTER -->
+  <div class="phone-wrap">
+    <div class="phone-frame">
+      <div class="phone-screen">
+        <div class="status-bar"><span class="status-time">9:41</span><div class="status-icons"><span>●●●</span><span>WiFi</span><span>🔋</span></div></div>
+        <div class="phone-screen-scroll">
+          <div class="reg-top">
+            <div class="bee-logo" style="margin:0 auto 16px; width:48px;height:48px;font-size:22px;">🐝</div>
+            <div class="section-title">Create <span>Account</span></div>
+            <div class="section-subtitle" style="margin-top:6px;">Join Bambare and explore Sri Lanka</div>
+          </div>
+          <div class="screen-content">
+            <div class="input-field">
+              <span class="icon">👤</span><span class="value">Avishka Perera</span>
+            </div>
+            <div class="input-field">
+              <span class="icon">✉️</span><span class="placeholder">Email address</span>
+            </div>
+            <div class="input-field">
+              <span class="icon">📱</span><span class="placeholder">Phone number</span>
+            </div>
+            <div class="input-field active">
+              <span class="icon">🔒</span><span class="placeholder">Create password</span>
+            </div>
+            <div style="display:flex;gap:8px;margin-bottom:6px;">
+              <div style="flex:1;height:4px;border-radius:100px;background:#4ADE80;"></div>
+              <div style="flex:1;height:4px;border-radius:100px;background:#4ADE80;"></div>
+              <div style="flex:1;height:4px;border-radius:100px;background:rgba(255,255,255,0.08);"></div>
+            </div>
+            <div style="font-size:10px;color:#4ADE80;margin-bottom:14px;">Good password strength</div>
+            <button class="btn-primary" style="margin-bottom:14px;">Create Account →</button>
+            <div class="divider">
+              <div class="divider-line"></div>
+              <span class="divider-text">or sign up with</span>
+              <div class="divider-line"></div>
+            </div>
+            <div class="social-btn">🌐 &nbsp;Continue with Google</div>
+            <div style="text-align:center;font-size:12px;color:rgba(255,255,255,0.3);margin-top:10px;">
+              Already have an account? <span style="color:#F5C842;font-weight:600;">Sign In</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="phone-label">Registration</div>
+  </div>
+
+  <!-- LOGIN -->
+  <div class="phone-wrap">
+    <div class="phone-frame">
+      <div class="phone-screen">
+        <div class="status-bar"><span class="status-time">9:41</span><div class="status-icons"><span>●●●</span><span>WiFi</span><span>🔋</span></div></div>
+        <div class="phone-screen-scroll">
+          <div style="padding:50px 18px 24px; text-align:center;">
+            <div class="bee-logo" style="margin:0 auto 16px; width:48px;height:48px;font-size:22px;">🐝</div>
+            <div class="section-title">Welcome <span>Back</span></div>
+            <div class="section-subtitle" style="margin-top:6px;">Sign in to your account</div>
+          </div>
+          <div class="screen-content">
+            <div class="input-field">
+              <span class="icon">✉️</span><span class="value">avishka@email.com</span>
+            </div>
+            <div class="input-field active">
+              <span class="icon">🔒</span><span class="value">••••••••</span>
+              <span style="font-size:14px;margin-left:auto;color:rgba(255,255,255,0.4);">👁</span>
+            </div>
+            <div style="text-align:right;margin-bottom:20px;">
+              <span style="font-size:12px;color:#F5C842;font-weight:600;">Forgot Password?</span>
+            </div>
+            <button class="btn-primary" style="margin-bottom:14px;">Sign In →</button>
+            <div class="divider">
+              <div class="divider-line"></div>
+              <span class="divider-text">or continue with</span>
+              <div class="divider-line"></div>
+            </div>
+            <div class="social-btn">🌐 &nbsp;Google</div>
+            <div style="text-align:center;font-size:12px;color:rgba(255,255,255,0.3);margin-top:16px;">
+              New to Bambare? <span style="color:#F5C842;font-weight:600;">Create Account</span>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:24px;">
+              <div style="width:50px;height:50px;border-radius:16px;background:rgba(245,200,66,0.1);border:1px solid rgba(245,200,66,0.2);display:flex;align-items:center;justify-content:center;font-size:22px;">👆</div>
+              <div style="font-size:12px;color:rgba(255,255,255,0.4);">or use<br><span style="color:rgba(255,255,255,0.7);font-weight:600;">Face ID / Fingerprint</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="phone-label">Login</div>
+  </div>
+
+</div><!-- /screens-grid -->
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- SECTION 2: HOME -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="section-label"><h2>02 · Home & Discovery</h2></div>
+<div class="screens-grid">
+
+  <!-- HOME -->
+  <div class="phone-wrap">
+    <div class="phone-frame">
+      <div class="phone-screen">
+        <div class="status-bar" style="padding-top:28px"><span class="status-time">9:41</span><div class="status-icons"><span>📶</span><span>🔋</span></div></div>
+        <div class="phone-screen-scroll">
+          <div class="screen-content" style="padding-top:8px">
+            <div class="home-hero">
+              <div class="hero-greeting">🌤 Good morning</div>
+              <div class="hero-name">Where are you<br>going today? ✈️</div>
+              <div class="hero-search">
+                <span>🔍</span>
+                <span>Search destinations, tours...</span>
+              </div>
+            </div>
+
+            <div class="quick-stats">
+              <div class="stat-card gold-card">
+                <div class="stat-icon">🎒</div>
+                <div class="stat-value">3</div>
+                <div class="stat-label">Active Bookings</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon">📍</div>
+                <div class="stat-value">12</div>
+                <div class="stat-label">Places Saved</div>
+              </div>
+            </div>
+
+            <div class="row-header">
+              <div class="row-title">Popular Tours 🔥</div>
+              <div class="row-see-all">See all →</div>
+            </div>
+            <div class="horizontal-scroll-row">
+              <div class="tour-card">
+                <div class="tour-card-img" style="background:linear-gradient(135deg,#0D2B1F,#1A4A33)">
+                  🏯<div class="tour-badge">TOP</div>
+                </div>
+                <div class="tour-card-body">
+                  <div class="tour-name">Sigiriya Rock</div>
+                  <div class="tour-meta">📍 Dambulla · 2D 1N</div>
+                  <div class="tour-price">LKR 8,500</div>
+                </div>
+              </div>
+              <div class="tour-card">
+                <div class="tour-card-img" style="background:linear-gradient(135deg,#1A2B0D,#2A4A1A)">
+                  🍃<div class="tour-badge">NEW</div>
+                </div>
+                <div class="tour-card-body">
+                  <div class="tour-name">Ella Train Ride</div>
+                  <div class="tour-meta">📍 Ella · 1 Day</div>
+                  <div class="tour-price">LKR 4,200</div>
+                </div>
+              </div>
+              <div class="tour-card">
+                <div class="tour-card-img" style="background:linear-gradient(135deg,#0D1A2B,#1A2B4A)">
+                  🐘
+                </div>
+                <div class="tour-card-body">
+                  <div class="tour-name">Yala Safari</div>
+                  <div class="tour-meta">📍 Yala · 3D 2N</div>
+                  <div class="tour-price">LKR 18,000</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row-header">
+              <div class="row-title">Nearby Experiences</div>
+              <div class="row-see-all">See all →</div>
+            </div>
+            <div class="horizontal-scroll-row">
+              <div class="tour-card">
+                <div class="tour-card-img" style="background:linear-gradient(135deg,#2B0D0D,#4A1A1A)">
+                  🌊
+                </div>
+                <div class="tour-card-body">
+                  <div class="tour-name">Negombo Beach</div>
+                  <div class="tour-meta">📍 2.5 km away</div>
+                  <div class="tour-price">LKR 1,500</div>
+                </div>
+              </div>
+              <div class="tour-card">
+                <div class="tour-card-img" style="background:linear-gradient(135deg,#1A0D2B,#2B1A4A)">
+                  🕌
+                </div>
+                <div class="tour-card-body">
+                  <div class="tour-name">Dutch Fort Tour</div>
+                  <div class="tour-meta">📍 4.1 km away</div>
+                  <div class="tour-price">LKR 2,800</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row-header">
+              <div class="row-title">Quick Actions</div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px;">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+                <div style="width:50px;height:50px;border-radius:16px;background:rgba(245,200,66,0.1);border:1px solid rgba(245,200,66,0.2);display:flex;align-items:center;justify-content:center;font-size:22px;">🗺️</div>
+                <span style="font-size:10px;color:rgba(255,255,255,0.4);text-align:center;">Explore</span>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+                <div style="width:50px;height:50px;border-radius:16px;background:rgba(96,165,250,0.1);border:1px solid rgba(96,165,250,0.2);display:flex;align-items:center;justify-content:center;font-size:22px;">🎒</div>
+                <span style="font-size:10px;color:rgba(255,255,255,0.4);text-align:center;">Bookings</span>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+                <div style="width:50px;height:50px;border-radius:16px;background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.2);display:flex;align-items:center;justify-content:center;font-size:22px;">💰</div>
+                <span style="font-size:10px;color:rgba(255,255,255,0.4);text-align:center;">Expenses</span>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+                <div style="width:50px;height:50px;border-radius:16px;background:rgba(251,146,60,0.1);border:1px solid rgba(251,146,60,0.2);display:flex;align-items:center;justify-content:center;font-size:22px;">🔔</div>
+                <span style="font-size:10px;color:rgba(255,255,255,0.4);text-align:center;">Alerts</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="nav-bar">
+          <div class="nav-item active"><div class="nav-icon">🏠</div><div class="nav-text" style="color:#F5C842">Home</div></div>
+          <div class="nav-item"><div class="nav-icon">🗺️</div><div class="nav-text">Map</div></div>
+          <div class="nav-item"><div class="nav-icon">🎒</div><div class="nav-text">Tours</div></div>
+          <div class="nav-item"><div class="nav-icon">💰</div><div class="nav-text">Expenses</div></div>
+          <div class="nav-item"><div class="nav-icon">👤</div><div class="nav-text">Profile</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="phone-label">Home Dashboard</div>
+  </div>
+
+  <!-- SEARCH / TOUR BROWSE -->
+  <div class="phone-wrap">
+    <div class="phone-frame">
+      <div class="phone-screen">
+        <div class="status-bar"><span class="status-time">9:41</span><div class="status-icons"><span>📶</span><span>🔋</span></div></div>
+        <div class="phone-screen-scroll">
+          <div class="screen-content" style="padding-top:8px">
+            <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;margin-bottom:14px;">Explore <span style="color:#F5C842">Tours</span> 🌍</div>
+            <div class="input-field" style="margin-bottom:14px;border-color:rgba(245,200,66,0.3);">
+              <span class="icon">🔍</span><span class="value">Sigiriya, Cultural...</span>
+              <span style="font-size:12px;background:rgba(245,200,66,0.1);border:1px solid rgba(245,200,66,0.2);border-radius:8px;padding:4px 8px;color:#F5C842;margin-left:auto;">⚙ Filter</span>
+            </div>
+            <div class="filter-chips">
+              <div class="filter-chip active">🗓 All</div>
+              <div class="filter-chip">🏯 Cultural</div>
+              <div class="filter-chip">🌊 Beach</div>
+              <div class="filter-chip">🦁 Wildlife</div>
+              <div class="filter-chip">🍃 Nature</div>
+              <div class="filter-chip">🏔 Adventure</div>
+            </div>
+            <!-- Tour List Cards -->
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:18px;overflow:hidden;margin-bottom:12px;">
+              <div style="height:110px;background:linear-gradient(135deg,#0D2B1F,#1A4A33);display:flex;align-items:center;justify-content:center;font-size:48px;position:relative;">
+                🏯
+                <div style="position:absolute;top:10px;left:10px;background:rgba(0,0,0,0.6);backdrop-filter:blur(10px);border-radius:100px;padding:4px 10px;font-size:10px;font-weight:700;color:#F5C842;border:1px solid rgba(245,200,66,0.3);">★ 4.9</div>
+                <div style="position:absolute;top:10px;right:10px;background:#F5C842;border-radius:100px;padding:4px 10px;font-size:9px;font-weight:700;color:#0A0A0A;">BESTSELLER</div>
+              </div>
+              <div style="padding:14px">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+                  <span style="font-size:9px;font-weight:700;padding:3px 8px;border-radius:100px;background:rgba(245,200,66,0.1);color:#F5C842;border:1px solid rgba(245,200,66,0.2);">CULTURAL</span>
+                  <span style="font-size:9px;color:rgba(255,255,255,0.3);">2 days · 1 night</span>
+                </div>
+                <div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:800;margin-bottom:4px;">Sigiriya Rock Fortress</div>
+                <div style="font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:10px;">📍 Dambulla, Central Province</div>
+                <div style="display:flex;align-items:center;justify-content:space-between;">
+                  <div><span style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#F5C842;">LKR 8,500</span><span style="font-size:10px;color:rgba(255,255,255,0.3);">/person</span></div>
+                  <div style="background:#F5C842;color:#0A0A0A;border-radius:12px;padding:8px 16px;font-size:12px;font-weight:700;font-family:'Syne',sans-serif;">Book →</div>
+                </div>
+              </div>
+            </div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:18px;overflow:hidden;margin-bottom:12px;">
+              <div style="height:90px;background:linear-gradient(135deg,#1A2B0D,#2A4A1A);display:flex;align-items:center;justify-content:center;font-size:40px;position:relative;">
+                🐘
+                <div style="position:absolute;top:10px;left:10px;background:rgba(0,0,0,0.6);backdrop-filter:blur(10px);border-radius:100px;padding:4px 10px;font-size:10px;font-weight:700;color:#F5C842;">★ 4.8</div>
+              </div>
+              <div style="padding:12px">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+                  <span style="font-size:9px;font-weight:700;padding:3px 8px;border-radius:100px;background:rgba(74,222,128,0.1);color:#4ADE80;border:1px solid rgba(74,222,128,0.2);">WILDLIFE</span>
+                  <span style="font-size:9px;color:rgba(255,255,255,0.3);">3 days · 2 nights</span>
+                </div>
+                <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:800;margin-bottom:3px;">Yala Safari Adventure</div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-bottom:8px;">📍 Yala National Park</div>
+                <div style="display:flex;align-items:center;justify-content:space-between;">
+                  <div><span style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:#F5C842;">LKR 18,000</span><span style="font-size:10px;color:rgba(255,255,255,0.3);">/person</span></div>
+                  <div style="background:#F5C842;color:#0A0A0A;border-radius:10px;padding:7px 14px;font-size:11px;font-weight:700;font-family:'Syne',sans-serif;">Book →</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="nav-bar">
+          <div class="nav-item"><div class="nav-icon">🏠</div><div class="nav-text">Home</div></div>
+          <div class="nav-item"><div class="nav-icon">🗺️</div><div class="nav-text">Map</div></div>
+          <div class="nav-item active"><div class="nav-icon">🎒</div><div class="nav-text" style="color:#F5C842">Tours</div></div>
+          <div class="nav-item"><div class="nav-icon">💰</div><div class="nav-text">Expenses</div></div>
+          <div class="nav-item"><div class="nav-icon">👤</div><div class="nav-text">Profile</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="phone-label">Tour Browse</div>
+  </div>
+
+  <!-- TOUR DETAIL -->
+  <div class="phone-wrap">
+    <div class="phone-frame">
+      <div class="phone-screen">
+        <div class="tour-detail-hero">🏯
+          <div class="tour-detail-back">← </div>
+          <div class="tour-detail-fav">♡</div>
+        </div>
+        <div class="phone-screen-scroll" style="padding-top:0">
+          <div class="tour-detail-body" style="padding-top:14px">
+            <div class="tour-detail-tag">
+              <span class="tag tag-gold">CULTURAL</span>
+              <span class="tag tag-green">★ 4.9 (128 reviews)</span>
+            </div>
+            <div class="tour-detail-title">Sigiriya Rock Fortress</div>
+            <div class="tour-detail-location">📍 Dambulla, Central Province · 2D 1N</div>
+
+            <div class="info-row">
+              <div class="info-chip"><div class="info-chip-icon">📅</div><div class="info-chip-val">2 Days</div><div class="info-chip-label">Duration</div></div>
+              <div class="info-chip"><div class="info-chip-icon">👥</div><div class="info-chip-val">Max 12</div><div class="info-chip-label">Group</div></div>
+              <div class="info-chip"><div class="info-chip-icon">🌡</div><div class="info-chip-val">28°C</div><div class="info-chip-label">Temp</div></div>
+            </div>
+
+            <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;margin-bottom:8px;">About This Tour</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.5);line-height:1.6;margin-bottom:14px;">Experience one of Sri Lanka's most iconic landmarks. Ascend the ancient rock fortress of Sigiriya with a certified guide and discover its remarkable frescoes and gardens...</div>
+
+            <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;margin-bottom:8px;">Highlights</div>
+            <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:14px;">
+              <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,0.6);">✅ &nbsp;Licensed expert guide included</div>
+              <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,0.6);">✅ &nbsp;Hotel accommodation (1 night)</div>
+              <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,0.6);">✅ &nbsp;Transport (AC vehicle)</div>
+              <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,0.6);">✅ &nbsp;Entrance fees included</div>
+            </div>
+
+            <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;margin-bottom:8px;">Reviews</div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px;margin-bottom:80px;">
+              <div style="display:flex;gap:10px;align-items:center;margin-bottom:8px;">
+                <div style="width:32px;height:32px;border-radius:10px;background:#F5C842;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:#0A0A0A;">S</div>
+                <div><div style="font-size:12px;font-weight:600;">Shamla N.</div><div style="font-size:10px;color:rgba(255,255,255,0.3);">★★★★★ · 3 days ago</div></div>
+              </div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.5);line-height:1.5;">Absolutely breathtaking experience. The guide was knowledgeable and the view from the top was worth every step!</div>
+            </div>
+          </div>
+        </div>
+        <div class="price-book-bar">
+          <div class="price-col">
+            <div class="price-from">From</div>
+            <div class="price-main">LKR 8,500</div>
+          </div>
+          <button class="book-btn">Book Now →</button>
+        </div>
+      </div>
+    </div>
+    <div class="phone-label">Tour Detail</div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- SECTION 3: BOOKING FLOW -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="section-label"><h2>03 · Booking Flow</h2></div>
+<div class="screens-grid">
+
+  <!-- DATE SELECT -->
+  <div class="phone-wrap">
+    <div class="phone-frame">
+      <div class="phone-screen">
+        <div class="status-bar"><span class="status-time">9:41</span><div class="status-icons"><span>📶</span><span>🔋</span></div></div>
+        <div class="phone-screen-scroll">
+          <div class="screen-content" style="padding-top:8px">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+              <span style="font-size:18px;">←</span>
+              <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;">Choose <span style="color:#F5C842">Dates</span></div>
+            </div>
+            <div class="step-bar">
+              <div class="step done"></div>
+              <div class="step active"></div>
+              <div class="step"></div>
+              <div class="step"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+              <div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;">March 2025</div>
+              <div style="display:flex;gap:8px;">
+                <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:6px 10px;font-size:14px;">←</div>
+                <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:6px 10px;font-size:14px;">→</div>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:6px;">
+              <div style="text-align:center;font-size:10px;font-weight:700;color:rgba(255,255,255,0.3);padding:6px 0;">S</div>
+              <div style="text-align:center;font-size:10px;font-weight:700;color:rgba(255,255,255,0.3);padding:6px 0;">M</div>
+              <div style="text-align:center;font-size:10px;font-weight:700;color:rgba(255,255,255,0.3);padding:6px 0;">T</div>
+              <div style="text-align:center;font-size:10px;font-weight:700;color:rgba(255,255,255,0.3);padding:6px 0;">W</div>
+              <div style="text-align:center;font-size:10px;font-weight:700;color:rgba(255,255,255,0.3);padding:6px 0;">T</div>
+              <div style="text-align:center;font-size:10px;font-weight:700;color:rgba(255,255,255,0.3);padding:6px 0;">F</div>
+              <div style="text-align:center;font-size:10px;font-weight:700;color:rgba(255,255,255,0.3);padding:6px 0;">S</div>
+            </div>
+            <div class="date-grid">
+              <div class="date-cell"></div><div class="date-cell"></div><div class="date-cell"></div><div class="date-cell available">1</div><div class="date-cell available">2</div><div class="date-cell today">3</div><div class="date-cell available">4</div>
+              <div class="date-cell available">5</div><div class="date-cell available">6</div><div class="date-cell available">7</div><div class="date-cell selected">8</div><div class="date-cell available">9</div><div class="date-cell available">10</div><div class="date-cell available">11</div>
+              <div class="date-cell available">12</div><div class="date-cell available">13</div><div class="date-cell available">14</div><div class="date-cell available">15</div><div class="date-cell" style="color:rgba(255,255,255,0.15)">16</div><div class="date-cell" style="color:rgba(255,255,255,0.15)">17</div><div class="date-cell available">18</div>
+            </div>
+            <div style="background:rgba(245,200,66,0.06);border:1px solid rgba(245,200,66,0.15);border-radius:12px;padding:10px 14px;margin-bottom:16px;font-size:11px;color:rgba(255,255,255,0.5);">
+              🟡 &nbsp;Selected: <span style="color:#F5C842;font-weight:700;">March 8, 2025</span> &nbsp;·&nbsp; 2 nights
+            </div>
+
+            <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:10px;">Group Size</div>
+            <div class="guest-counter">
+              <div><div class="counter-info">Adults</div><div class="counter-sub">Age 13+</div></div>
+              <div class="counter-controls">
+                <div class="counter-btn">−</div>
+                <div class="counter-val">2</div>
+                <div class="counter-btn" style="background:#F5C842;border-color:#F5C842;color:#0A0A0A;">+</div>
+              </div>
+            </div>
+            <div class="guest-counter">
+              <div><div class="counter-info">Children</div><div class="counter-sub">Age 3–12</div></div>
+              <div class="counter-controls">
+                <div class="counter-btn">−</div>
+                <div class="counter-val">1</div>
+                <div class="counter-btn" style="background:#F5C842;border-color:#F5C842;color:#0A0A0A;">+</div>
+              </div>
+            </div>
+            <div style="height:20px;"></div>
+            <button class="btn-primary">Continue →</button>
+            <div style="height:20px"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="phone-label">Date & Group Selection</div>
+  </div>
+
+  <!-- PAYMENT -->
+  <div class="phone-wrap">
+    <div class="phone-frame">
+      <div class="phone-screen">
+        <div class="status-bar"><span class="status-time">9:41</span><div class="status-icons"><span>📶</span><span>🔋</span></div></div>
+        <div class="phone-screen-scroll">
+          <div class="screen-content" style="padding-top:8px">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+              <span style="font-size:18px;">←</span>
+              <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;">Payment <span style="color:#F5C842">Details</span></div>
+            </div>
+            <div class="step-bar">
+              <div class="step done"></div><div class="step done"></div><div class="step done"></div><div class="step active"></div>
+            </div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px;margin-bottom:14px;">
+              <div style="font-size:11px;color:rgba(255,255,255,0.3);margin-bottom:10px;font-weight:600;letter-spacing:0.05em;">ORDER SUMMARY</div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px;"><span style="color:rgba(255,255,255,0.5)">Sigiriya Rock Fortress</span><span>LKR 17,000</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px;"><span style="color:rgba(255,255,255,0.5)">2 Adults × LKR 8,500</span><span></span></div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px;"><span style="color:rgba(255,255,255,0.5)">1 Child × LKR 4,250</span><span>LKR 4,250</span></div>
+              <div style="height:1px;background:rgba(255,255,255,0.06);margin:10px 0;"></div>
+              <div style="display:flex;justify-content:space-between;"><span style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;">Total</span><span style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#F5C842;">LKR 21,250</span></div>
+            </div>
+            <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;margin-bottom:10px;">Payment Method</div>
+            <div class="input-field" style="margin-bottom:10px;border-color:rgba(245,200,66,0.3);">
+              <span class="icon">💳</span>
+              <span class="value">•••• •••• •••• 4242</span>
+              <span style="margin-left:auto;background:rgba(245,200,66,0.1);border-radius:6px;padding:3px 8px;font-size:10px;font-weight:700;color:#F5C842;">VISA</span>
+            </div>
+            <div style="display:flex;gap:10px;margin-bottom:14px;">
+              <div class="input-field" style="flex:1;margin-bottom:0;"><span class="placeholder">MM/YY</span></div>
+              <div class="input-field" style="flex:1;margin-bottom:0;"><span class="placeholder">CVV</span></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;padding:10px;background:rgba(74,222,128,0.06);border:1px solid rgba(74,222,128,0.15);border-radius:10px;">
+              <span style="font-size:14px;">🔒</span>
+              <span style="font-size:11px;color:rgba(255,255,255,0.4);">Your payment is secured with 256-bit SSL encryption</span>
+            </div>
+            <button class="btn-primary">Pay LKR 21,250 →</button>
+            <div style="text-align:center;margin-top:10px;font-size:11px;color:rgba(255,255,255,0.3);">or pay with</div>
+            <div style="display:flex;gap:10px;margin-top:10px;margin-bottom:20px;">
+              <button class="btn-ghost" style="flex:1;padding:12px;">🌐 Google Pay</button>
+              <button class="btn-ghost" style="flex:1;padding:12px;">🍎 Apple Pay</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="phone-label">Payment</div>
+  </div>
+
+  <!-- CONFIRMATION -->
+  <div class="phone-wrap">
+    <div class="phone-frame">
+      <div class="phone-screen">
+        <div class="status-bar"><span class="status-time">9:41</span><div class="status-icons"><span>📶</span><span>🔋</span></div></div>
+        <div class="phone-screen-scroll">
+          <div style="display:flex;flex-direction:column;align-items:center;padding:40px 20px 20px;text-align:center;">
+            <div style="width:72px;height:72px;border-radius:24px;background:rgba(74,222,128,0.15);border:2px solid rgba(74,222,128,0.4);display:flex;align-items:center;justify-content:center;font-size:32px;margin-bottom:16px;">✅</div>
+            <div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;margin-bottom:6px;">Booking <span style="color:#4ADE80">Confirmed!</span></div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:24px;line-height:1.5;">Your adventure to Sigiriya Rock Fortress has been booked. Check your email for details.</div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:20px;width:100%;margin-bottom:14px;">
+              <div style="font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:0.1em;margin-bottom:14px;font-weight:600;">BOOKING REFERENCE</div>
+              <div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:#F5C842;letter-spacing:4px;margin-bottom:14px;">BMB-4829</div>
+              <div style="height:1px;background:rgba(255,255,255,0.06);margin-bottom:14px;"></div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:8px;"><span style="color:rgba(255,255,255,0.4);">Tour</span><span style="font-weight:600;">Sigiriya Rock Fortress</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:8px;"><span style="color:rgba(255,255,255,0.4);">Date</span><span style="font-weight:600;">March 8, 2025</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:8px;"><span style="color:rgba(255,255,255,0.4);">Group</span><span style="font-weight:600;">2 Adults, 1 Child</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;"><span style="color:rgba(255,255,255,0.4);">Total Paid</span><span style="font-weight:700;color:#F5C842;">LKR 21,250</span></div>
+            </div>
+            <div style="width:200px;height:2px;background:repeating-linear-gradient(90deg,#F5C842 0,#F5C842 8px,transparent 8px,transparent 16px);margin-bottom:14px;border-radius:100px;"></div>
+            <button class="btn-primary" style="margin-bottom:10px;">View Booking Details</button>
+            <button class="btn-ghost">Back to Home</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="phone-label">Booking Confirmed</div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- SECTION 4: MAP -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="section-label"><h2>04 · Map, Navigation & Places</h2></div>
+<div class="screens-grid">
+
+  <!-- MAP -->
+  <div class="phone-wrap">
+    <div class="phone-frame">
+      <div class="phone-screen">
+        <div class="map-bg">
+          <div class="map-grid"></div>
+          <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.2" viewBox="0 0 300 620">
+            <path d="M40 200 Q150 180 260 220" stroke="rgba(255,255,255,0.3)" stroke-width="6" fill="none" stroke-linecap="round"/>
+            <path d="M0 310 Q100 290 200 320 Q250 340 300 300" stroke="rgba(255,255,255,0.2)" stroke-width="4" fill="none" stroke-linecap="round"/>
+            <path d="M150 100 Q180 200 170 350" stroke="rgba(255,255,255,0.15)" stroke-width="8" fill="none" stroke-linecap="round"/>
+            <path d="M20 400 Q80 390 120 380 Q200 360 280 400" stroke="rgba(255,255,255,0.25)" stroke-width="3" fill="none" stroke-linecap="round"/>
+          </svg>
+          <!-- Pins -->
+          <div class="map-pin active" style="left:130px;top:160px">
+            <div class="map-pin-dot"><span>📍</span></div>
+            <div class="map-pin-label">You are here</div>
+          </div>
+          <div class="map-pin poi" style="left:60px;top:240px">
+            <div class="map-pin-dot" style="background:rgba(245,200,66,0.8);border:none;"><span>🏨</span></div>
+            <div class="map-pin-label" style="background:rgba(245,200,66,0.9);color:#0A0A0A;">Cinnamon Grand</div>
+          </div>
+          <div class="map-pin poi" style="left:200px;top:200px">
+            <div class="map-pin-dot" style="background:rgba(96,165,250,0.8);border:none;"><span>🏯</span></div>
+            <div class="map-pin-label" style="background:rgba(96,165,250,0.9);">Old Fort</div>
+          </div>
+          <div class="map-pin poi" style="left:170px;top:310px">
+            <div class="map-pin-dot" style="background:rgba(74,222,128,0.8);border:none;"><span>🌊</span></div>
+            <div class="map-pin-label" style="background:rgba(74,222,128,0.9);color:#0A0A0A;">Beach</div>
+          </div>
+        </div>
+        <div class="map-search-bar">
+          <span>🔍</span>
+          <span>Search places, hotels, tours...</span>
+          <div style="margin-left:auto;background:rgba(245,200,66,0.1);border:1px solid rgba(245,200,66,0.2);border-radius:8px;padding:5px 8px;font-size:12px;color:#F5C842;">⚙</div>
+        </div>
+        <div class="status-bar" style="position:absolute;top:0;left:0;right:0;z-index:20;"><span class="status-time" style="color:white">9:41</span><div class="status-icons"><span style="color:white">📶</span><span style="color:white">🔋</span></div></div>
+        <div style="position:absolute;right:14px;bottom:220px;display:flex;flex-direction:column;gap:8px;z-index:40;">
+          <div style="width:38px;height:38px;background:rgba(22,22,22,0.95);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.1);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;">➕</div>
+          <div style="width:38px;height:38px;background:rgba(22,22,22,0.95);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.1);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;">➖</div>
+          <div style="width:38px;height:38px;background:rgba(245,200,66,0.9);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;">📍</div>
+        </div>
+        <div class="map-sheet">
+          <div class="sheet-handle"></div>
+          <div style="display:flex;gap:8px;overflow-x:auto;margin-bottom:12px;">
+            <div style="background:rgba(245,200,66,0.1);border:1px solid rgba(245,200,66,0.2);border-radius:100px;padding:7px 14px;font-size:11px;font-weight:700;color:#F5C842;white-space:nowrap;flex-shrink:0;">🏨 Hotels</div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:100px;padding:7px 14px;font-size:11px;font-weight:600;color:rgba(255,255,255,0.5);white-space:nowrap;flex-shrink:0;">🏯 Attractions</div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:100px;padding:7px 14px;font-size:11px;font-weight:600;color:rgba(255,255,255,0.5);white-space:nowrap;flex-shrink:0;">🍽 Food</div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:100px;padding:7px 14px;font-size:11px;font-weight:600;color:rgba(255,255,255,0.5);white-space:nowrap;flex-shrink:0;">🌊 Beach</div>
+          </div>
+          <div class="place-card-h">
+            <div class="place-icon">🏨</div>
+            <div class="place-info">
+              <div class="place-name">Cinnamon Grand Colombo</div>
+              <div class="place-dist">📍 1.2 km away · 5 ★ Hotel</div>
+            </div>
+            <div class="place-rating">★ 4.8</div>
+          </div>
+          <div class="place-card-h">
+            <div class="place-icon">🏯</div>
+            <div class="place-info">
+              <div class="place-name">Galle Face Green</div>
+              <div class="place-dist">📍 0.8 km away · Park</div>
+            </div>
+            <div class="place-rating">★ 4.6</div>
+          </div>
+        </div>
+        <div class="nav-bar">
+          <div class="nav-item"><div class="nav-icon">🏠</div><div class="nav-text">Home</div></div>
+          <div class="nav-item active"><div class="nav-icon">🗺️</div><div class="nav-text" style="color:#F5C842">Map</div></div>
+          <div class="nav-item"><div class="nav-icon">🎒</div><div class="nav-text">Tours</div></div>
+          <div class="nav-item"><div class="nav-icon">💰</div><div class="nav-text">Expenses</div></div>
+          <div class="nav-item"><div class="nav-icon">👤</div><div class="nav-text">Profile</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="phone-label">Map & Navigation</div>
+  </div>
+
+  <!-- PLACE DETAIL -->
+  <div class="phone-wrap">
+    <div class="phone-frame">
+      <div class="phone-screen">
+        <div class="status-bar"><span class="status-time">9:41</span><div class="status-icons"><span>📶</span><span>🔋</span></div></div>
+        <div class="phone-screen-scroll">
+          <div style="height:160px;background:linear-gradient(135deg,#0D1F2B,#1A3A4A);display:flex;align-items:center;justify-content:center;font-size:56px;position:relative;">
+            🏯
+            <div style="position:absolute;top:10px;left:12px;background:rgba(0,0,0,0.6);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:6px 10px;font-size:14px;">←</div>
+          </div>
+          <div style="padding:16px 18px 80px;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
+              <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;">Galle Fort</div>
+              <span style="background:rgba(74,222,128,0.1);color:#4ADE80;font-size:12px;font-weight:700;padding:4px 10px;border-radius:100px;">★ 4.7</span>
+            </div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.4);margin-bottom:14px;">📍 Galle, Southern Province · Heritage Site</div>
+            <div style="display:flex;gap:8px;margin-bottom:14px;">
+              <div style="flex:1;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:10px;text-align:center;"><div style="font-size:14px;margin-bottom:4px;">🕐</div><div style="font-family:'Syne',sans-serif;font-size:11px;font-weight:700;">8am–6pm</div><div style="font-size:9px;color:rgba(255,255,255,0.3);">Hours</div></div>
+              <div style="flex:1;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:10px;text-align:center;"><div style="font-size:14px;margin-bottom:4px;">👥</div><div style="font-family:'Syne',sans-serif;font-size:11px;font-weight:700;">Popular</div><div style="font-size:9px;color:rgba(255,255,255,0.3);">Crowd</div></div>
+              <div style="flex:1;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:10px;text-align:center;"><div style="font-size:14px;margin-bottom:4px;">🆓</div><div style="font-family:'Syne',sans-serif;font-size:11px;font-weight:700;">Free</div><div style="font-size:9px;color:rgba(255,255,255,0.3);">Entry</div></div>
+            </div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.5);line-height:1.6;margin-bottom:14px;">A UNESCO World Heritage Site, the Galle Fort is a well-preserved colonial old town in the south of Sri Lanka...</div>
+            <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;margin-bottom:10px;">Nearby Tours</div>
+            <div class="tour-card" style="width:100%;margin-bottom:80px;">
+              <div style="display:flex;gap:12px;padding:12px;">
+                <div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#0D1F2B,#1A3A4A);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">🏯</div>
+                <div style="flex:1;"><div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;">Galle Fort Walking Tour</div><div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:2px;">3 hours · LKR 2,500/person</div></div>
+                <div style="background:#F5C842;color:#0A0A0A;border-radius:8px;padding:6px 10px;font-size:11px;font-weight:700;align-self:center;">Book</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="price-book-bar">
+          <button class="book-btn" style="background:rgba(245,200,66,0.15);color:#F5C842;border:1px solid rgba(245,200,66,0.3);">🗺 Get Directions</button>
+          <button class="book-btn">Book Tour →</button>
+        </div>
+      </div>
+    </div>
+    <div class="phone-label">Place Detail</div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- SECTION 5: EXPENSE TRACKING -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="section-label"><h2>05 · Expense Tracking & Currency</h2></div>
+<div class="screens-grid">
+
+  <!-- EXPENSES -->
+  <div class="phone-wrap">
+    <div class="phone-frame">
+      <div class="phone-screen">
+        <div class="status-bar"><span class="status-time">9:41</span><div class="status-icons"><span>📶</span><span>🔋</span></div></div>
+        <div class="phone-screen-scroll">
+          <div class="screen-content" style="padding-top:8px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+              <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;">My <span style="color:#F5C842">Expenses</span></div>
+              <div style="font-size:22px;">📊</div>
+            </div>
+            <div class="expense-hero">
+              <div class="expense-label">Total Spent · March 2025</div>
+              <div class="expense-amount">LKR 45,820</div>
+              <div class="expense-sub">Budget: LKR 60,000 &nbsp;·&nbsp; <span style="color:#4ADE80">LKR 14,180 remaining</span></div>
+              <div style="margin-top:12px;background:rgba(0,0,0,0.3);border-radius:100px;height:6px;overflow:hidden;">
+                <div style="width:76%;height:100%;background:linear-gradient(90deg,#F5C842,#E8B800);border-radius:100px;"></div>
+              </div>
+            </div>
+
+            <div class="category-chips">
+              <div class="chip active"><div class="chip-icon">🍽</div><div class="chip-label">Food</div></div>
+              <div class="chip"><div class="chip-icon">🚗</div><div class="chip-label">Transport</div></div>
+              <div class="chip"><div class="chip-icon">🏨</div><div class="chip-label">Hotel</div></div>
+              <div class="chip"><div class="chip-icon">🛍</div><div class="chip-label">Shopping</div></div>
+              <div class="chip"><div class="chip-icon">🎯</div><div class="chip-label">Activity</div></div>
+              <div class="chip"><div class="chip-icon">➕</div><div class="chip-label">Other</div></div>
+            </div>
+
+            <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:10px;">Recent Transactions</div>
+
+            <div class="expense-item">
+              <div class="expense-item-icon" style="background:rgba(245,200,66,0.1);">🍽</div>
+              <div class="expense-item-info"><div class="expense-item-name">Ministry of Crab</div><div class="expense-item-date">Mar 8 · Food & Dining</div></div>
+              <div class="expense-item-amount" style="color:#F87171;">− LKR 3,450</div>
+            </div>
+            <div class="expense-item">
+              <div class="expense-item-icon" style="background:rgba(96,165,250,0.1);">🚗</div>
+              <div class="expense-item-info"><div class="expense-item-name">Taxi to Sigiriya</div><div class="expense-item-date">Mar 8 · Transport</div></div>
+              <div class="expense-item-amount" style="color:#F87171;">− LKR 6,200</div>
+            </div>
+            <div class="expense-item">
+              <div class="expense-item-icon" style="background:rgba(74,222,128,0.1);">🏨</div>
+              <div class="expense-item-info"><div class="expense-item-name">Sigiriya Village Hotel</div><div class="expense-item-date">Mar 8 · Accommodation</div></div>
+              <div class="expense-item-amount" style="color:#F87171;">− LKR 12,000</div>
+            </div>
+            <div class="expense-item">
+              <div class="expense-item-icon" style="background:rgba(251,146,60,0.1);">🎯</div>
+              <div class="expense-item-info"><div class="expense-item-name">Sigiriya Entrance Fee</div><div class="expense-item-date">Mar 9 · Activities</div></div>
+              <div class="expense-item-amount" style="color:#F87171;">− LKR 4,500</div>
+            </div>
+            <div style="height:20px;"></div>
+          </div>
+        </div>
+        <div class="fab">＋</div>
+        <div class="nav-bar">
+          <div class="nav-item"><div class="nav-icon">🏠</div><div class="nav-text">Home</div></div>
+          <div class="nav-item"><div class="nav-icon">🗺️</div><div class="nav-text">Map</div></div>
+          <div class="nav-item"><div class="nav-icon">🎒</div><div class="nav-text">Tours</div></div>
+          <div class="nav-item active"><div class="nav-icon">💰</div><div class="nav-text" style="color:#F5C842">Expenses</div></div>
+          <div class="nav-item"><div class="nav-icon">👤</div><div class="nav-text">Profile</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="phone-label">Expense Tracker</div>
+  </div>
+
+  <!-- ADD EXPENSE -->
+  <div class="phone-wrap">
+    <div class="phone-frame">
+      <div class="phone-screen">
+        <div style="background:rgba(16,16,16,0.97);position:absolute;inset:0;z-index:60;display:flex;flex-direction:column;">
+          <div style="height:44px;background:rgba(0,0,0,0.3);padding-top:16px;display:flex;align-items:center;justify-content:space-between;padding:16px 20px 0;">
+            <span style="font-size:14px;color:rgba(255,255,255,0.4);">Cancel</span>
+            <span style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;">Add Expense</span>
+            <span style="font-size:14px;color:#F5C842;font-weight:600;">Save</span>
+          </div>
+          <div style="padding:24px 20px;flex:1;overflow-y:auto;">
+            <div style="text-align:center;margin-bottom:24px;">
+              <div style="font-size:64px;margin-bottom:8px;">🍽</div>
+              <div style="font-family:'Syne',sans-serif;font-size:48px;font-weight:800;color:#F5C842;">3,450</div>
+              <div style="font-size:14px;color:rgba(255,255,255,0.3);">LKR — Sri Lankan Rupee</div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px;padding:0 10px;">
+              <div style="aspect-ratio:1;background:var(--card);border:1px solid var(--border);border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;">
+                <span style="font-size:20px;">🍽</span><span style="font-size:9px;color:rgba(255,255,255,0.4);">Food</span>
+              </div>
+              <div style="aspect-ratio:1;background:rgba(245,200,66,0.1);border:1px solid rgba(245,200,66,0.3);border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;">
+                <span style="font-size:20px;">🚗</span><span style="font-size:9px;color:#F5C842;font-weight:700;">Transport</span>
+              </div>
+              <div style="aspect-ratio:1;background:var(--card);border:1px solid var(--border);border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;">
+                <span style="font-size:20px;">🏨</span><span style="font-size:9px;color:rgba(255,255,255,0.4);">Hotel</span>
+              </div>
+              <div style="aspect-ratio:1;background:var(--card);border:1px solid var(--border);border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;">
+                <span style="font-size:20px;">🛍</span><span style="font-size:9px;color:rgba(255,255,255,0.4);">Shopping</span>
+              </div>
+              <div style="aspect-ratio:1;background:var(--card);border:1px solid var(--border);border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;">
+                <span style="font-size:20px;">🎯</span><span style="font-size:9px;color:rgba(255,255,255,0.4);">Activity</span>
+              </div>
+              <div style="aspect-ratio:1;background:var(--card);border:1px solid var(--border);border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;">
+                <span style="font-size:20px;">⋯</span><span style="font-size:9px;color:rgba(255,255,255,0.4);">Other</span>
+              </div>
+            </div>
+            <div class="input-field"><span class="icon">📝</span><span class="placeholder">Description (optional)</span></div>
+            <div class="input-field"><span class="icon">📅</span><span class="value">March 8, 2025</span></div>
+            <button class="btn-primary" style="margin-top:10px;">Add Expense →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="phone-label">Add Expense</div>
+  </div>
+
+  <!-- CURRENCY CONVERTER -->
+  <div class="phone-wrap">
+    <div class="phone-frame">
+      <div class="phone-screen">
+        <div class="status-bar"><span class="status-time">9:41</span><div class="status-icons"><span>📶</span><span>🔋</span></div></div>
+        <div class="phone-screen-scroll">
+          <div class="screen-content" style="padding-top:8px">
+            <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;margin-bottom:4px;">Currency <span style="color:#F5C842">Converter</span></div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.3);margin-bottom:18px;">Live rates · Updated 2 mins ago</div>
+
+            <div class="currency-card">
+              <div class="currency-from-label">FROM</div>
+              <div class="currency-amount-row">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <span class="currency-flag">🇱🇰</span>
+                  <div>
+                    <div class="currency-code">LKR</div>
+                    <div style="font-size:10px;color:rgba(255,255,255,0.3);">Sri Lankan Rupee</div>
+                  </div>
+                </div>
+                <div class="currency-input-val">10,000</div>
+              </div>
+            </div>
+
+            <div style="display:flex;justify-content:center;margin:-6px 0;z-index:10;position:relative;">
+              <div class="swap-btn">⇅</div>
+            </div>
+
+            <div class="currency-card" style="margin-top:0">
+              <div class="currency-from-label">TO</div>
+              <div class="currency-amount-row">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <span class="currency-flag">🇺🇸</span>
+                  <div>
+                    <div class="currency-code">USD</div>
+                    <div style="font-size:10px;color:rgba(255,255,255,0.3);">US Dollar</div>
+                  </div>
+                </div>
+                <div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:#4ADE80;">31.25</div>
+              </div>
+            </div>
+
+            <div class="rate-info" style="margin:14px 0;">
+              <div class="rate-text">1 USD = 320.00 LKR</div>
+              <div style="font-size:10px;color:rgba(255,255,255,0.3);margin-top:2px;">Updated: Feb 22, 2025 · 09:39 AM</div>
+            </div>
+
+            <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;margin-bottom:10px;">Popular Currencies</div>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px 14px;">
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <span style="font-size:20px;">🇬🇧</span>
+                  <div><div style="font-size:13px;font-weight:600;">GBP</div><div style="font-size:10px;color:rgba(255,255,255,0.3);">British Pound</div></div>
+                </div>
+                <div style="text-align:right;"><div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;">24.96</div><div style="font-size:10px;color:rgba(255,255,255,0.3);">per 10,000 LKR</div></div>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px 14px;">
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <span style="font-size:20px;">🇪🇺</span>
+                  <div><div style="font-size:13px;font-weight:600;">EUR</div><div style="font-size:10px;color:rgba(255,255,255,0.3);">Euro</div></div>
+                </div>
+                <div style="text-align:right;"><div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;">29.07</div><div style="font-size:10px;color:rgba(255,255,255,0.3);">per 10,000 LKR</div></div>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px 14px;">
+                <div style="display:flex;align-items:center;gap:10px;">
+                  <span style="font-size:20px;">🇦🇺</span>
+                  <div><div style="font-size:13px;font-weight:600;">AUD</div><div style="font-size:10px;color:rgba(255,255,255,0.3);">Australian Dollar</div></div>
+                </div>
+                <div style="text-align:right;"><div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;">47.18</div><div style="font-size:10px;color:rgba(255,255,255,0.3);">per 10,000 LKR</div></div>
+              </div>
+            </div>
+            <div style="height:80px;"></div>
+          </div>
+        </div>
+        <div class="nav-bar">
+          <div class="nav-item"><div class="nav-icon">🏠</div><div class="nav-text">Home</div></div>
+          <div class="nav-item"><div class="nav-icon">🗺️</div><div class="nav-text">Map</div></div>
+          <div class="nav-item"><div class="nav-icon">🎒</div><div class="nav-text">Tours</div></div>
+          <div class="nav-item active"><div class="nav-icon">💰</div><div class="nav-text" style="color:#F5C842">Expenses</div></div>
+          <div class="nav-item"><div class="nav-icon">👤</div><div class="nav-text">Profile</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="phone-label">Currency Converter</div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- SECTION 6: PROFILE & BOOKINGS -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="section-label"><h2>06 · Profile, Bookings & Notifications</h2></div>
+<div class="screens-grid">
+
+  <!-- PROFILE -->
+  <div class="phone-wrap">
+    <div class="phone-frame">
+      <div class="phone-screen">
+        <div class="status-bar"><span class="status-time">9:41</span><div class="status-icons"><span>📶</span><span>🔋</span></div></div>
+        <div class="phone-screen-scroll">
+          <div class="screen-content" style="padding-top:8px">
+            <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;margin-bottom:14px;">My <span style="color:#F5C842">Profile</span></div>
+            <div class="profile-hero">
+              <div class="avatar">AV</div>
+              <div>
+                <div class="profile-name">Avishka Bambaradeniya</div>
+                <div class="profile-email">avishka@email.com</div>
+                <div class="gold-pill">✦ Premium Member</div>
+              </div>
+              <div style="margin-left:auto;font-size:14px;color:rgba(255,255,255,0.3);">✎</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px;">
+              <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px;text-align:center;"><div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:#F5C842;">7</div><div style="font-size:10px;color:rgba(255,255,255,0.3);">Tours Booked</div></div>
+              <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px;text-align:center;"><div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:#F5C842;">12</div><div style="font-size:10px;color:rgba(255,255,255,0.3);">Places Saved</div></div>
+              <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px;text-align:center;"><div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:#F5C842;">★4.9</div><div style="font-size:10px;color:rgba(255,255,255,0.3);">Avg Rating</div></div>
+            </div>
+            <div style="font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:rgba(255,255,255,0.3);letter-spacing:0.1em;margin-bottom:10px;">ACCOUNT</div>
+            <div class="profile-menu-item">
+              <div class="pmi-icon" style="background:rgba(245,200,66,0.1);">🎒</div>
+              <div class="pmi-info"><div class="pmi-label">My Bookings</div><div class="pmi-sub">3 active bookings</div></div>
+              <div class="pmi-arrow">›</div>
+            </div>
+            <div class="profile-menu-item">
+              <div class="pmi-icon" style="background:rgba(96,165,250,0.1);">📍</div>
+              <div class="pmi-info"><div class="pmi-label">Saved Places</div><div class="pmi-sub">12 places</div></div>
+              <div class="pmi-arrow">›</div>
+            </div>
+            <div class="profile-menu-item">
+              <div class="pmi-icon" style="background:rgba(74,222,128,0.1);">💰</div>
+              <div class="pmi-info"><div class="pmi-label">Expense Reports</div><div class="pmi-sub">View monthly summaries</div></div>
+              <div class="pmi-arrow">›</div>
+            </div>
+            <div style="font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:rgba(255,255,255,0.3);letter-spacing:0.1em;margin:14px 0 10px;">SETTINGS</div>
+            <div class="profile-menu-item">
+              <div class="pmi-icon" style="background:rgba(251,146,60,0.1);">🔔</div>
+              <div class="pmi-info"><div class="pmi-label">Notifications</div><div class="pmi-sub">Manage alerts</div></div>
+              <div class="pmi-arrow">›</div>
+            </div>
+            <div class="profile-menu-item">
+              <div class="pmi-icon" style="background:rgba(167,139,250,0.1);">🔒</div>
+              <div class="pmi-info"><div class="pmi-label">Privacy & Security</div><div class="pmi-sub">Password, 2FA</div></div>
+              <div class="pmi-arrow">›</div>
+            </div>
+            <div class="profile-menu-item" style="border-color:rgba(248,113,113,0.15);background:rgba(248,113,113,0.06);">
+              <div class="pmi-icon" style="background:rgba(248,113,113,0.1);">🚪</div>
+              <div class="pmi-info"><div class="pmi-label" style="color:#F87171;">Sign Out</div></div>
+              <div class="pmi-arrow">›</div>
+            </div>
+            <div style="height:80px;"></div>
+          </div>
+        </div>
+        <div class="nav-bar">
+          <div class="nav-item"><div class="nav-icon">🏠</div><div class="nav-text">Home</div></div>
+          <div class="nav-item"><div class="nav-icon">🗺️</div><div class="nav-text">Map</div></div>
+          <div class="nav-item"><div class="nav-icon">🎒</div><div class="nav-text">Tours</div></div>
+          <div class="nav-item"><div class="nav-icon">💰</div><div class="nav-text">Expenses</div></div>
+          <div class="nav-item active"><div class="nav-icon">👤</div><div class="nav-text" style="color:#F5C842">Profile</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="phone-label">User Profile</div>
+  </div>
+
+  <!-- MY BOOKINGS -->
+  <div class="phone-wrap">
+    <div class="phone-frame">
+      <div class="phone-screen">
+        <div class="status-bar"><span class="status-time">9:41</span><div class="status-icons"><span>📶</span><span>🔋</span></div></div>
+        <div class="phone-screen-scroll">
+          <div class="screen-content" style="padding-top:8px">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+              <span style="font-size:18px;">←</span>
+              <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;">My <span style="color:#F5C842">Bookings</span></div>
+            </div>
+            <div class="filter-chips" style="margin-bottom:14px;">
+              <div class="filter-chip active">🗓 All</div>
+              <div class="filter-chip">✅ Confirmed</div>
+              <div class="filter-chip">⏳ Pending</div>
+              <div class="filter-chip">✗ Cancelled</div>
+            </div>
+            <div class="booking-card">
+              <div class="booking-thumb" style="background:linear-gradient(135deg,#0D2B1F,#1A4A33);">🏯</div>
+              <div class="booking-info">
+                <div class="booking-title">Sigiriya Rock Fortress</div>
+                <div class="booking-date">📅 March 8–9, 2025 · 2 Adults, 1 Child</div>
+                <div class="booking-status status-confirmed">● Confirmed</div>
+              </div>
+              <div class="booking-price">LKR<br>21,250</div>
+            </div>
+            <div class="booking-card">
+              <div class="booking-thumb" style="background:linear-gradient(135deg,#1A2B0D,#2A4A1A);">🐘</div>
+              <div class="booking-info">
+                <div class="booking-title">Yala Safari Adventure</div>
+                <div class="booking-date">📅 March 15–17, 2025 · 2 Adults</div>
+                <div class="booking-status status-pending">● Pending</div>
+              </div>
+              <div class="booking-price">LKR<br>36,000</div>
+            </div>
+            <div class="booking-card">
+              <div class="booking-thumb" style="background:linear-gradient(135deg,#2B1A0D,#4A2A1A);">🌊</div>
+              <div class="booking-info">
+                <div class="booking-title">Negombo Beach Day</div>
+                <div class="booking-date">📅 Feb 28, 2025 · 3 Adults</div>
+                <div class="booking-status status-confirmed">● Confirmed</div>
+              </div>
+              <div class="booking-price">LKR<br>4,500</div>
+            </div>
+            <div class="booking-card" style="opacity:0.5">
+              <div class="booking-thumb" style="background:linear-gradient(135deg,#1F1F1F,#2A2A2A);">🏖</div>
+              <div class="booking-info">
+                <div class="booking-title">Galle Fort Walking</div>
+                <div class="booking-date">📅 Jan 15, 2025 · Completed</div>
+                <div class="booking-status" style="background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.4);">✓ Completed</div>
+              </div>
+              <div class="booking-price" style="color:rgba(255,255,255,0.4);">LKR<br>2,500</div>
+            </div>
+            <div style="height:20px;"></div>
+          </div>
+        </div>
+        <div class="nav-bar">
+          <div class="nav-item"><div class="nav-icon">🏠</div><div class="nav-text">Home</div></div>
+          <div class="nav-item"><div class="nav-icon">🗺️</div><div class="nav-text">Map</div></div>
+          <div class="nav-item"><div class="nav-icon">🎒</div><div class="nav-text">Tours</div></div>
+          <div class="nav-item"><div class="nav-icon">💰</div><div class="nav-text">Expenses</div></div>
+          <div class="nav-item active"><div class="nav-icon">👤</div><div class="nav-text" style="color:#F5C842">Profile</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="phone-label">My Bookings</div>
+  </div>
+
+  <!-- NOTIFICATIONS -->
+  <div class="phone-wrap">
+    <div class="phone-frame">
+      <div class="phone-screen">
+        <div class="status-bar"><span class="status-time">9:41</span><div class="status-icons"><span>📶</span><span>🔋</span></div></div>
+        <div class="phone-screen-scroll">
+          <div class="screen-content" style="padding-top:8px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+              <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;">Notifications <span style="color:#F5C842">🔔</span></div>
+              <span style="font-size:12px;color:#F5C842;font-weight:600;">Mark all read</span>
+            </div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.3);font-weight:700;letter-spacing:0.08em;margin-bottom:8px;">TODAY</div>
+            <div class="notif-item unread">
+              <div class="notif-icon-wrap" style="background:rgba(74,222,128,0.1);">✅</div>
+              <div class="notif-content">
+                <div class="notif-title">Booking Confirmed!</div>
+                <div class="notif-msg">Your Sigiriya Rock Fortress tour on March 8 is confirmed. Ref: BMB-4829</div>
+                <div class="notif-time">2 mins ago</div>
+              </div>
+              <div class="notif-dot"></div>
+            </div>
+            <div class="notif-item unread">
+              <div class="notif-icon-wrap" style="background:rgba(245,200,66,0.1);">🎉</div>
+              <div class="notif-content">
+                <div class="notif-title">Special Offer!</div>
+                <div class="notif-msg">20% off Yala Safari packages this weekend. Book before it's gone!</div>
+                <div class="notif-time">1 hour ago</div>
+              </div>
+              <div class="notif-dot"></div>
+            </div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.3);font-weight:700;letter-spacing:0.08em;margin:12px 0 8px;">YESTERDAY</div>
+            <div class="notif-item read">
+              <div class="notif-icon-wrap" style="background:rgba(96,165,250,0.1);">💳</div>
+              <div class="notif-content">
+                <div class="notif-title">Payment Processed</div>
+                <div class="notif-msg">LKR 21,250 payment for Sigiriya tour was successful.</div>
+                <div class="notif-time">Yesterday · 3:42 PM</div>
+              </div>
+            </div>
+            <div class="notif-item read">
+              <div class="notif-icon-wrap" style="background:rgba(251,146,60,0.1);">⏰</div>
+              <div class="notif-content">
+                <div class="notif-title">Tour Reminder</div>
+                <div class="notif-msg">Your Ella Train Ride departs tomorrow at 7:30 AM. Don't be late!</div>
+                <div class="notif-time">Yesterday · 9:00 AM</div>
+              </div>
+            </div>
+            <div class="notif-item read">
+              <div class="notif-icon-wrap" style="background:rgba(167,139,250,0.1);">⭐</div>
+              <div class="notif-content">
+                <div class="notif-title">Rate Your Experience</div>
+                <div class="notif-msg">How was your Galle Fort Walking tour? Share your feedback!</div>
+                <div class="notif-time">2 days ago</div>
+              </div>
+            </div>
+            <div style="height:80px;"></div>
+          </div>
+        </div>
+        <div class="nav-bar">
+          <div class="nav-item"><div class="nav-icon">🏠</div><div class="nav-text">Home</div></div>
+          <div class="nav-item"><div class="nav-icon">🗺️</div><div class="nav-text">Map</div></div>
+          <div class="nav-item"><div class="nav-icon">🎒</div><div class="nav-text">Tours</div></div>
+          <div class="nav-item"><div class="nav-icon">💰</div><div class="nav-text">Expenses</div></div>
+          <div class="nav-item active"><div class="nav-icon">👤</div><div class="nav-text" style="color:#F5C842">Profile</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="phone-label">Notifications</div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- SECTION 7: ADMIN PANEL -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="section-label"><h2>07 · Admin Panel & Reporting</h2></div>
+<div class="screens-grid">
+
+  <!-- ADMIN DASHBOARD -->
+  <div class="phone-wrap">
+    <div class="phone-frame">
+      <div class="phone-screen">
+        <div class="status-bar" style="background:rgba(10,10,10,0.9)"><span class="status-time">9:41</span><div class="status-icons"><span>📶</span><span>🔋</span></div></div>
+        <div class="phone-screen-scroll">
+          <div class="screen-content" style="padding-top:8px">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+              <div>
+                <div style="font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:0.05em;">ADMIN PANEL</div>
+                <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;">Dashboard <span style="color:#F5C842">Overview</span></div>
+              </div>
+              <div style="width:36px;height:36px;border-radius:12px;background:#F5C842;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:#0A0A0A;">OS</div>
+            </div>
+            <div style="background:rgba(245,200,66,0.06);border:1px solid rgba(245,200,66,0.15);border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:8px;margin-bottom:14px;">
+              <span style="font-size:14px;">📊</span>
+              <span style="font-size:11px;color:rgba(255,255,255,0.5);">Live system data · Auto-refreshing every 30s</span>
+              <span style="margin-left:auto;width:8px;height:8px;border-radius:50%;background:#4ADE80;box-shadow:0 0 6px #4ADE80;"></span>
+            </div>
+
+            <div class="admin-kpi-grid">
+              <div class="kpi-card primary">
+                <div class="kpi-icon-row"><div class="kpi-icon">💰</div><div class="kpi-trend" style="background:rgba(0,0,0,0.15);color:#0A0A0A;">↑ 18%</div></div>
+                <div class="kpi-value">LKR 1.2M</div>
+                <div class="kpi-label">Revenue · March</div>
+              </div>
+              <div class="kpi-card">
+                <div class="kpi-icon-row"><div class="kpi-icon">🎒</div><div class="kpi-trend trend-up">↑ 12%</div></div>
+                <div class="kpi-value">847</div>
+                <div class="kpi-label">Total Bookings</div>
+              </div>
+              <div class="kpi-card">
+                <div class="kpi-icon-row"><div class="kpi-icon">👥</div><div class="kpi-trend trend-up">↑ 8%</div></div>
+                <div class="kpi-value">2,341</div>
+                <div class="kpi-label">Registered Users</div>
+              </div>
+              <div class="kpi-card">
+                <div class="kpi-icon-row"><div class="kpi-icon">🌍</div><div class="kpi-trend trend-down">↓ 3%</div></div>
+                <div class="kpi-value">24</div>
+                <div class="kpi-label">Active Tours</div>
+              </div>
+            </div>
+
+            <div class="mini-chart">
+              <div class="chart-header">
+                <div class="chart-title">Booking Trends</div>
+                <div class="chart-period">Last 7 days</div>
+              </div>
+              <div class="bar-chart">
+                <div class="bar" style="height:30%"></div>
+                <div class="bar" style="height:55%"></div>
+                <div class="bar" style="height:40%"></div>
+                <div class="bar active" style="height:80%"></div>
+                <div class="bar" style="height:65%"></div>
+                <div class="bar" style="height:70%"></div>
+                <div class="bar" style="height:90%"></div>
+              </div>
+              <div class="bar-labels">
+                <div class="bar-label">Mon</div><div class="bar-label">Tue</div><div class="bar-label">Wed</div><div class="bar-label">Thu</div><div class="bar-label">Fri</div><div class="bar-label">Sat</div><div class="bar-label">Sun</div>
+              </div>
+            </div>
+
+            <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;margin-bottom:10px;">Recent Bookings</div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:14px;">
+              <div style="padding:10px 14px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,0.04);">
+                <div><div style="font-size:12px;font-weight:600;">Avishka B.</div><div style="font-size:10px;color:rgba(255,255,255,0.3);">Sigiriya Rock · Mar 8</div></div>
+                <div style="display:flex;align-items:center;gap:8px;"><div style="font-size:12px;font-weight:700;color:#F5C842;">LKR 21,250</div><div style="background:rgba(74,222,128,0.15);color:#4ADE80;font-size:10px;padding:3px 8px;border-radius:100px;font-weight:700;">●&nbsp;Confirmed</div></div>
+              </div>
+              <div style="padding:10px 14px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,0.04);">
+                <div><div style="font-size:12px;font-weight:600;">Prarthana M.</div><div style="font-size:10px;color:rgba(255,255,255,0.3);">Ella Train · Mar 12</div></div>
+                <div style="display:flex;align-items:center;gap:8px;"><div style="font-size:12px;font-weight:700;color:#F5C842;">LKR 8,400</div><div style="background:rgba(251,146,60,0.15);color:#FB923C;font-size:10px;padding:3px 8px;border-radius:100px;font-weight:700;">●&nbsp;Pending</div></div>
+              </div>
+              <div style="padding:10px 14px;display:flex;justify-content:space-between;align-items:center;">
+                <div><div style="font-size:12px;font-weight:600;">Shamla N.</div><div style="font-size:10px;color:rgba(255,255,255,0.3);">Yala Safari · Mar 15</div></div>
+                <div style="display:flex;align-items:center;gap:8px;"><div style="font-size:12px;font-weight:700;color:#F5C842;">LKR 36,000</div><div style="background:rgba(74,222,128,0.15);color:#4ADE80;font-size:10px;padding:3px 8px;border-radius:100px;font-weight:700;">●&nbsp;Confirmed</div></div>
+              </div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;">
+              <div style="background:rgba(245,200,66,0.08);border:1px solid rgba(245,200,66,0.2);border-radius:14px;padding:14px;text-align:center;"><div style="font-size:20px;margin-bottom:6px;">➕</div><div style="font-size:12px;font-weight:700;color:#F5C842;">Add Tour</div></div>
+              <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;text-align:center;"><div style="font-size:20px;margin-bottom:6px;">📤</div><div style="font-size:12px;font-weight:700;">Send Notification</div></div>
+              <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;text-align:center;"><div style="font-size:20px;margin-bottom:6px;">📊</div><div style="font-size:12px;font-weight:700;">Generate Report</div></div>
+              <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;text-align:center;"><div style="font-size:20px;margin-bottom:6px;">👥</div><div style="font-size:12px;font-weight:700;">Manage Users</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="phone-label">Admin Dashboard</div>
+  </div>
+
+  <!-- ADMIN TOUR MANAGE -->
+  <div class="phone-wrap">
+    <div class="phone-frame">
+      <div class="phone-screen">
+        <div class="status-bar"><span class="status-time">9:41</span><div class="status-icons"><span>📶</span><span>🔋</span></div></div>
+        <div class="phone-screen-scroll">
+          <div class="screen-content" style="padding-top:8px">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+              <span style="font-size:18px;">←</span>
+              <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;">Manage <span style="color:#F5C842">Tours</span></div>
+              <div style="margin-left:auto;background:#F5C842;color:#0A0A0A;border-radius:10px;padding:7px 12px;font-size:12px;font-weight:700;">+ Add</div>
+            </div>
+            <div class="input-field" style="margin-bottom:12px;"><span class="icon">🔍</span><span class="placeholder">Search tours...</span></div>
+            <!-- Tour manage cards -->
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px;margin-bottom:10px;">
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+                <div style="width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#0D2B1F,#1A4A33);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">🏯</div>
+                <div style="flex:1;"><div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:800;">Sigiriya Rock Fortress</div><div style="font-size:11px;color:rgba(255,255,255,0.4);">2D 1N · LKR 8,500/person</div></div>
+                <div style="width:8px;height:8px;border-radius:50%;background:#4ADE80;"></div>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,0.3);margin-bottom:10px;">
+                <span>👥 Max 12 people</span>
+                <span>📅 18 bookings</span>
+                <span>★ 4.9 rating</span>
+              </div>
+              <div style="display:flex;gap:8px;">
+                <button style="flex:1;background:rgba(245,200,66,0.1);border:1px solid rgba(245,200,66,0.2);border-radius:10px;padding:8px;font-size:11px;font-weight:700;color:#F5C842;">✎ Edit</button>
+                <button style="flex:1;background:rgba(96,165,250,0.1);border:1px solid rgba(96,165,250,0.2);border-radius:10px;padding:8px;font-size:11px;font-weight:700;color:#60A5FA;">👁 View</button>
+                <button style="flex:1;background:rgba(248,113,113,0.1);border:1px solid rgba(248,113,113,0.2);border-radius:10px;padding:8px;font-size:11px;font-weight:700;color:#F87171;">✕ Delete</button>
+              </div>
+            </div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px;margin-bottom:10px;">
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+                <div style="width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#1A2B0D,#2A4A1A);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">🐘</div>
+                <div style="flex:1;"><div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:800;">Yala Safari Adventure</div><div style="font-size:11px;color:rgba(255,255,255,0.4);">3D 2N · LKR 18,000/person</div></div>
+                <div style="width:8px;height:8px;border-radius:50%;background:#4ADE80;"></div>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,0.3);margin-bottom:10px;">
+                <span>👥 Max 8 people</span>
+                <span>📅 12 bookings</span>
+                <span>★ 4.8 rating</span>
+              </div>
+              <div style="display:flex;gap:8px;">
+                <button style="flex:1;background:rgba(245,200,66,0.1);border:1px solid rgba(245,200,66,0.2);border-radius:10px;padding:8px;font-size:11px;font-weight:700;color:#F5C842;">✎ Edit</button>
+                <button style="flex:1;background:rgba(96,165,250,0.1);border:1px solid rgba(96,165,250,0.2);border-radius:10px;padding:8px;font-size:11px;font-weight:700;color:#60A5FA;">👁 View</button>
+                <button style="flex:1;background:rgba(248,113,113,0.1);border:1px solid rgba(248,113,113,0.2);border-radius:10px;padding:8px;font-size:11px;font-weight:700;color:#F87171;">✕ Delete</button>
+              </div>
+            </div>
+            <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px;margin-bottom:10px;opacity:0.7;">
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+                <div style="width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#2B0D1A,#4A1A2A);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">🌊</div>
+                <div style="flex:1;"><div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:800;">Unawatuna Beach Tour</div><div style="font-size:11px;color:rgba(255,255,255,0.4);">1D · LKR 3,200/person</div></div>
+                <div style="width:8px;height:8px;border-radius:50%;background:#F87171;"></div>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,0.3);margin-bottom:10px;">
+                <span>👥 Max 15 people</span>
+                <span>📅 0 bookings</span>
+                <span style="color:#F87171;">⚠ Inactive</span>
+              </div>
+              <div style="display:flex;gap:8px;">
+                <button style="flex:1;background:rgba(245,200,66,0.1);border:1px solid rgba(245,200,66,0.2);border-radius:10px;padding:8px;font-size:11px;font-weight:700;color:#F5C842;">✎ Edit</button>
+                <button style="flex:1;background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.2);border-radius:10px;padding:8px;font-size:11px;font-weight:700;color:#4ADE80;">▶ Activate</button>
+              </div>
+            </div>
+            <div style="height:20px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="phone-label">Admin — Manage Tours</div>
+  </div>
+
+  <!-- ADMIN REPORTS -->
+  <div class="phone-wrap">
+    <div class="phone-frame">
+      <div class="phone-screen">
+        <div class="status-bar"><span class="status-time">9:41</span><div class="status-icons"><span>📶</span><span>🔋</span></div></div>
+        <div class="phone-screen-scroll">
+          <div class="screen-content" style="padding-top:8px">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+              <span style="font-size:18px;">←</span>
+              <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;">System <span style="color:#F5C842">Reports</span></div>
+            </div>
+            <div class="mini-chart">
+              <div class="chart-header">
+                <div class="chart-title">Revenue · 2025</div>
+                <div class="chart-period">Monthly</div>
+              </div>
+              <div class="bar-chart">
+                <div class="bar" style="height:45%"></div>
+                <div class="bar" style="height:60%"></div>
+                <div class="bar active" style="height:100%"></div>
+                <div class="bar" style="height:20%;opacity:0.3"></div>
+                <div class="bar" style="height:20%;opacity:0.3"></div>
+              </div>
+              <div class="bar-labels">
+                <div class="bar-label">Jan</div><div class="bar-label">Feb</div><div class="bar-label" style="color:#F5C842">Mar</div><div class="bar-label">Apr</div><div class="bar-label">May</div>
+              </div>
+              <div style="margin-top:8px;display:flex;justify-content:space-between;font-size:11px;">
+                <span style="color:rgba(255,255,255,0.4);">Peak: March</span>
+                <span style="color:#4ADE80;font-weight:700;">↑ LKR 1.2M</span>
+              </div>
+            </div>
+
+            <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px;">
+              <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                  <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;">Top Destinations</div>
+                  <span style="font-size:12px;color:#F5C842;font-weight:600;">Export ↗</span>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:8px;">
+                  <div style="display:flex;align-items:center;gap:10px;">
+                    <span style="font-size:14px;width:24px;text-align:center;">🏯</span>
+                    <span style="font-size:12px;flex:1;">Sigiriya</span>
+                    <div style="flex:2;background:rgba(255,255,255,0.06);border-radius:100px;height:6px;overflow:hidden;"><div style="width:85%;height:100%;background:#F5C842;border-radius:100px;"></div></div>
+                    <span style="font-size:11px;color:#F5C842;font-weight:700;min-width:30px;text-align:right;">85%</span>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:10px;">
+                    <span style="font-size:14px;width:24px;text-align:center;">🐘</span>
+                    <span style="font-size:12px;flex:1;">Yala</span>
+                    <div style="flex:2;background:rgba(255,255,255,0.06);border-radius:100px;height:6px;overflow:hidden;"><div style="width:62%;height:100%;background:#F5C842;border-radius:100px;"></div></div>
+                    <span style="font-size:11px;color:#F5C842;font-weight:700;min-width:30px;text-align:right;">62%</span>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:10px;">
+                    <span style="font-size:14px;width:24px;text-align:center;">🌊</span>
+                    <span style="font-size:12px;flex:1;">Galle</span>
+                    <div style="flex:2;background:rgba(255,255,255,0.06);border-radius:100px;height:6px;overflow:hidden;"><div style="width:48%;height:100%;background:rgba(245,200,66,0.6);border-radius:100px;"></div></div>
+                    <span style="font-size:11px;color:rgba(245,200,66,0.7);font-weight:700;min-width:30px;text-align:right;">48%</span>
+                  </div>
+                </div>
+              </div>
+
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px;">
+                  <div style="font-size:11px;color:rgba(255,255,255,0.3);margin-bottom:4px;">Avg Booking Value</div>
+                  <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#F5C842;">LKR 14,200</div>
+                  <div style="font-size:10px;color:#4ADE80;">↑ 5% vs Feb</div>
+                </div>
+                <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px;">
+                  <div style="font-size:11px;color:rgba(255,255,255,0.3);margin-bottom:4px;">Conversion Rate</div>
+                  <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#F5C842;">32.4%</div>
+                  <div style="font-size:10px;color:#4ADE80;">↑ 2.1% vs Feb</div>
+                </div>
+              </div>
+
+              <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;">
+                <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;margin-bottom:10px;">Export Reports</div>
+                <div style="display:flex;gap:8px;">
+                  <button style="flex:1;background:rgba(245,200,66,0.1);border:1px solid rgba(245,200,66,0.2);border-radius:10px;padding:10px;font-size:11px;font-weight:700;color:#F5C842;">📄 PDF</button>
+                  <button style="flex:1;background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.2);border-radius:10px;padding:10px;font-size:11px;font-weight:700;color:#4ADE80;">📊 CSV</button>
+                  <button style="flex:1;background:rgba(96,165,250,0.1);border:1px solid rgba(96,165,250,0.2);border-radius:10px;padding:10px;font-size:11px;font-weight:700;color:#60A5FA;">📧 Email</button>
+                </div>
+              </div>
+            </div>
+            <div style="height:20px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="phone-label">Admin — Reports</div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div style="background:#0A0A0A;border-top:1px solid rgba(245,200,66,0.1);padding:32px 64px;display:flex;align-items:center;justify-content:space-between;margin-top:40px;">
+  <div style="display:flex;align-items:center;gap:12px;">
+    <span style="font-size:24px;">🐝</span>
+    <div>
+      <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;">BAMBARE <span style="color:#F5C842">TMS</span></div>
+      <div style="font-size:11px;color:rgba(255,255,255,0.3);">High Fidelity Wireframes · v1.0</div>
+    </div>
+  </div>
+  <div style="font-size:11px;color:rgba(255,255,255,0.2);text-align:right;">
+    Group 01 — TMS · SCU<br>
+    React Native + Firebase · Designed February 2025
+  </div>
+</div>
+
+</body>
+</html>

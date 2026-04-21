@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bambare TMS — Nav Bar Alternatives</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal: #0D7377; --teal-light: #14A0A5; --teal-dark: #094E51;
+    --coral: #F4A261; --gold: #F5C842;
+    --text: #1A2B2C; --muted: #6B8E8F; --border: #E0ECEC; --bg: #F0F7F7;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: #0A1718; color: #fff; min-height: 100vh; }
+
+  .page-header {
+    background: linear-gradient(135deg, #094E51, #0D7377, #1A8F94);
+    padding: 48px 60px 40px;
+  }
+  .hdr-badge { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--coral); font-weight: 600; margin-bottom: 8px; }
+  .hdr-title { font-family: 'Playfair Display', serif; font-size: 34px; color: #fff; margin-bottom: 6px; }
+  .hdr-sub { color: rgba(255,255,255,0.6); font-size: 14px; }
+
+  .current-section { padding: 40px 60px 32px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .sec-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.35); font-weight: 600; margin-bottom: 14px; }
+  .current-nav-wrap { display: flex; align-items: flex-start; gap: 28px; flex-wrap: wrap; }
+  .current-nav-box {
+    background: #fff; border-radius: 20px; padding: 16px 20px;
+    display: flex; align-items: center; gap: 24px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3); width: 380px;
+  }
+  .cn-item { display: flex; flex-direction: column; align-items: center; gap: 5px; font-size: 10px; color: #888; font-weight: 600; }
+  .cn-bee { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+  .current-issues {
+    background: rgba(231,76,60,0.08); border: 1px solid rgba(231,76,60,0.2);
+    border-radius: 14px; padding: 18px 22px; max-width: 340px;
+  }
+  .issues-title { font-size: 12px; font-weight: 700; color: #e74c3c; margin-bottom: 10px; }
+  .issue-item { font-size: 11px; color: rgba(255,255,255,0.5); display: flex; gap: 7px; margin-bottom: 6px; line-height: 1.4; }
+
+  .main { padding: 44px 60px; }
+  .variants-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+
+  .variant-card {
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 22px; padding: 26px; transition: border-color 0.2s;
+  }
+  .variant-card:hover { border-color: rgba(244,162,97,0.3); }
+  .rec-banner {
+    background: linear-gradient(135deg, rgba(13,115,119,0.35), rgba(20,160,165,0.2));
+    border: 1px solid rgba(13,115,119,0.5); border-radius: 12px;
+    padding: 12px 16px; display: flex; align-items: center; gap: 10px; margin-bottom: 18px;
+  }
+  .rec-badge { background: var(--teal); color: #fff; font-size: 9px; font-weight: 700; letter-spacing: 1px; padding: 3px 8px; border-radius: 6px; text-transform: uppercase; white-space: nowrap; }
+  .rec-text { font-size: 11px; color: rgba(255,255,255,0.7); line-height: 1.4; flex: 1; }
+  .rec-text strong { color: #5dd6db; }
+  .variant-num { width: 26px; height: 26px; border-radius: 50%; background: var(--coral); color: #fff; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
+  .variant-name { font-family: 'Playfair Display', serif; font-size: 20px; color: #fff; margin-bottom: 4px; }
+  .variant-desc { font-size: 12px; color: rgba(255,255,255,0.45); margin-bottom: 20px; line-height: 1.6; }
+
+  .phone-preview { background: #1a1a1a; border-radius: 16px; overflow: hidden; margin-bottom: 16px; box-shadow: 0 8px 30px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.06); }
+
+  .pc-row { display: flex; gap: 10px; }
+  .pc-box { flex: 1; border-radius: 10px; padding: 12px; }
+  .pc-pro { background: rgba(46,204,113,0.06); border: 1px solid rgba(46,204,113,0.15); }
+  .pc-con { background: rgba(231,76,60,0.06); border: 1px solid rgba(231,76,60,0.12); }
+  .pc-title { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .pc-pro .pc-title { color: #2ecc71; }
+  .pc-con .pc-title { color: #e74c3c; }
+  .pc-item { font-size: 10px; color: rgba(255,255,255,0.5); display: flex; gap: 5px; margin-bottom: 3px; }
+
+  /* ---- NAV A: Floating Pill ---- */
+  .nav-a { background: #1A2B2C; border-radius: 28px; padding: 8px 12px; display: flex; align-items: center; gap: 2px; box-shadow: 0 6px 24px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.06); margin: 14px auto; width: fit-content; }
+  .nav-a-item { display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 7px 12px; border-radius: 20px; font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: rgba(255,255,255,0.4); }
+  .nav-a-item.active { background: var(--teal); color: #fff; }
+  .nav-a-icon { font-size: 16px; line-height: 1; }
+
+  /* ---- NAV B: Top Tab ---- */
+  .nav-b-top { background: #fff; display: flex; border-bottom: 1px solid var(--border); }
+  .nav-b-item { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 10px 4px 8px; font-size: 9px; font-weight: 600; color: #bbb; border-bottom: 2px solid transparent; }
+  .nav-b-item.active { color: var(--teal); border-bottom-color: var(--teal); }
+  .nav-b-icon { font-size: 17px; }
+
+  /* ---- NAV C: FAB Center ---- */
+  .nav-c-wrap { position: relative; background: transparent; padding-top: 22px; }
+  .nav-c { background: #fff; display: flex; align-items: center; padding: 0 10px; height: 58px; border-top-left-radius: 20px; border-top-right-radius: 20px; box-shadow: 0 -3px 16px rgba(0,0,0,0.08); }
+  .nav-c-item { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 9px; font-weight: 600; color: #bbb; padding-top: 6px; }
+  .nav-c-item.active { color: var(--teal); }
+  .nav-c-icon { font-size: 17px; }
+  .nav-c-fab { width: 52px; height: 52px; border-radius: 50%; background: linear-gradient(135deg, #e0a800 0%, var(--gold) 100%); display: flex; align-items: center; justify-content: center; font-size: 22px; box-shadow: 0 4px 14px rgba(245,200,66,0.5); position: absolute; top: -4px; left: 50%; transform: translateX(-50%); border: 3px solid #fff; z-index: 10; }
+  .nav-c-gap { width: 60px; flex-shrink: 0; }
+
+  /* ---- NAV D: Minimal Bar ---- */
+  .nav-d { background: #fff; display: flex; align-items: center; padding: 10px 12px 12px; border-top: 1.5px solid var(--border); gap: 0; }
+  .nav-d-item { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #ccc; }
+  .nav-d-item.active { color: var(--teal); }
+  .nav-d-icon { font-size: 16px; }
+  .nav-d-bar { width: 20px; height: 3px; border-radius: 2px; background: var(--teal); margin: 0 auto; display: none; }
+  .nav-d-item.active .nav-d-bar { display: block; }
+
+  /* ---- NAV E: Glassmorphic ---- */
+  .nav-e-bg { background: linear-gradient(to top, #0d5e63 0%, #1a8f94 50%, #2ab5bb 100%); padding: 32px 8px 0; }
+  .nav-e { background: rgba(255,255,255,0.15); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.25); border-radius: 18px 18px 0 0; display: flex; align-items: center; padding: 10px 8px 6px; gap: 0; }
+  .nav-e-item { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 9px; font-weight: 600; color: rgba(255,255,255,0.55); padding: 5px 4px 7px; }
+  .nav-e-item.active { color: #fff; }
+  .nav-e-icon { font-size: 17px; }
+  .nav-e-dot { width: 4px; height: 4px; border-radius: 50%; background: #fff; margin: 0 auto; }
+
+  /* ---- NAV F: Segmented + Bee ---- */
+  .nav-f-wrap { background: #fff; padding: 8px 10px 12px; border-top: 1px solid var(--border); }
+  .nav-f { background: #F0F7F7; border-radius: 14px; display: flex; align-items: center; padding: 3px; gap: 2px; }
+  .nav-f-item { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 9px; font-weight: 600; color: var(--muted); padding: 7px 4px; border-radius: 11px; }
+  .nav-f-item.active { background: #fff; color: var(--teal); box-shadow: 0 1px 6px rgba(0,0,0,0.1); }
+  .nav-f-icon { font-size: 15px; }
+  .nav-f-bee-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 9px; font-weight: 700; color: var(--gold); padding: 4px 4px 7px; }
+  .nav-f-bee { width: 34px; height: 34px; border-radius: 11px; background: linear-gradient(135deg, var(--gold) 0%, #e0a800 100%); display: flex; align-items: center; justify-content: center; font-size: 17px; box-shadow: 0 2px 8px rgba(245,200,66,0.4); }
+
+  /* ---- NAV G: Side Rail ---- */
+  .nav-g-wrap { background: var(--bg); display: flex; height: 120px; }
+  .nav-g-sidebar { width: 68px; background: var(--teal); display: flex; flex-direction: column; align-items: center; padding: 8px 0; gap: 2px; }
+  .nav-g-item { display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 8px; font-weight: 600; color: rgba(255,255,255,0.45); padding: 7px 5px; border-radius: 10px; width: 58px; text-align: center; }
+  .nav-g-item.active { background: rgba(255,255,255,0.15); color: #fff; }
+  .nav-g-icon { font-size: 15px; }
+  .nav-g-content { flex: 1; display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--muted); text-align: center; padding: 12px; }
+
+  /* ---- NAV H: Icon Box + Dot ---- */
+  .nav-h { background: #fff; display: flex; align-items: flex-start; padding: 10px 8px 10px; border-top: 1px solid var(--border); }
+  .nav-h-item { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 4px 2px; }
+  .nav-h-icon-wrap { width: 38px; height: 38px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 17px; }
+  .nav-h-item.active .nav-h-icon-wrap { background: rgba(13,115,119,0.1); }
+  .nav-h-label { font-size: 9px; font-weight: 600; color: #bbb; }
+  .nav-h-item.active .nav-h-label { color: var(--teal); }
+  .nav-h-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--coral); }
+
+  /* TABLE */
+  .compare-table { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; overflow: hidden; }
+  .ct-header { display: grid; grid-template-columns: 160px repeat(8,1fr); background: rgba(255,255,255,0.05); padding: 12px 16px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.4); gap: 6px; }
+  .ct-row { display: grid; grid-template-columns: 160px repeat(8,1fr); padding: 10px 16px; border-top: 1px solid rgba(255,255,255,0.05); font-size: 11px; color: rgba(255,255,255,0.55); gap: 6px; align-items: center; }
+  .ct-label { font-weight: 600; color: rgba(255,255,255,0.75); }
+  .ct-yes { color: #2ecc71; text-align: center; font-size: 12px; }
+  .ct-no { color: rgba(255,255,255,0.2); text-align: center; font-size: 12px; }
+  .ct-partial { color: var(--gold); text-align: center; font-size: 11px; }
+  .ct-vh { text-align: center; font-size: 10px; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 22px; color: #fff; margin-bottom: 24px; }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="hdr-badge">Bambare TMS · UI/UX Design</div>
+  <div class="hdr-title">Navigation Bar Alternatives</div>
+  <div class="hdr-sub">8 distinct concepts — each designed for the app's 5-module structure (Home · Tours · Bookings · Expenses · Profile)</div>
+</div>
+
+<!-- CURRENT -->
+<div class="current-section">
+  <div class="sec-label">Current Navigation — Problems</div>
+  <div class="current-nav-wrap">
+    <div>
+      <div class="current-nav-box">
+        <div class="cn-item">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          HOME
+        </div>
+        <div class="cn-item">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+          BOOKINGS
+        </div>
+        <div class="cn-bee">
+          <svg width="48" height="52" viewBox="0 0 80 90"><ellipse cx="40" cy="28" rx="12" ry="10" fill="#222"/><ellipse cx="33" cy="52" rx="10" ry="13" fill="#F5C842" stroke="#222" stroke-width="1.5"/><ellipse cx="47" cy="52" rx="10" ry="13" fill="#F5C842" stroke="#222" stroke-width="1.5"/><ellipse cx="40" cy="62" rx="14" ry="11" fill="#F5C842" stroke="#222" stroke-width="1.5"/><line x1="35" y1="22" x2="31" y2="14" stroke="#222" stroke-width="1.5"/><line x1="45" y1="22" x2="49" y2="14" stroke="#222" stroke-width="1.5"/><circle cx="31" cy="13" r="2" fill="#222"/><circle cx="49" cy="13" r="2" fill="#222"/></svg>
+        </div>
+        <div class="cn-item">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          MAP
+        </div>
+        <div class="cn-item">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          PROFILE
+        </div>
+      </div>
+      <div style="font-size:11px;color:rgba(255,255,255,0.3);text-align:center;margin-top:8px;">Current — HOME · BOOKINGS · 🐝 · MAP · PROFILE</div>
+    </div>
+    <div class="current-issues">
+      <div class="issues-title">⚠️ Issues Identified</div>
+      <div class="issue-item"><span style="color:#e74c3c">✕</span> Expenses module entirely absent from navigation</div>
+      <div class="issue-item"><span style="color:#e74c3c">✕</span> Bee logo occupies a full navigation slot — wastes space</div>
+      <div class="issue-item"><span style="color:#e74c3c">✕</span> No active state indicator visible on any tab</div>
+      <div class="issue-item"><span style="color:#e74c3c">✕</span> MAP and BOOKINGS overlap with other team members' modules</div>
+      <div class="issue-item"><span style="color:#e74c3c">✕</span> Flat white bar — no brand character or depth</div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+  <div style="margin-bottom:8px;" class="sec-label">8 Alternative Designs</div>
+  <div class="variants-grid">
+
+    <!-- A -->
+    <div class="variant-card">
+      <div class="rec-banner">
+        <span style="font-size:20px">⭐</span>
+        <div class="rec-text"><strong>Top Recommendation</strong> — Modern, all 5 modules, strong active state, teal brand color front and center</div>
+        <div class="rec-badge">Best Pick</div>
+      </div>
+      <div class="variant-num">A</div>
+      <div class="variant-name">Floating Pill Nav</div>
+      <div class="variant-desc">A dark floating pill that hovers above the content area. Active tab becomes a full teal capsule. Modern travel-app look with maximum clarity.</div>
+      <div class="phone-preview">
+        <div style="background:linear-gradient(to bottom,#e8f5f5,var(--bg));padding:16px 12px 14px;display:flex;justify-content:center;">
+          <div class="nav-a">
+            <div class="nav-a-item active"><div class="nav-a-icon">🏠</div>Home</div>
+            <div class="nav-a-item"><div class="nav-a-icon">🗺️</div>Tours</div>
+            <div class="nav-a-item"><div class="nav-a-icon">📋</div>Bookings</div>
+            <div class="nav-a-item"><div class="nav-a-icon">💰</div>Expenses</div>
+            <div class="nav-a-item"><div class="nav-a-icon">👤</div>Profile</div>
+          </div>
+        </div>
+      </div>
+      <div class="pc-row">
+        <div class="pc-box pc-pro"><div class="pc-title">✓ Pros</div><div class="pc-item"><span>•</span>All 5 modules included</div><div class="pc-item"><span>•</span>Unmissable active state</div><div class="pc-item"><span>•</span>Floats — feels premium</div><div class="pc-item"><span>•</span>Easy React Navigation setup</div></div>
+        <div class="pc-box pc-con"><div class="pc-title">✕ Cons</div><div class="pc-item"><span>•</span>Bee logo not retained</div><div class="pc-item"><span>•</span>Labels small at 5 tabs</div></div>
+      </div>
+    </div>
+
+    <!-- B -->
+    <div class="variant-card">
+      <div class="variant-num">B</div>
+      <div class="variant-name">Top Tab Bar</div>
+      <div class="variant-desc">Navigation moves to the top below the app header. Classic underline active indicator. Maximizes content area below — great for listing-heavy screens.</div>
+      <div class="phone-preview">
+        <div style="background:#fff;">
+          <div style="background:var(--teal);padding:10px 16px;font-size:13px;color:#fff;font-weight:700;">Bambare TMS</div>
+          <div class="nav-b-top">
+            <div class="nav-b-item active"><div class="nav-b-icon">🏠</div>Home</div>
+            <div class="nav-b-item"><div class="nav-b-icon">🗺️</div>Tours</div>
+            <div class="nav-b-item"><div class="nav-b-icon">📋</div>Bookings</div>
+            <div class="nav-b-item"><div class="nav-b-icon">💰</div>Expenses</div>
+            <div class="nav-b-item"><div class="nav-b-icon">👤</div>Profile</div>
+          </div>
+        </div>
+      </div>
+      <div class="pc-row">
+        <div class="pc-box pc-pro"><div class="pc-title">✓ Pros</div><div class="pc-item"><span>•</span>Maximizes content below</div><div class="pc-item"><span>•</span>All 5 modules</div><div class="pc-item"><span>•</span>Android-native pattern</div></div>
+        <div class="pc-box pc-con"><div class="pc-title">✕ Cons</div><div class="pc-item"><span>•</span>Top nav = thumb strain</div><div class="pc-item"><span>•</span>Unusual on iOS apps</div><div class="pc-item"><span>•</span>No bee brand identity</div></div>
+      </div>
+    </div>
+
+    <!-- C -->
+    <div class="variant-card">
+      <div class="variant-num">C</div>
+      <div class="variant-name">Curved FAB Center</div>
+      <div class="variant-desc">White bar with a raised golden FAB in the center. The bee becomes the FAB — triggers "New Booking" or a quick-action sheet. Brand identity preserved.</div>
+      <div class="phone-preview">
+        <div style="background:linear-gradient(135deg,var(--teal),var(--teal-light));padding:28px 0 0;">
+          <div class="nav-c-wrap">
+            <div class="nav-c-fab">🐝</div>
+            <div class="nav-c">
+              <div class="nav-c-item active"><div class="nav-c-icon">🏠</div>Home</div>
+              <div class="nav-c-item"><div class="nav-c-icon">🗺️</div>Tours</div>
+              <div class="nav-c-gap"></div>
+              <div class="nav-c-item"><div class="nav-c-icon">💰</div>Expenses</div>
+              <div class="nav-c-item"><div class="nav-c-icon">👤</div>Profile</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pc-row">
+        <div class="pc-box pc-pro"><div class="pc-title">✓ Pros</div><div class="pc-item"><span>•</span>Bee brand retained as FAB</div><div class="pc-item"><span>•</span>Very distinctive look</div><div class="pc-item"><span>•</span>FAB = quick-action shortcut</div></div>
+        <div class="pc-box pc-con"><div class="pc-title">✕ Cons</div><div class="pc-item"><span>•</span>Only 4 tabs + FAB</div><div class="pc-item"><span>•</span>Curved cutout complex in RN</div><div class="pc-item"><span>•</span>FAB purpose can be unclear</div></div>
+      </div>
+    </div>
+
+    <!-- D -->
+    <div class="variant-card">
+      <div class="variant-num">D</div>
+      <div class="variant-name">Minimal Bar Indicator</div>
+      <div class="variant-desc">Ultra-clean. Active state shown by a short teal underbar below the icon. All-caps labels. Timeless, editorial, and extremely easy to implement in RN.</div>
+      <div class="phone-preview">
+        <div style="background:var(--bg);padding:8px 0 0;">
+          <div class="nav-d">
+            <div class="nav-d-item active"><div class="nav-d-icon">🏠</div>Home<div class="nav-d-bar"></div></div>
+            <div class="nav-d-item"><div class="nav-d-icon">🗺️</div>Tours<div class="nav-d-bar"></div></div>
+            <div class="nav-d-item"><div class="nav-d-icon">📋</div>Bookings<div class="nav-d-bar"></div></div>
+            <div class="nav-d-item"><div class="nav-d-icon">💰</div>Expenses<div class="nav-d-bar"></div></div>
+            <div class="nav-d-item"><div class="nav-d-icon">👤</div>Profile<div class="nav-d-bar"></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="pc-row">
+        <div class="pc-box pc-pro"><div class="pc-title">✓ Pros</div><div class="pc-item"><span>•</span>Cleanest look possible</div><div class="pc-item"><span>•</span>All 5 modules</div><div class="pc-item"><span>•</span>Simplest RN implementation</div></div>
+        <div class="pc-box pc-con"><div class="pc-title">✕ Cons</div><div class="pc-item"><span>•</span>Low visual excitement</div><div class="pc-item"><span>•</span>No brand character</div><div class="pc-item"><span>•</span>Bar can be easily missed</div></div>
+      </div>
+    </div>
+
+    <!-- E -->
+    <div class="variant-card">
+      <div class="variant-num">E</div>
+      <div class="variant-name">Glassmorphic / Translucent</div>
+      <div class="variant-desc">Frosted glass nav bar over rich imagery. Background content bleeds through. Perfect for Map and Tour screens where hero photography sits behind the nav.</div>
+      <div class="phone-preview" style="overflow:hidden;">
+        <div class="nav-e-bg">
+          <div class="nav-e">
+            <div class="nav-e-item active"><div class="nav-e-icon">🏠</div>Home<div class="nav-e-dot"></div></div>
+            <div class="nav-e-item"><div class="nav-e-icon">🗺️</div>Tours</div>
+            <div class="nav-e-item"><div class="nav-e-icon">📋</div>Bookings</div>
+            <div class="nav-e-item"><div class="nav-e-icon">💰</div>Expenses</div>
+            <div class="nav-e-item"><div class="nav-e-icon">👤</div>Profile</div>
+          </div>
+        </div>
+      </div>
+      <div class="pc-row">
+        <div class="pc-box pc-pro"><div class="pc-title">✓ Pros</div><div class="pc-item"><span>•</span>Premium travel aesthetic</div><div class="pc-item"><span>•</span>Beautiful over map screens</div><div class="pc-item"><span>•</span>All 5 tabs</div></div>
+        <div class="pc-box pc-con"><div class="pc-title">✕ Cons</div><div class="pc-item"><span>•</span>Readability risk on busy BGs</div><div class="pc-item"><span>•</span>Blur = performance overhead</div><div class="pc-item"><span>•</span>Hardest to implement in RN</div></div>
+      </div>
+    </div>
+
+    <!-- F -->
+    <div class="variant-card">
+      <div class="variant-num">F</div>
+      <div class="variant-name">Segmented Pill + Bee Badge</div>
+      <div class="variant-desc">Segmented control style in a container. The bee is a golden icon badge in the center — purely decorative, preserving brand identity without losing a module tab.</div>
+      <div class="phone-preview">
+        <div style="background:var(--bg);padding:6px 0 0;">
+          <div class="nav-f-wrap">
+            <div class="nav-f">
+              <div class="nav-f-item active"><div class="nav-f-icon">🏠</div>Home</div>
+              <div class="nav-f-item"><div class="nav-f-icon">🗺️</div>Tours</div>
+              <div class="nav-f-bee-wrap"><div class="nav-f-bee">🐝</div></div>
+              <div class="nav-f-item"><div class="nav-f-icon">💰</div>Expenses</div>
+              <div class="nav-f-item"><div class="nav-f-icon">👤</div>Profile</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pc-row">
+        <div class="pc-box pc-pro"><div class="pc-title">✓ Pros</div><div class="pc-item"><span>•</span>Bee brand stays visible</div><div class="pc-item"><span>•</span>Segmented = clear active state</div><div class="pc-item"><span>•</span>Gold bee pops on teal theme</div></div>
+        <div class="pc-box pc-con"><div class="pc-title">✕ Cons</div><div class="pc-item"><span>•</span>Bookings tab missing (bee center)</div><div class="pc-item"><span>•</span>Bee is decorative only</div></div>
+      </div>
+    </div>
+
+    <!-- G -->
+    <div class="variant-card">
+      <div class="variant-num">G</div>
+      <div class="variant-name">Vertical Side Rail</div>
+      <div class="variant-desc">Navigation moves to the left edge as a compact icon rail in teal. Gives the most horizontal content space. Great for Admin Panel and Reporting screens.</div>
+      <div class="phone-preview" style="overflow:hidden;">
+        <div class="nav-g-wrap">
+          <div class="nav-g-sidebar">
+            <div class="nav-g-item active"><div class="nav-g-icon">🏠</div>Home</div>
+            <div class="nav-g-item"><div class="nav-g-icon">🗺️</div>Tours</div>
+            <div class="nav-g-item"><div class="nav-g-icon">📋</div>Book</div>
+            <div class="nav-g-item"><div class="nav-g-icon">💰</div>Exp.</div>
+            <div class="nav-g-item"><div class="nav-g-icon">👤</div>Profile</div>
+          </div>
+          <div class="nav-g-content">← Side rail nav<br>Full width content area</div>
+        </div>
+      </div>
+      <div class="pc-row">
+        <div class="pc-box pc-pro"><div class="pc-title">✓ Pros</div><div class="pc-item"><span>•</span>Maximum horizontal space</div><div class="pc-item"><span>•</span>All 5 modules, easy to expand</div><div class="pc-item"><span>•</span>Teal rail = brand color</div></div>
+        <div class="pc-box pc-con"><div class="pc-title">✕ Cons</div><div class="pc-item"><span>•</span>Unusual for mobile travel apps</div><div class="pc-item"><span>•</span>Awkward on narrow screens</div><div class="pc-item"><span>•</span>Labels get truncated</div></div>
+      </div>
+    </div>
+
+    <!-- H -->
+    <div class="variant-card">
+      <div class="variant-num">H</div>
+      <div class="variant-name">Icon Box + Coral Dot</div>
+      <div class="variant-desc">Active tab gets a soft teal-tinted background box. A coral dot below adds a second indicator layer. Dual indicators = maximum clarity. Friendly and accessible.</div>
+      <div class="phone-preview">
+        <div style="background:var(--bg);padding:6px 0 0;">
+          <div class="nav-h">
+            <div class="nav-h-item active">
+              <div class="nav-h-icon-wrap">🏠</div>
+              <div class="nav-h-label" style="color:var(--teal)">Home</div>
+              <div class="nav-h-dot"></div>
+            </div>
+            <div class="nav-h-item"><div class="nav-h-icon-wrap">🗺️</div><div class="nav-h-label">Tours</div></div>
+            <div class="nav-h-item"><div class="nav-h-icon-wrap">📋</div><div class="nav-h-label">Bookings</div></div>
+            <div class="nav-h-item"><div class="nav-h-icon-wrap">💰</div><div class="nav-h-label">Expenses</div></div>
+            <div class="nav-h-item"><div class="nav-h-icon-wrap">👤</div><div class="nav-h-label">Profile</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="pc-row">
+        <div class="pc-box pc-pro"><div class="pc-title">✓ Pros</div><div class="pc-item"><span>•</span>Dual active state indicators</div><div class="pc-item"><span>•</span>Coral dot = brand accent</div><div class="pc-item"><span>•</span>All 5 modules, big tap targets</div></div>
+        <div class="pc-box pc-con"><div class="pc-title">✕ Cons</div><div class="pc-item"><span>•</span>Tallest nav — takes more space</div><div class="pc-item"><span>•</span>No bee logo</div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- COMPARISON TABLE -->
+  <div style="margin-top:52px;">
+    <div class="sec-label" style="margin-bottom:10px;">Side-by-Side Comparison</div>
+    <div class="section-title">All 8 Variants at a Glance</div>
+    <div class="compare-table">
+      <div class="ct-header">
+        <div>Criterion</div>
+        <div style="text-align:center">A ⭐</div><div style="text-align:center">B</div><div style="text-align:center">C</div>
+        <div style="text-align:center">D</div><div style="text-align:center">E</div><div style="text-align:center">F</div>
+        <div style="text-align:center">G</div><div style="text-align:center">H</div>
+      </div>
+      <div class="ct-row"><div class="ct-label">All 5 modules visible</div><div class="ct-yes">✓</div><div class="ct-yes">✓</div><div class="ct-no">✕</div><div class="ct-yes">✓</div><div class="ct-yes">✓</div><div class="ct-partial">~</div><div class="ct-yes">✓</div><div class="ct-yes">✓</div></div>
+      <div class="ct-row"><div class="ct-label">Bee brand identity</div><div class="ct-no">✕</div><div class="ct-no">✕</div><div class="ct-yes">✓</div><div class="ct-no">✕</div><div class="ct-no">✕</div><div class="ct-yes">✓</div><div class="ct-no">✕</div><div class="ct-no">✕</div></div>
+      <div class="ct-row"><div class="ct-label">Strong active state</div><div class="ct-yes">✓✓</div><div class="ct-yes">✓</div><div class="ct-partial">~</div><div class="ct-partial">~</div><div class="ct-yes">✓</div><div class="ct-yes">✓</div><div class="ct-yes">✓</div><div class="ct-yes">✓✓</div></div>
+      <div class="ct-row"><div class="ct-label">RN Implementation</div><div class="ct-vh" style="color:#2ecc71">Easy</div><div class="ct-vh" style="color:#2ecc71">Easy</div><div class="ct-vh" style="color:var(--gold)">Medium</div><div class="ct-vh" style="color:#2ecc71">Easy</div><div class="ct-vh" style="color:#e74c3c">Hard</div><div class="ct-vh" style="color:#2ecc71">Easy</div><div class="ct-vh" style="color:var(--gold)">Medium</div><div class="ct-vh" style="color:#2ecc71">Easy</div></div>
+      <div class="ct-row"><div class="ct-label">Visual distinctiveness</div><div class="ct-yes">High</div><div class="ct-no">Low</div><div class="ct-yes">High</div><div class="ct-no">Low</div><div class="ct-yes">High</div><div class="ct-partial">Med</div><div class="ct-partial">Med</div><div class="ct-partial">Med</div></div>
+      <div class="ct-row"><div class="ct-label">Thumb-friendly</div><div class="ct-yes">✓</div><div class="ct-no">✕</div><div class="ct-yes">✓</div><div class="ct-yes">✓</div><div class="ct-yes">✓</div><div class="ct-yes">✓</div><div class="ct-no">✕</div><div class="ct-yes">✓</div></div>
+      <div class="ct-row"><div class="ct-label">Teal brand color used</div><div class="ct-yes">✓</div><div class="ct-yes">✓</div><div class="ct-no">✕</div><div class="ct-yes">✓</div><div class="ct-partial">~</div><div class="ct-partial">~</div><div class="ct-yes">✓</div><div class="ct-yes">✓</div></div>
+    </div>
+  </div>
+
+  <!-- RECOMMENDATION -->
+  <div style="margin-top:40px;background:linear-gradient(135deg,rgba(13,115,119,0.25),rgba(20,160,165,0.15));border:1px solid rgba(13,115,119,0.4);border-radius:22px;padding:30px 36px;">
+    <div class="sec-label" style="margin-bottom:8px;">Final Recommendation</div>
+    <div style="font-family:'Playfair Display',serif;font-size:24px;color:#fff;margin-bottom:12px;">Variant A — or an A+C hybrid if you want the bee</div>
+    <div style="font-size:13px;color:rgba(255,255,255,0.65);line-height:1.8;max-width:720px;">
+      <strong style="color:rgba(255,255,255,0.9)">Variant A (Floating Pill)</strong> is the strongest all-around choice — it covers all 5 modules, uses your teal brand color boldly, has an unmissable active state, and is very straightforward to implement in React Navigation's bottom tab navigator.<br><br>
+      If keeping the bee logo matters for brand consistency, use a <strong style="color:rgba(255,255,255,0.9)">Variant C approach</strong> — place the bee as a golden FAB in the center, and use it to trigger a quick-action sheet (New Booking, Currency Convert, etc.). This way the bee becomes a <em>functional</em> element, not just decoration.
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

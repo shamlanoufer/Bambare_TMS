@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "503013545287",
+    "project_id": "beetravel-tms",
+    "storage_bucket": "beetravel-tms.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:503013545287:android:b85e18c4252b578b836862",
+        "android_client_info": {
+          "package_name": "com.example.tws_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "503013545287-b963oo0lc8vajv1k9u90vt10v3l4t5s5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tws_app",
+            "certificate_hash": "cd4330f65d200c4ee42632d1fad9c409843d72c0"
+          }
+        },
+        {
+          "client_id": "503013545287-0nsd52h7i1hhjjchlgtv335g5qrtu1pg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjX9rAiIl0B92BiNEk1ZrUaxNNMUqsQ_g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "503013545287-0nsd52h7i1hhjjchlgtv335g5qrtu1pg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "503013545287-l20f609i0oo3a9vdfj9dlvd59u2kih4u.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.twsApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
