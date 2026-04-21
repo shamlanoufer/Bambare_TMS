@@ -1,0 +1,23 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Tours: catalog is read-only from the app (manage in Console / Admin SDK).
+    match /tours/{tourId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // Bookings: each user only sees and changes their own documents.
+    match /bookings/{bookingId} {
+      allow read: if request.auth != null
+          && resource.data.user_id == request.auth.uid;
+      allow create: if request.auth != null
+          && request.resource.data.user_id == request.auth.uid;
+      allow update: if request.auth != null
+          && resource.data.user_id == request.auth.uid
+          && request.resource.data.user_id == resource.data.user_id;
+      allow delete: if false;
+    }
+  }
+}
