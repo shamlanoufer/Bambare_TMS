@@ -1,0 +1,89 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return signedIn() &&
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid)) &&
+        get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.role == 'admin' &&
+        get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.active != false;
+    }
+
+    function ownsUserDoc(uid) {
+      return signedIn() && request.auth.uid == uid;
+    }
+
+    // Admin allowlist (login gate reads own doc)
+    match /admins/{uid} {
+      allow read: if ownsUserDoc(uid);
+      allow create: if ownsUserDoc(uid);
+      allow update, delete: if isAdmin();
+    }
+
+    // Tour catalog — user app reads published tours
+    match /tours/{tourId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+
+      match /guest_reviews/{reviewId} {
+        allow read: if resource.data.approved == true || isAdmin();
+        allow create: if signedIn()
+          && request.resource.data.user_id == request.auth.uid
+          && request.resource.data.approved == false;
+        allow update, delete: if isAdmin();
+      }
+    }
+
+    // Bookings — owner may update own doc (e.g. cancel); admin full access
+    match /bookings/{bookingId} {
+      allow read: if isAdmin()
+        || (signedIn() && resource.data.user_id == request.auth.uid);
+      allow create: if signedIn()
+        && request.resource.data.user_id == request.auth.uid;
+      allow update: if isAdmin()
+        || (signedIn() && resource.data.user_id == request.auth.uid);
+      allow delete: if isAdmin();
+    }
+
+    // End-user profiles
+    match /users/{uid} {
+      allow read: if isAdmin() || ownsUserDoc(uid);
+      allow create: if ownsUserDoc(uid);
+      allow update: if isAdmin() || ownsUserDoc(uid);
+      allow delete: if isAdmin();
+
+      match /saved_tours/{tourId} {
+        allow read, create, update, delete: if ownsUserDoc(uid);
+      }
+
+      // User expenses (user reads/writes own expenses)
+      match /expenses/{expenseId} {
+        allow read, create, update, delete: if ownsUserDoc(uid);
+      }
+
+      // Admin → user notifications (admin writes; user reads own inbox)
+      match /notifications/{notificationId} {
+        allow read: if ownsUserDoc(uid);
+        allow create, update, delete: if isAdmin();
+      }
+    }
+
+    // Hotels (admin-only in your admin UI)
+    match /hotels/{hotelId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    // Activity log (admin writes)
+    match /activity_log/{logId} {
+      allow read: if isAdmin();
+      allow create: if isAdmin();
+      allow update, delete: if false;
+    }
+  }
+}
