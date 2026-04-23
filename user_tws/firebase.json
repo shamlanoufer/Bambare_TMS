@@ -1,0 +1,6 @@
+{
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "flutter":{"platforms":{"android":{"default":{"projectId":"bambare-14a12","appId":"1:36981082575:android:34866783532274d485eaba","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"bambare-14a12","configurations":{"android":"1:36981082575:android:34866783532274d485eaba","ios":"1:36981082575:ios:f770f363d3e5c32e85eaba","web":"1:36981082575:web:0a50d5e4a3673db085eaba"}}}}}}
