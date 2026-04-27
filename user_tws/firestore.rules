@@ -1,0 +1,176 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return signedIn() &&
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid)) &&
+        get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.role == 'admin' &&
+        get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.active != false;
+    }
+
+    function ownsUserDoc(uid) {
+      return signedIn() && request.auth.uid == uid;
+    }
+
+    // Admin allowlist (login gate reads own doc)
+    match /admins/{uid} {
+      allow read: if ownsUserDoc(uid);
+      allow create: if ownsUserDoc(uid);
+      allow update, delete: if isAdmin();
+
+      // Per-admin sent notifications history (admin UI reads this)
+      match /sent_notifications/{id} {
+        allow read, create: if ownsUserDoc(uid) || isAdmin();
+        allow update, delete: if false;
+      }
+    }
+
+    // Tour catalog — user app reads published tours
+    match /tours/{tourId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+
+      match /guest_reviews/{reviewId} {
+        allow read: if resource.data.approved == true || isAdmin();
+        allow create: if signedIn()
+          && request.resource.data.user_id == request.auth.uid
+          && request.resource.data.approved == false;
+        allow update, delete: if isAdmin();
+      }
+    }
+
+    // Bookings — owner may update own doc (e.g. cancel); admin full access
+    match /bookings/{bookingId} {
+      allow read: if isAdmin()
+        || (signedIn() && resource.data.user_id == request.auth.uid);
+      allow create: if signedIn()
+        && request.resource.data.user_id == request.auth.uid;
+      allow update: if isAdmin()
+        || (signedIn() && resource.data.user_id == request.auth.uid);
+      allow delete: if isAdmin();
+    }
+
+    // Public aggregated stats (safe to read for everyone; writes allowed from signed-in clients).
+    match /public_stats/{docId} {
+      allow read: if true;
+      allow create, update: if signedIn();
+      allow delete: if isAdmin();
+    }
+
+    // End-user profiles
+    match /users/{uid} {
+      allow read: if isAdmin() || ownsUserDoc(uid);
+      allow create: if ownsUserDoc(uid);
+      allow update: if isAdmin() || ownsUserDoc(uid);
+      allow delete: if isAdmin();
+
+      match /saved_tours/{tourId} {
+        allow read, create, update, delete: if ownsUserDoc(uid);
+      }
+
+      // User expenses (user reads/writes own expenses)
+      match /expenses/{expenseId} {
+        allow read, create, update, delete: if ownsUserDoc(uid);
+      }
+
+      // User travel documents (user reads/writes own docs)
+      match /travel_documents/{docId} {
+        allow read, create, update, delete: if ownsUserDoc(uid);
+      }
+
+      // Notification preferences (user reads/writes own)
+      match /notification_prefs/{prefId} {
+        allow read, create, update, delete: if ownsUserDoc(uid);
+      }
+
+      // Privacy & security preferences (user reads/writes own)
+      match /privacy_security/{prefId} {
+        allow read, create, update, delete: if ownsUserDoc(uid);
+      }
+
+      // Travel preferences (user reads/writes own)
+      match /travel_preferences/{prefId} {
+        allow read, create, update, delete: if ownsUserDoc(uid);
+      }
+
+      // Language & region preferences (user reads/writes own)
+      match /language_region/{prefId} {
+        allow read, create, update, delete: if ownsUserDoc(uid);
+      }
+
+      // Memories (user reads/writes own)
+      match /memories/{memoryId} {
+        allow read, create, update, delete: if ownsUserDoc(uid);
+      }
+
+      // Admin → user notifications (admin writes; user reads own inbox)
+      match /notifications/{notificationId} {
+        allow read: if ownsUserDoc(uid);
+        allow create, delete: if isAdmin();
+
+        // Allow the user to mark notifications as read.
+        // Users may only update the `read` field (and nothing else).
+        allow update: if isAdmin() || (
+          ownsUserDoc(uid)
+          && request.resource.data.diff(resource.data).changedKeys().hasOnly(['read'])
+          && request.resource.data.read is bool
+        );
+      }
+    }
+
+    // Explicit path match for user expenses (same as nested rule above).
+    // Some deployments/merges have shown nested rules omitted; keep this as a safety net.
+    match /users/{uid}/expenses/{expenseId} {
+      allow read, create, update, delete: if ownsUserDoc(uid);
+    }
+
+    // Explicit path match for travel documents (safety net)
+    match /users/{uid}/travel_documents/{docId} {
+      allow read, create, update, delete: if ownsUserDoc(uid);
+    }
+
+    // Explicit path match for notification prefs (safety net)
+    match /users/{uid}/notification_prefs/{prefId} {
+      allow read, create, update, delete: if ownsUserDoc(uid);
+    }
+
+    // Explicit path match for privacy/security prefs (safety net)
+    match /users/{uid}/privacy_security/{prefId} {
+      allow read, create, update, delete: if ownsUserDoc(uid);
+    }
+
+    // Explicit path match for travel preferences (safety net)
+    match /users/{uid}/travel_preferences/{prefId} {
+      allow read, create, update, delete: if ownsUserDoc(uid);
+    }
+
+    // Explicit path match for language & region prefs (safety net)
+    match /users/{uid}/language_region/{prefId} {
+      allow read, create, update, delete: if ownsUserDoc(uid);
+    }
+
+    // Explicit path match for memories (safety net)
+    match /users/{uid}/memories/{memoryId} {
+      allow read, create, update, delete: if ownsUserDoc(uid);
+    }
+
+    // Hotels (admin-only in your admin UI)
+    match /hotels/{hotelId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    // Activity log (admin writes)
+    match /activity_log/{logId} {
+      allow read: if isAdmin();
+      allow create: if isAdmin();
+      allow update, delete: if false;
+    }
+  }
+}
