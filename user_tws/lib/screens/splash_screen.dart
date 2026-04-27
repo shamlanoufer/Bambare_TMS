@@ -15,8 +15,14 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
+<<<<<<< HEAD
   static const String _beeAsset = 'images/main/logo w name.png';
   static const double _beeLogoSize = 220;
+=======
+  static const String _beeAsset = 'assets/image/bee_logo.png';
+  /// Slightly smaller on screen (was 160).
+  static const double _beeLogoSize = 118;
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
   /// Darken the asset a touch so outlines / blacks read richer on white.
   static const ColorFilter _beeDarkenFilter = ColorFilter.matrix(<double>[
     0.88, 0, 0, 0, 0,
@@ -170,8 +176,13 @@ class _SplashScreenState extends State<SplashScreen>
                       colorFilter: _beeDarkenFilter,
                       child: Image.asset(
                         _beeAsset,
+<<<<<<< HEAD
                       width: _beeLogoSize,
                       height: _beeLogoSize,
+=======
+                        width: _beeLogoSize,
+                        height: _beeLogoSize,
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
                         fit: BoxFit.contain,
                         filterQuality: FilterQuality.high,
                         errorBuilder: (_, __, ___) => _beeFallback(),
@@ -202,6 +213,10 @@ class _SplashScreenState extends State<SplashScreen>
     );
   }
 
+<<<<<<< HEAD
+=======
+  /// Shown only if `assets/image/bee_logo.png` is missing — replace with your asset file.
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
   Widget _beeFallback() {
     return Container(
       width: _beeLogoSize,

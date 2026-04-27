@@ -2,10 +2,15 @@ import 'dart:async';
 import 'dart:ui' show ImageFilter;
 
 import 'package:firebase_auth/firebase_auth.dart';
+<<<<<<< HEAD
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
+=======
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 
 import '../../core/booking_background.dart';
 import '../../models/booking.dart';
@@ -80,7 +85,32 @@ class ExploreDashboardScreen extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 8),
+<<<<<<< HEAD
                       _NotificationBellButton(),
+=======
+                      Material(
+                        color: Colors.black.withValues(alpha: 0.28),
+                        borderRadius: BorderRadius.circular(14),
+                        child: InkWell(
+                          borderRadius: BorderRadius.circular(14),
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute<void>(
+                                builder: (_) => const NotificationsScreen(),
+                              ),
+                            );
+                          },
+                          child: const Padding(
+                            padding: EdgeInsets.all(11),
+                            child: Icon(
+                              Icons.notifications_outlined,
+                              color: Colors.black87,
+                              size: 24,
+                            ),
+                          ),
+                        ),
+                      ),
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
                     ],
                   ),
                   const SizedBox(height: 20),
@@ -218,6 +248,7 @@ class ExploreDashboardScreen extends StatelessWidget {
   }
 }
 
+<<<<<<< HEAD
 class _NotificationBellButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -310,10 +341,16 @@ class _SearchBarState extends State<_SearchBar> {
   bool _voiceNavigationDone = false;
   bool _speechReady = false;
 
+=======
+class _SearchBar extends StatelessWidget {
+  const _SearchBar();
+
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
   /// Pill radius — full stadium-style ends.
   static const double _radius = 30;
 
   @override
+<<<<<<< HEAD
   void initState() {
     super.initState();
     _initSpeech();
@@ -400,6 +437,8 @@ class _SearchBarState extends State<_SearchBar> {
   }
 
   @override
+=======
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(_radius),
@@ -415,9 +454,14 @@ class _SearchBarState extends State<_SearchBar> {
             ),
           ),
           child: TextField(
+<<<<<<< HEAD
             controller: _ctrl,
             onSubmitted: (_) => _openDiscoverWithQuery(),
             textInputAction: TextInputAction.search,
+=======
+            readOnly: true,
+            onTap: () {},
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
             style: GoogleFonts.plusJakartaSans(
               fontSize: 14,
               color: Colors.black87.withValues(alpha: 0.88),
@@ -435,11 +479,19 @@ class _SearchBarState extends State<_SearchBar> {
               ),
               suffixIcon: IconButton(
                 icon: Icon(
+<<<<<<< HEAD
                   _listening ? Icons.mic : Icons.mic_none_rounded,
                   color: Colors.black.withValues(alpha: 0.52),
                   size: 22,
                 ),
                 onPressed: _startVoiceSearch,
+=======
+                  Icons.mic_none_rounded,
+                  color: Colors.black.withValues(alpha: 0.52),
+                  size: 22,
+                ),
+                onPressed: () {},
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
               ),
               filled: true,
               fillColor: Colors.transparent,

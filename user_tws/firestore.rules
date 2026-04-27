@@ -23,12 +23,15 @@ service cloud.firestore {
       allow read: if ownsUserDoc(uid);
       allow create: if ownsUserDoc(uid);
       allow update, delete: if isAdmin();
+<<<<<<< HEAD
 
       // Per-admin sent notifications history (admin UI reads this)
       match /sent_notifications/{id} {
         allow read, create: if ownsUserDoc(uid) || isAdmin();
         allow update, delete: if false;
       }
+=======
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
     }
 
     // Tour catalog — user app reads published tours
@@ -56,6 +59,7 @@ service cloud.firestore {
       allow delete: if isAdmin();
     }
 
+<<<<<<< HEAD
     // Public aggregated stats (safe to read for everyone; writes allowed from signed-in clients).
     match /public_stats/{docId} {
       allow read: if true;
@@ -63,6 +67,8 @@ service cloud.firestore {
       allow delete: if isAdmin();
     }
 
+=======
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
     // End-user profiles
     match /users/{uid} {
       allow read: if isAdmin() || ownsUserDoc(uid);
@@ -79,6 +85,7 @@ service cloud.firestore {
         allow read, create, update, delete: if ownsUserDoc(uid);
       }
 
+<<<<<<< HEAD
       // User travel documents (user reads/writes own docs)
       match /travel_documents/{docId} {
         allow read, create, update, delete: if ownsUserDoc(uid);
@@ -160,6 +167,15 @@ service cloud.firestore {
       allow read, create, update, delete: if ownsUserDoc(uid);
     }
 
+=======
+      // Admin → user notifications (admin writes; user reads own inbox)
+      match /notifications/{notificationId} {
+        allow read: if ownsUserDoc(uid);
+        allow create, update, delete: if isAdmin();
+      }
+    }
+
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
     // Hotels (admin-only in your admin UI)
     match /hotels/{hotelId} {
       allow read: if true;
@@ -173,4 +189,8 @@ service cloud.firestore {
       allow update, delete: if false;
     }
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505

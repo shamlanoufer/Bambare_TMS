@@ -56,6 +56,7 @@ class Booking {
     return DateTime(n.year, n.month, n.day);
   }
 
+<<<<<<< HEAD
   bool get isUpcoming => !isCancelled && !isCompleted;
 
   bool get isCompleted {
@@ -71,6 +72,11 @@ class Booking {
     final s = status.toLowerCase().trim();
     return s == 'cancel pending' || s.contains('cancel request');
   }
+=======
+  bool get isUpcoming => !isCancelled && !travelDate.isBefore(_startOfToday);
+
+  bool get isCompleted => !isCancelled && travelDate.isBefore(_startOfToday);
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 
   String travelDateLabelShort() {
     const months = [

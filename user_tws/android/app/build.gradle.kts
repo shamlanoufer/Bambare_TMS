@@ -11,8 +11,12 @@ plugins {
 android {
     namespace = "com.example.user_tws"
     compileSdk = flutter.compileSdkVersion
+<<<<<<< HEAD
     // Pin to an installed NDK (your 28.2 folder is incomplete: missing source.properties).
     ndkVersion = "30.0.14904198"
+=======
+    ndkVersion = flutter.ndkVersion
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17

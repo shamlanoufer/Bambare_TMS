@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:flutter/foundation.dart';
+=======
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../theme/admin_theme_colors.dart';
 import '../../theme/brand_colors.dart';
 import '../../services/activity_log_service.dart';
 import '../../widgets/admin_profile_bar.dart';
+<<<<<<< HEAD
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 import 'package:intl/intl.dart';
 import 'package:universal_html/html.dart' as html;
+=======
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 
 String _userDisplayName(Map<String, dynamic> d) {
   for (final key in ['fullName', 'name', 'displayName', 'username']) {
@@ -28,6 +34,7 @@ String _userDisplayName(Map<String, dynamic> d) {
 }
 
 String? _userPhotoUrl(Map<String, dynamic> d) {
+<<<<<<< HEAD
   for (final key in [
     'photoUrl',
     'photoURL',
@@ -35,6 +42,9 @@ String? _userPhotoUrl(Map<String, dynamic> d) {
     'avatar',
     'profilePic'
   ]) {
+=======
+  for (final key in ['photoUrl', 'photoURL', 'avatarUrl', 'avatar', 'profilePic']) {
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
     final v = d[key];
     if (v != null) {
       final s = v.toString().trim();
@@ -48,7 +58,13 @@ String _userInitials(String displayName, String email) {
   final t = displayName.trim();
   if (t.isNotEmpty && t != '—') {
     final parts = t.split(RegExp(r'\s+'));
+<<<<<<< HEAD
     if (parts.length >= 2 && parts[0].isNotEmpty && parts[1].isNotEmpty) {
+=======
+    if (parts.length >= 2 &&
+        parts[0].isNotEmpty &&
+        parts[1].isNotEmpty) {
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
       final a = parts[0].runes.first;
       final b = parts[1].runes.first;
       return '${String.fromCharCode(a)}${String.fromCharCode(b)}'.toUpperCase();
@@ -86,7 +102,11 @@ class AdminUsersScreen extends StatefulWidget {
 }
 
 class _AdminUsersScreenState extends State<AdminUsersScreen> {
+<<<<<<< HEAD
   final String _roleFilter = 'all';
+=======
+  String _roleFilter = 'all';
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 
   Query<Map<String, dynamic>> get _query {
     final base = FirebaseFirestore.instance
@@ -145,6 +165,7 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
     }
   }
 
+<<<<<<< HEAD
   Future<_UserInsights> _fetchUserInsights(
       String userDocId, Map<String, dynamic> userData) async {
     final email = (userData['email'] ?? '').toString().trim().toLowerCase();
@@ -815,6 +836,8 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
     );
   }
 
+=======
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
   @override
   Widget build(BuildContext context) {
     final c = context.adminColors;
@@ -839,6 +862,47 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
                   color: c.textPrimary,
                 ),
               ),
+<<<<<<< HEAD
+=======
+              const SizedBox(width: 16),
+              ...[
+                ['all', 'All'],
+                ['customer', 'Customers'],
+                ['admin', 'Admins'],
+              ].map((f) {
+                final active = _roleFilter == f[0];
+                return GestureDetector(
+                  onTap: () => setState(() => _roleFilter = f[0]),
+                  child: Container(
+                    margin: const EdgeInsets.only(right: 8),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 14,
+                      vertical: 7,
+                    ),
+                    decoration: BoxDecoration(
+                      color: active
+                          ? BrandColors.accent
+                          : c.chipBg,
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(
+                        color: active
+                            ? BrandColors.accent
+                            : c.border,
+                      ),
+                    ),
+                    child: Text(
+                      f[1],
+                      style: GoogleFonts.dmSans(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                        color:
+                            active ? BrandColors.onAccent : c.muted,
+                      ),
+                    ),
+                  ),
+                );
+              }),
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
               const Spacer(),
               const AdminProfileBar(),
             ],
@@ -938,11 +1002,22 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
                         child: ListView.builder(
                           itemCount: docs.length,
                           itemBuilder: (_, i) {
+<<<<<<< HEAD
                             final d = docs[i].data() as Map<String, dynamic>;
                             final email = d['email']?.toString().trim() ?? '—';
                             final name = _userDisplayName(d);
                             final photoUrl = _userPhotoUrl(d);
                             final initials = _userInitials(name, email);
+=======
+                            final d =
+                                docs[i].data() as Map<String, dynamic>;
+                            final email =
+                                d['email']?.toString().trim() ?? '—';
+                            final name = _userDisplayName(d);
+                            final photoUrl = _userPhotoUrl(d);
+                            final initials =
+                                _userInitials(name, email);
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
                             final role = d['role'] ?? 'customer';
                             final isActive = d['isActive'] ?? true;
                             final ts = d['createdAt'] as Timestamp?;
@@ -966,6 +1041,7 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
                                   ),
                                 ),
                               ),
+<<<<<<< HEAD
                               child: InkWell(
                                 onTap: () => _showUserDetails(docs[i].id, d),
                                 child: Row(
@@ -1032,10 +1108,76 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
                                                   ? const Color(0xFFBC8CFF)
                                                   : const Color(0xFF58A6FF),
                                             ),
+=======
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    flex: 3,
+                                    child: Row(
+                                      children: [
+                                        _UserTableAvatar(
+                                          photoUrl: photoUrl,
+                                          initials: initials,
+                                          isAdmin: isAdmin,
+                                        ),
+                                        const SizedBox(width: 10),
+                                        Expanded(
+                                          child: Text(
+                                            name,
+                                            style: GoogleFonts.dmSans(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w500,
+                                              color: c.textPrimary,
+                                            ),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 3,
+                                    child: Text(
+                                      email,
+                                      style: GoogleFonts.dmSans(
+                                        fontSize: 11,
+                                        color: c.muted,
+                                      ),
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 2,
+                                    child: Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Container(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 8,
+                                          vertical: 3,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: isAdmin
+                                              ? const Color(0xFFBC8CFF)
+                                                  .withOpacity(0.15)
+                                              : const Color(0xFF58A6FF)
+                                                  .withOpacity(0.15),
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
+                                        child: Text(
+                                          role[0].toUpperCase() +
+                                              role.substring(1),
+                                          style: GoogleFonts.dmSans(
+                                            fontSize: 10,
+                                            color: isAdmin
+                                                ? const Color(0xFFBC8CFF)
+                                                : const Color(0xFF58A6FF),
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
                                           ),
                                         ),
                                       ),
                                     ),
+<<<<<<< HEAD
                                     Expanded(
                                       flex: 2,
                                       child: Text(
@@ -1087,6 +1229,59 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
                                     ),
                                   ],
                                 ),
+=======
+                                  ),
+                                  Expanded(
+                                    flex: 2,
+                                    child: Text(
+                                      joined,
+                                      style: GoogleFonts.dmSans(
+                                        fontSize: 11,
+                                        color: c.muted,
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Transform.scale(
+                                      scale: 0.72,
+                                      alignment: Alignment.centerLeft,
+                                      child: Switch(
+                                        materialTapTargetSize:
+                                            MaterialTapTargetSize.shrinkWrap,
+                                        value: isActive,
+                                        activeThumbColor: BrandColors.accent,
+                                        activeTrackColor: BrandColors.accent
+                                            .withOpacity(0.35),
+                                        onChanged: (_) => _toggleStatus(
+                                          docs[i].id,
+                                          isActive,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 56,
+                                    child: Align(
+                                      alignment: Alignment.center,
+                                      child: IconButton(
+                                        padding: EdgeInsets.zero,
+                                        constraints: const BoxConstraints(
+                                          minWidth: 44,
+                                          minHeight: 44,
+                                        ),
+                                        icon: const Icon(
+                                          Icons.delete_outline,
+                                          size: 23,
+                                          color: Color(0xFFF47067),
+                                        ),
+                                        onPressed: () =>
+                                            _deleteUser(docs[i].id),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
                               ),
                             );
                           },
@@ -1119,8 +1314,13 @@ class _UserTableAvatar extends StatelessWidget {
   Widget build(BuildContext context) {
     final bgTint = isAdmin ? const Color(0xFFBC8CFF) : BrandColors.accent;
     final bgSoft = isAdmin
+<<<<<<< HEAD
         ? const Color(0xFFBC8CFF).withValues(alpha: 0.2)
         : BrandColors.accent.withValues(alpha: 0.2);
+=======
+        ? const Color(0xFFBC8CFF).withOpacity(0.2)
+        : BrandColors.accent.withOpacity(0.2);
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 
     final placeholder = Container(
       width: 32,
@@ -1180,6 +1380,7 @@ class _UserTableAvatar extends StatelessWidget {
     );
   }
 }
+<<<<<<< HEAD
 
 class _UserInsights {
   final int totalBookings;
@@ -1212,3 +1413,5 @@ class _BookingHistoryItem {
     required this.status,
   });
 }
+=======
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505

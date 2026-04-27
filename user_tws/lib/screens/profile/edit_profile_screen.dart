@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../core/theme.dart';
 import '../../core/widgets.dart';
+<<<<<<< HEAD
 import '../../core/signup_validators.dart';
+=======
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 import '../../services/auth_service.dart';
 import '../../models/user_model.dart';
 import '../auth/login_screen.dart';
@@ -26,7 +29,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   late TextEditingController _phone;
   late TextEditingController _bio;
   
+<<<<<<< HEAD
   String _phoneCountryCode = '+94';
+=======
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
   String _dob = '';
   String? _gender;
   String? _nationality;
@@ -39,6 +45,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final List<String> _prefOptions = ['Cultural', 'Beach', 'Wildlife', 'Food', 'Adventure', 'Wellness'];
   final List<String> _genderOptions = ['Male', 'Female', 'Other', 'Prefer not to say'];
   final List<String> _nationalities = ['Sri Lankan', 'Indian', 'British', 'American', 'Other'];
+<<<<<<< HEAD
   // Dial codes only (must be unique values for DropdownButton).
   static const List<String> _phoneDials = [
     '+94',  // Sri Lanka
@@ -73,15 +80,21 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     }
     return (dial: '+94', national: digits);
   }
+=======
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 
   @override
   void initState() {
     super.initState();
     _fullName = TextEditingController(text: widget.user.fullName);
     _email = TextEditingController(text: widget.user.email);
+<<<<<<< HEAD
     final parts = _splitPhone(widget.user.phone);
     _phoneCountryCode = parts.dial;
     _phone = TextEditingController(text: parts.national);
+=======
+    _phone = TextEditingController(text: widget.user.phone.replaceFirst('+94', ''));
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
     _bio = TextEditingController(text: widget.user.bio);
     _dob = widget.user.dateOfBirth;
     _gender = widget.user.gender.isNotEmpty ? widget.user.gender : null;
@@ -410,12 +423,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 
   Future<void> _save() async {
+<<<<<<< HEAD
     final phoneDigits = _phone.text.trim().replaceAll(RegExp(r'\D'), '');
     final fullPhone = '$_phoneCountryCode$phoneDigits';
     if (!SignupValidators.isValidInternationalPhone(fullPhone)) {
       showMsg(context, 'Please enter a valid phone number for the selected country.');
       return;
     }
+=======
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
     setState(() => _loading = true);
     try {
       final names = _fullName.text.trim().split(' ');
@@ -426,7 +442,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         'firstName': fName,
         'lastName': lName,
         'email': _email.text.trim(),
+<<<<<<< HEAD
         'phone': AuthService.formatPhone(fullPhone),
+=======
+        'phone': AuthService.formatPhone(_phone.text.trim()),
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
         'dateOfBirth': _dob,
         'gender': _gender ?? '',
         'nationality': _nationality ?? '',
@@ -696,6 +716,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       ),
       child: Row(
         children: [
+<<<<<<< HEAD
           Padding(
             padding: const EdgeInsets.only(left: 12, right: 8),
             child: DropdownButtonHideUnderline(
@@ -721,6 +742,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 },
               ),
             ),
+=======
+          const Padding(
+            padding: EdgeInsets.only(left: 16, right: 8),
+            child: Text('+94', style: TextStyle(fontWeight: FontWeight.bold, color: AppTheme.black)),
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
           ),
           Container(height: 24, width: 1, color: Colors.grey.withValues(alpha: 0.3)),
           Expanded(

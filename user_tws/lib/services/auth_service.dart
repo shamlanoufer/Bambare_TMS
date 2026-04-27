@@ -126,8 +126,15 @@ class AuthService {
       verificationCompleted: (credential) async {
         // Android auto-detect: directly sign in
         try {
+<<<<<<< HEAD
           final cred = await _auth.signInWithCredential(credential);
           await _syncUserToFirestore(cred.user!);
+=======
+          await _auth.signInWithCredential(credential);
+          await _users.doc(_auth.currentUser!.uid).update({
+            'lastLogin': FieldValue.serverTimestamp(),
+          });
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
         } catch (_) {}
       },
       verificationFailed: (e) => onError(
@@ -150,7 +157,13 @@ class AuthService {
       smsCode: otp.trim(),
     );
     final cred = await _auth.signInWithCredential(credential);
+<<<<<<< HEAD
     await _syncUserToFirestore(cred.user!);
+=======
+    await _users.doc(cred.user!.uid).update({
+      'lastLogin': FieldValue.serverTimestamp(),
+    });
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
   }
 
   // ════════════════════════════════════════════════════════
@@ -411,6 +424,7 @@ class AuthService {
     return UserModel.fromMap(doc.data() as Map<String, dynamic>);
   }
 
+<<<<<<< HEAD
   Stream<UserModel?> userStream(String uid) {
     return _users.doc(uid).snapshots().map((doc) {
       if (!doc.exists) return null;
@@ -420,6 +434,8 @@ class AuthService {
     });
   }
 
+=======
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
   // ════════════════════════════════════════════════════════
   //  SIGN OUT
   // ════════════════════════════════════════════════════════

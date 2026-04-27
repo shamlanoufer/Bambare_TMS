@@ -7,7 +7,11 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
+<<<<<<< HEAD
 	<string>Bambare Travel</string>
+=======
+	<string>User Tws</string>
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -15,7 +19,11 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
+<<<<<<< HEAD
 	<string>Bambare Travel</string>
+=======
+	<string>user_tws</string>
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -26,8 +34,11 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+<<<<<<< HEAD
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Voice search uses your microphone to find tours and destinations.</string>
+=======
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

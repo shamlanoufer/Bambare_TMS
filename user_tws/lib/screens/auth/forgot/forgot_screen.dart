@@ -123,7 +123,11 @@ class _ForgotScreenState extends State<ForgotScreen> {
                         padding: EdgeInsets.zero,
                       ),
                       const Spacer(),
+<<<<<<< HEAD
                       const Text('Bambare Travel',
+=======
+                      const Text('BeeTravel',
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
                           style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -133,6 +137,7 @@ class _ForgotScreenState extends State<ForgotScreen> {
                     ],
                   ),
                   const SizedBox(height: 12),
+<<<<<<< HEAD
                   Image.asset(
                     'images/main/logo w name.png',
                     width: 170,
@@ -140,6 +145,10 @@ class _ForgotScreenState extends State<ForgotScreen> {
                     fit: BoxFit.contain,
                     filterQuality: FilterQuality.high,
                   ),
+=======
+                  const Icon(Icons.travel_explore_rounded,
+                      color: AppTheme.yellow, size: 40),
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
                   const SizedBox(height: 8),
                   const Text('Sign in to continue your adventure',
                       style: TextStyle(fontSize: 12, color: AppTheme.grey)),

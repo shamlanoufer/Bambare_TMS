@@ -19,6 +19,7 @@ dependencies:
   crypto: ^3.0.3
   smooth_page_indicator: ^1.1.0
   shared_preferences: ^2.5.5
+<<<<<<< HEAD
   fl_chart: ^1.2.0
   csv: ^8.0.0
   intl: ^0.20.2
@@ -26,6 +27,8 @@ dependencies:
   pdf: ^3.12.0
   printing: ^5.14.3
   path_provider: ^2.1.5
+=======
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 
 dev_dependencies:
   flutter_test:

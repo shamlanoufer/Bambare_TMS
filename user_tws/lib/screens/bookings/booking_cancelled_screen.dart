@@ -96,7 +96,11 @@ class BookingCancelledScreen extends StatelessWidget {
                   TextSpan(
                     children: [
                       TextSpan(
+<<<<<<< HEAD
                         text: 'Cancel ',
+=======
+                        text: 'Booking ',
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
                         style: GoogleFonts.plusJakartaSans(
                           fontSize: 26,
                           fontWeight: FontWeight.w800,
@@ -104,7 +108,11 @@ class BookingCancelledScreen extends StatelessWidget {
                         ),
                       ),
                       TextSpan(
+<<<<<<< HEAD
                         text: 'Request Sent',
+=======
+                        text: 'Cancelled',
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
                         style: GoogleFonts.plusJakartaSans(
                           fontSize: 26,
                           fontWeight: FontWeight.w800,
@@ -117,8 +125,13 @@ class BookingCancelledScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 14),
                 Text(
+<<<<<<< HEAD
                   'Your cancellation request for ${booking.tourTitle} has been sent for review. '
                   'An admin will verify and approve your request shortly.',
+=======
+                  'Your booking for ${booking.tourTitle} has been cancelled. '
+                  'A confirmation email has been sent.',
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
                   textAlign: TextAlign.center,
                   style: GoogleFonts.plusJakartaSans(
                     fontSize: 14,
@@ -143,7 +156,11 @@ class BookingCancelledScreen extends StatelessWidget {
                       const SizedBox(height: 12),
                       _DetailRow(
                         label: 'Status',
+<<<<<<< HEAD
                         value: 'Cancel Request Sent',
+=======
+                        value: 'Cancelled',
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
                         valueColor: Colors.red.shade700,
                         valueBold: true,
                       ),
@@ -178,7 +195,11 @@ class BookingCancelledScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
+<<<<<<< HEAD
                               'Request Received',
+=======
+                              'Cancellation Confirmed',
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
                               style: GoogleFonts.plusJakartaSans(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w800,
@@ -187,7 +208,13 @@ class BookingCancelledScreen extends StatelessWidget {
                             ),
                             const SizedBox(height: 4),
                             Text(
+<<<<<<< HEAD
                               'Our team will process your request. Once approved, your booking will move to the Cancelled tab.',
+=======
+                              info.refundKind == 'None'
+                                  ? 'Email sent.'
+                                  : 'Email sent · Refund in 5–7 business days',
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
                               style: GoogleFonts.plusJakartaSans(
                                 fontSize: 13,
                                 height: 1.4,

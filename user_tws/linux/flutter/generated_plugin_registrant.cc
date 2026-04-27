@@ -8,7 +8,10 @@
 
 #include <file_saver/file_saver_plugin.h>
 #include <file_selector_linux/file_selector_plugin.h>
+<<<<<<< HEAD
 #include <url_launcher_linux/url_launcher_plugin.h>
+=======
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 
 void fl_register_plugins(FlPluginRegistry* registry) {
   g_autoptr(FlPluginRegistrar) file_saver_registrar =
@@ -17,7 +20,10 @@ void fl_register_plugins(FlPluginRegistry* registry) {
   g_autoptr(FlPluginRegistrar) file_selector_linux_registrar =
       fl_plugin_registry_get_registrar_for_plugin(registry, "FileSelectorPlugin");
   file_selector_plugin_register_with_registrar(file_selector_linux_registrar);
+<<<<<<< HEAD
   g_autoptr(FlPluginRegistrar) url_launcher_linux_registrar =
       fl_plugin_registry_get_registrar_for_plugin(registry, "UrlLauncherPlugin");
   url_launcher_plugin_register_with_registrar(url_launcher_linux_registrar);
+=======
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 }

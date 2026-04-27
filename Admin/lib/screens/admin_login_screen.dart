@@ -78,6 +78,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
         );
         return;
       }
+<<<<<<< HEAD
       final role = (adminDoc.data()?['role'] ?? '').toString().trim().toLowerCase();
       if (role != 'admin') {
         await FirebaseAuth.instance.signOut();
@@ -87,6 +88,8 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
         );
         return;
       }
+=======
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(

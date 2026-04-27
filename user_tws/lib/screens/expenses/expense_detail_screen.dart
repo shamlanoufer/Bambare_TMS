@@ -4,7 +4,11 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../core/theme.dart';
 import '../../models/expense.dart';
 import '../../services/expense_service.dart';
+<<<<<<< HEAD
 import 'add_expense_screen.dart';
+=======
+import 'new_expense_screen.dart';
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 
 class ExpenseDetailScreen extends StatelessWidget {
   const ExpenseDetailScreen({super.key, required this.expense});
@@ -81,9 +85,17 @@ class ExpenseDetailScreen extends StatelessWidget {
                 Expanded(
                   child: OutlinedButton(
                     onPressed: () {
+<<<<<<< HEAD
                       Navigator.of(context).push(
                         MaterialPageRoute<void>(
                           builder: (_) => const AddExpenseScreen(),
+=======
+                      // Simple edit UX: open add screen prefilled not implemented yet.
+                      // Keeping minimal: user can delete/re-add.
+                      Navigator.of(context).push(
+                        MaterialPageRoute<void>(
+                          builder: (_) => const NewExpenseScreen(),
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
                         ),
                       );
                     },

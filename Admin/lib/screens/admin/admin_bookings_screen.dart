@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+<<<<<<< HEAD
 import 'package:firebase_auth/firebase_auth.dart';
+=======
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 import 'package:google_fonts/google_fonts.dart';
 import '../../theme/admin_theme_colors.dart';
 import '../../theme/brand_colors.dart';
@@ -11,9 +14,13 @@ import '../../widgets/admin_profile_bar.dart';
 
 String _statusKeyFromMap(Map<String, dynamic> d) {
   final s = (d['status'] ?? 'pending').toString().trim().toLowerCase();
+<<<<<<< HEAD
   if (s.contains('cancel pending') || s.contains('cancel request')) return 'cancel_pending';
   if (s.contains('confirm')) return 'confirmed';
   if (s.contains('complete')) return 'completed';
+=======
+  if (s.contains('confirm')) return 'confirmed';
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
   if (s.contains('cancel')) return 'cancelled';
   return 'pending';
 }
@@ -22,8 +29,11 @@ String _statusForFirestore(String filterKey) {
   switch (filterKey) {
     case 'confirmed':
       return 'Confirmed';
+<<<<<<< HEAD
     case 'completed':
       return 'Completed';
+=======
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
     case 'cancelled':
       return 'Cancelled';
     case 'pending':
@@ -32,23 +42,32 @@ String _statusForFirestore(String filterKey) {
   }
 }
 
+<<<<<<< HEAD
 enum _CancelRequestAction { approve, reject }
 
+=======
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 String _statusDisplayLabel(String key) {
   switch (key) {
     case 'confirmed':
       return 'Confirmed';
+<<<<<<< HEAD
     case 'completed':
       return 'Completed';
     case 'cancelled':
       return 'Cancelled';
     case 'cancel_pending':
       return 'Cancel Pending';
+=======
+    case 'cancelled':
+      return 'Cancelled';
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
     default:
       return 'Pending';
   }
 }
 
+<<<<<<< HEAD
 bool _isCancelledStatus(String s) {
   final x = s.trim().toLowerCase();
   return x == 'cancelled' || x == 'canceled';
@@ -138,6 +157,10 @@ bool _matchesStatusFilter(Map<String, dynamic>? d, String filter) {
   if (filter == 'cancel requests') {
     return _statusKeyFromMap(d) == 'cancel_pending';
   }
+=======
+bool _matchesStatusFilter(Map<String, dynamic>? d, String filter) {
+  if (filter == 'all' || d == null) return true;
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
   return _statusKeyFromMap(d) == filter;
 }
 
@@ -208,6 +231,7 @@ class AdminBookingsScreen extends StatefulWidget {
 
 class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
   String _filter = 'all';
+<<<<<<< HEAD
   final List<String> _filters = ['all', 'confirmed', 'completed', 'cancelled', 'cancel requests'];
   bool _syncingMapStats = false;
 
@@ -221,11 +245,15 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
     if (d['active'] == false) return false;
     return true;
   }
+=======
+  final List<String> _filters = ['all', 'confirmed', 'cancelled'];
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 
   /// User app (`booking_service.dart`) uses snake_case + title-case status.
   /// We load all docs once and filter/sort in memory to avoid composite indexes
   /// and mixed legacy/admin field names.
 
+<<<<<<< HEAD
   Future<void> _syncMapReportsFromBookings() async {
     setState(() => _syncingMapStats = true);
     try {
@@ -449,10 +477,19 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
       completedDelta: completedDelta,
       upcomingWeekDelta: upcomingDelta,
     );
+=======
+  Future<void> _updateStatus(String docId, String filterKey) async {
+    final status = _statusForFirestore(filterKey);
+    await FirebaseFirestore.instance
+        .collection('bookings')
+        .doc(docId)
+        .update({'status': status});
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
     await ActivityLogService.log(
       type: 'booking',
       message: 'Booking status updated to ${_statusForFirestore(filterKey)}',
     );
+<<<<<<< HEAD
 
     // Send user notification for admin decision on cancellation requests.
     final userId = bd['user_id'] as String?;
@@ -487,6 +524,55 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
   }
 
 
+=======
+  }
+
+  Future<void> _deleteBooking(String docId) async {
+    final confirm = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) {
+        final c = dialogContext.adminColors;
+        return AlertDialog(
+          backgroundColor: c.dialogBackground,
+          title: Text(
+            'Delete Booking',
+            style: GoogleFonts.dmSans(color: c.textPrimary),
+          ),
+          content: Text(
+            'Are you sure you want to delete this booking?',
+            style: GoogleFonts.dmSans(color: c.muted),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(dialogContext, false),
+              child: Text(
+                'Cancel',
+                style: GoogleFonts.dmSans(color: c.muted),
+              ),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(dialogContext, true),
+              child: Text(
+                'Delete',
+                style: GoogleFonts.dmSans(color: const Color(0xFFF47067)),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+    if (confirm == true) {
+      await FirebaseFirestore.instance
+          .collection('bookings')
+          .doc(docId)
+          .delete();
+      await ActivityLogService.log(
+        type: 'cancel',
+        message: 'Booking deleted',
+      );
+    }
+  }
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 
   @override
   Widget build(BuildContext context) {
@@ -520,7 +606,11 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
                     ),
                   ),
                   child: Text(
+<<<<<<< HEAD
                     f == 'cancel requests' ? 'Cancel Requests' : f[0].toUpperCase() + f.substring(1),
+=======
+                    f[0].toUpperCase() + f.substring(1),
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
                     style: GoogleFonts.dmSans(
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
@@ -580,9 +670,13 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
                       child: Text(
                         _filter == 'all'
                             ? 'No bookings yet.'
+<<<<<<< HEAD
                             : _filter == 'cancel requests'
                                 ? 'No cancel requests.'
                                 : 'No ${_filter[0].toUpperCase()}${_filter.substring(1)} bookings.',
+=======
+                            : 'No ${_filter[0].toUpperCase()}${_filter.substring(1)} bookings.',
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
                         style: GoogleFonts.dmSans(
                           fontSize: 13,
                           color: c.muted,
@@ -611,11 +705,17 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
                             return _BookingTableRow(
                               docId: docs[i].id,
                               data: d,
+<<<<<<< HEAD
                               onStatusChange: (s, action) => _updateStatus(
                                 docs[i].id,
                                 s,
                                 cancelAction: action,
                               ),
+=======
+                              onStatusChange: (s) =>
+                                  _updateStatus(docs[i].id, s),
+                              onDelete: () => _deleteBooking(docs[i].id),
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
                             );
                           },
                         ),
@@ -652,6 +752,7 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
             ),
           ),
           const Spacer(),
+<<<<<<< HEAD
           TextButton.icon(
             onPressed: _syncingMapStats ? null : _syncMapReportsFromBookings,
             icon: _syncingMapStats
@@ -666,6 +767,8 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
               style: GoogleFonts.dmSans(fontWeight: FontWeight.w600, fontSize: 12),
             ),
           ),
+=======
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
           const AdminProfileBar(),
         ],
       ),
@@ -733,7 +836,11 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
               ),
             ),
           ),
+<<<<<<< HEAD
 
+=======
+          const SizedBox(width: 60),
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
         ],
       ),
     );
@@ -743,12 +850,21 @@ class _AdminBookingsScreenState extends State<AdminBookingsScreen> {
 class _BookingTableRow extends StatelessWidget {
   final String docId;
   final Map<String, dynamic> data;
+<<<<<<< HEAD
   final Future<void> Function(String, _CancelRequestAction?) onStatusChange;
+=======
+  final Function(String) onStatusChange;
+  final VoidCallback onDelete;
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 
   const _BookingTableRow({
     required this.docId,
     required this.data,
     required this.onStatusChange,
+<<<<<<< HEAD
+=======
+    required this.onDelete,
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
   });
 
   Color _statusColor(String key) {
@@ -756,7 +872,10 @@ class _BookingTableRow extends StatelessWidget {
       case 'confirmed':
         return BrandColors.accent;
       case 'cancelled':
+<<<<<<< HEAD
       case 'cancel_pending':
+=======
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
         return const Color(0xFFF47067);
       default:
         return const Color(0xFFF0A94A);
@@ -829,6 +948,7 @@ class _BookingTableRow extends StatelessWidget {
           ),
           Expanded(
             flex: 2,
+<<<<<<< HEAD
             child: Row(
               children: [
                 Align(
@@ -843,6 +963,38 @@ class _BookingTableRow extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Text(
+=======
+            child: PopupMenuButton<String>(
+              color: c.inputFill,
+              onSelected: onStatusChange,
+              itemBuilder: (_) => ['confirmed', 'cancelled']
+                  .map(
+                    (s) => PopupMenuItem(
+                      value: s,
+                      child: Text(
+                        _statusDisplayLabel(s),
+                        style: GoogleFonts.dmSans(
+                          color: c.textPrimary,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                  )
+                  .toList(),
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8,
+                  vertical: 4,
+                ),
+                decoration: BoxDecoration(
+                  color: _statusColor(statusKey).withOpacity(0.15),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
                       statusLabel,
                       style: GoogleFonts.dmSans(
                         fontSize: 10,
@@ -850,6 +1002,7 @@ class _BookingTableRow extends StatelessWidget {
                         color: _statusColor(statusKey),
                       ),
                     ),
+<<<<<<< HEAD
                   ),
                 ),
                 if (statusKey == 'cancel_pending') ...[
@@ -898,6 +1051,30 @@ class _BookingTableRow extends StatelessWidget {
             ),
           ),
 
+=======
+                    const SizedBox(width: 4),
+                    Icon(
+                      Icons.keyboard_arrow_down,
+                      size: 12,
+                      color: _statusColor(statusKey),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            width: 60,
+            child: IconButton(
+              icon: const Icon(
+                Icons.delete_outline,
+                size: 16,
+                color: Color(0xFFF47067),
+              ),
+              onPressed: onDelete,
+            ),
+          ),
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
         ],
       ),
     );

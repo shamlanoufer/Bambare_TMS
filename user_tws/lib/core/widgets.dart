@@ -6,12 +6,19 @@ import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';
 import 'theme.dart';
 
+<<<<<<< HEAD
 // ── Bambare Travel Logo Header ───────────────────────────────────
 class BeeHeader extends StatelessWidget {
   const BeeHeader({super.key});
 
   static const String _logoAsset = 'images/main/logo w name.png';
 
+=======
+// ── BeeTravel Logo Header ────────────────────────────────────────
+class BeeHeader extends StatelessWidget {
+  const BeeHeader({super.key});
+
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -19,6 +26,7 @@ class BeeHeader extends StatelessWidget {
       child: Column(
         children: [
           const Text(
+<<<<<<< HEAD
             'Bambare Travel',
             textAlign: TextAlign.center,
             style: TextStyle(
@@ -37,6 +45,29 @@ class BeeHeader extends StatelessWidget {
             filterQuality: FilterQuality.high,
           ),
           const SizedBox(height: 10),
+=======
+            'BeeTravel',
+            style: TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.bold,
+              color: AppTheme.black,
+              letterSpacing: -1,
+            ),
+          ),
+          const SizedBox(height: 6),
+          // Bee icon made from Flutter icons
+          Container(
+            width: 48,
+            height: 48,
+            decoration: const BoxDecoration(
+              color: AppTheme.yellow,
+              shape: BoxShape.circle,
+            ),
+            child: const Icon(Icons.travel_explore_rounded,
+                color: AppTheme.black, size: 28),
+          ),
+          const SizedBox(height: 12),
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
           const Text(
             'Sign in to continue your adventure',
             style: TextStyle(color: AppTheme.grey, fontSize: 13),

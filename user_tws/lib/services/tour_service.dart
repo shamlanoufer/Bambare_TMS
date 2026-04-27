@@ -8,6 +8,7 @@ class TourService {
 
   final FirebaseFirestore _db;
 
+<<<<<<< HEAD
   Future<Tour?> fetchTourById(String tourId) async {
     final id = tourId.trim();
     if (id.isEmpty) return null;
@@ -16,6 +17,8 @@ class TourService {
     return Tour.fromFirestore(snap);
   }
 
+=======
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
   /// Discover / "See all" full catalog: every **published** tour (no placement filter).
   /// Use this for the booking Explore → See all screen so **All** shows admin-added packages.
   Stream<List<Tour>> allPublishedToursStream() {

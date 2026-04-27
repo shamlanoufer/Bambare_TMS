@@ -2,10 +2,15 @@ import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+<<<<<<< HEAD
 import 'package:flutter/foundation.dart';
 
 import '../models/booking.dart';
 import '../models/tour.dart';
+=======
+
+import '../models/booking.dart';
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 
 class BookingService {
   BookingService({
@@ -16,11 +21,15 @@ class BookingService {
 
   final FirebaseFirestore _db;
   final FirebaseAuth _auth;
+<<<<<<< HEAD
   final Set<String> _autoCompletedIds = <String>{};
+=======
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 
   CollectionReference<Map<String, dynamic>> get _bookings =>
       _db.collection('bookings');
 
+<<<<<<< HEAD
   DocumentReference<Map<String, dynamic>> get _mapReports =>
       _db.collection('public_stats').doc('map_reports');
 
@@ -90,6 +99,8 @@ class BookingService {
     );
   }
 
+=======
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
   Stream<List<Booking>> myBookingsStream() {
     final uid = _auth.currentUser?.uid;
     if (uid == null) {
@@ -98,6 +109,7 @@ class BookingService {
     return _bookings.where('user_id', isEqualTo: uid).snapshots().map((s) {
       final list = s.docs.map(Booking.fromDoc).toList()
         ..sort((a, b) => a.travelDate.compareTo(b.travelDate));
+<<<<<<< HEAD
 
       // Auto-mark past trips as Completed in Firestore (so DB matches UI).
       // This runs best-effort and only once per booking id per app session.
@@ -118,6 +130,8 @@ class BookingService {
         }).catchError((_) {});
       }
 
+=======
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
       return list;
     });
   }
@@ -162,7 +176,10 @@ class BookingService {
       'user_id': user.uid,
       'tour_id': tourId,
       'tour_title': tourTitle,
+<<<<<<< HEAD
       'tourName': tourTitle, // Admin dashboard legacy field
+=======
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
       'tour_image_url': tourImageUrl,
       'location': location,
       'travel_date': Timestamp.fromDate(
@@ -172,7 +189,10 @@ class BookingService {
       'children': children,
       'rooms': rooms,
       'total_price': totalPrice,
+<<<<<<< HEAD
       'totalAmount': totalPrice, // Admin dashboard legacy field
+=======
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
       'subtotal_tours': subtotalTours,
       'service_fee': serviceFee,
       'currency': currency,
@@ -180,7 +200,10 @@ class BookingService {
       'duration_label': durationLabel,
       'lead_first_name': leadFirstName,
       'lead_last_name': leadLastName,
+<<<<<<< HEAD
       'customerName': '$leadFirstName $leadLastName'.trim(), // Admin dashboard legacy field
+=======
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
       'phone': phone,
       'email': email,
       'nationality': nationality,
@@ -189,6 +212,7 @@ class BookingService {
       'status': 'Confirmed',
       'reference': reference,
       'created_at': FieldValue.serverTimestamp(),
+<<<<<<< HEAD
       'createdAt': FieldValue.serverTimestamp(), // Admin dashboard legacy field
     });
 
@@ -212,6 +236,10 @@ class BookingService {
       }
     }
 
+=======
+    });
+
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
     return reference;
   }
 
@@ -220,6 +248,7 @@ class BookingService {
     String? cancellationReason,
   }) async {
     await _bookings.doc(bookingId).update({
+<<<<<<< HEAD
       'status': 'Cancel Pending',
       'cancel_requested_at': FieldValue.serverTimestamp(),
       'cancel_request_status': 'pending',
@@ -248,5 +277,12 @@ class BookingService {
         if (kDebugMode) debugPrint('Failed to send notification: $e');
       }
     }
+=======
+      'status': 'Cancelled',
+      'cancelled_at': FieldValue.serverTimestamp(),
+      if (cancellationReason != null && cancellationReason.isNotEmpty)
+        'cancellation_reason': cancellationReason,
+    });
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
   }
 }

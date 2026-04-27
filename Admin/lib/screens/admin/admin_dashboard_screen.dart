@@ -2,21 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
+<<<<<<< HEAD
 import 'package:fl_chart/fl_chart.dart';
 import 'dart:math' as math;
 import 'dart:convert';
 import 'package:csv/csv.dart';
 import 'package:intl/intl.dart';
 import 'package:universal_html/html.dart' as html;
+=======
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 import '../../theme/admin_theme_colors.dart';
 import '../../theme/brand_colors.dart';
 import '../../theme/theme_scope.dart';
 import '../../widgets/admin_profile_bar.dart';
 import 'admin_add_tour_screen.dart';
 import 'admin_bookings_screen.dart';
+<<<<<<< HEAD
 import 'admin_notifications_screen.dart';
 import 'admin_tours_screen.dart';
 import 'admin_users_screen.dart';
+=======
+import 'admin_tours_screen.dart';
+import 'admin_users_screen.dart';
+import 'admin_hotels_screen.dart';
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 import 'admin_reports_screen.dart';
 
 class AdminDashboardScreen extends StatefulWidget {
@@ -34,8 +43,13 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
     const _NavItem(icon: Icons.luggage_rounded, label: 'Tours'),
     const _NavItem(icon: Icons.calendar_today_rounded, label: 'Bookings'),
     const _NavItem(icon: Icons.people_rounded, label: 'Users'),
+<<<<<<< HEAD
     const _NavItem(icon: Icons.bar_chart_rounded, label: 'Reports'),
     const _NavItem(icon: Icons.notifications_outlined, label: 'Notifications'),
+=======
+    const _NavItem(icon: Icons.hotel_rounded, label: 'Hotels'),
+    const _NavItem(icon: Icons.bar_chart_rounded, label: 'Reports'),
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
   ];
 
   Widget _buildBody() {
@@ -47,6 +61,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
       case 3:
         return const AdminUsersScreen();
       case 4:
+<<<<<<< HEAD
         return const AdminReportsScreen();
       case 5:
         return const AdminNotificationsScreen();
@@ -54,6 +69,13 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
         return _DashboardHome(
           onNav: (i) => setState(() => _selectedIndex = i),
         );
+=======
+        return const AdminHotelsScreen();
+      case 5:
+        return const AdminReportsScreen();
+      default:
+        return const _DashboardHome();
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
     }
   }
 
@@ -260,8 +282,12 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
 //  Dashboard Home (KPI + Recent Bookings + Activity)
 // ──────────────────────────────────────────────────────────────
 class _DashboardHome extends StatelessWidget {
+<<<<<<< HEAD
   final Function(int) onNav;
   const _DashboardHome({required this.onNav});
+=======
+  const _DashboardHome();
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 
   @override
   Widget build(BuildContext context) {
@@ -360,6 +386,7 @@ class _DashboardHome extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+<<<<<<< HEAD
                     Expanded(
                       flex: 5,
                       child: Column(
@@ -379,12 +406,35 @@ class _DashboardHome extends StatelessWidget {
                           const SizedBox(height: 20),
                           const _LatestTourPackageCard(),
                           const SizedBox(height: 20),
+=======
+                    Expanded(flex: 5, child: _RecentBookingsCard()),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      flex: 2,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          const _LatestTourPackageCard(),
+                          const SizedBox(height: 16),
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
                           _RecentActivityCard(),
                         ],
                       ),
                     ),
                   ],
                 ),
+<<<<<<< HEAD
+=======
+                const SizedBox(height: 16),
+                const Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(child: _TopDestinationsCard()),
+                    SizedBox(width: 16),
+                    Expanded(child: _UpcomingToursCard()),
+                  ],
+                ),
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
               ],
             ),
           ),
@@ -407,10 +457,15 @@ class _KpiRow extends StatelessWidget {
 
   Stream<double> _revenue() => FirebaseFirestore.instance
       .collection('bookings')
+<<<<<<< HEAD
+=======
+      .where('status', isEqualTo: 'confirmed')
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
       .snapshots()
       .map(
         (s) => s.docs.fold(
           0.0,
+<<<<<<< HEAD
           (acc, d) {
             final data = d.data();
             final status = (data['status'] ?? '').toString().toLowerCase();
@@ -418,6 +473,9 @@ class _KpiRow extends StatelessWidget {
             final amount = (data['totalAmount'] ?? data['total_price'] ?? 0) as num;
             return acc + amount.toDouble();
           },
+=======
+          (acc, d) => acc + ((d.data()['totalAmount'] ?? 0) as num).toDouble(),
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
         ),
       );
 
@@ -551,6 +609,7 @@ class _KpiCard extends StatelessWidget {
   }
 }
 
+<<<<<<< HEAD
 // ──────────────────────────────────────────────────────────────
 //  Revenue Overview Card
 // ──────────────────────────────────────────────────────────────
@@ -900,6 +959,8 @@ class _StatusBox extends StatelessWidget {
   }
 }
 
+=======
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 String _formatCreatedAgo(dynamic ts) {
   if (ts == null) return '';
   if (ts is! Timestamp) return '';
@@ -928,6 +989,7 @@ class _LatestTourPackageCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: c.border),
       ),
+<<<<<<< HEAD
       child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: FirebaseFirestore.instance
             .collection('tours')
@@ -978,6 +1040,44 @@ class _LatestTourPackageCard extends StatelessWidget {
               const SizedBox(height: 12),
               if (snap.hasError)
                 Padding(
+=======
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Latest tour package',
+                  style: GoogleFonts.dmSans(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: c.textPrimary,
+                  ),
+                ),
+                Text(
+                  'Edit →',
+                  style: GoogleFonts.dmSans(
+                    fontSize: 11,
+                    color: const Color(0xFF58A6FF),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 12),
+          StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+            stream: FirebaseFirestore.instance
+                .collection('tours')
+                .orderBy('createdAt', descending: true)
+                .limit(1)
+                .snapshots(),
+            builder: (context, snap) {
+              if (snap.hasError) {
+                return Padding(
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
                   padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
                   child: Center(
                     child: Text(
@@ -990,9 +1090,16 @@ class _LatestTourPackageCard extends StatelessWidget {
                       ),
                     ),
                   ),
+<<<<<<< HEAD
                 )
               else if (!snap.hasData)
                 const Padding(
+=======
+                );
+              }
+              if (!snap.hasData) {
+                return const Padding(
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
                   padding: EdgeInsets.all(24),
                   child: Center(
                     child: SizedBox(
@@ -1004,9 +1111,17 @@ class _LatestTourPackageCard extends StatelessWidget {
                       ),
                     ),
                   ),
+<<<<<<< HEAD
                 )
               else if (docs.isEmpty)
                 Padding(
+=======
+                );
+              }
+              final docs = snap.data!.docs;
+              if (docs.isEmpty) {
+                return Padding(
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
                   padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
                   child: Center(
                     child: Text(
@@ -1019,6 +1134,7 @@ class _LatestTourPackageCard extends StatelessWidget {
                       ),
                     ),
                   ),
+<<<<<<< HEAD
                 )
               else
                 Builder(builder: (context) {
@@ -1134,15 +1250,140 @@ class _LatestTourPackageCard extends StatelessWidget {
         ),
       );
     }
+=======
+                );
+              }
+
+              final doc = docs.first;
+              final d = doc.data();
+              final title =
+                  (d['tourName'] ?? d['title'] ?? 'Tour').toString().trim();
+              final heroUrl =
+                  (d['image_url'] ?? d['imageUrl'] ?? '').toString().trim();
+              final location = (d['location'] ?? '').toString().trim();
+              final price = d['basePrice'] ?? d['price'] ?? 0;
+              final currency =
+                  (d['currency'] ?? 'LKR').toString().trim().isEmpty
+                      ? 'LKR'
+                      : (d['currency'] ?? 'LKR').toString().trim();
+              final when = _formatCreatedAgo(d['createdAt']);
+
+              final primaryLine = title.isEmpty ? 'Untitled tour' : title;
+              final secondaryParts = <String>[
+                if (location.isNotEmpty) location,
+                '$currency $price',
+                if (when.isNotEmpty) when,
+              ];
+
+              return Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  onTap: () {
+                    Navigator.of(context).push<void>(
+                      MaterialPageRoute<void>(
+                        builder: (_) => AdminAddTourScreen(docId: doc.id),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.fromLTRB(12, 10, 12, 10),
+                    decoration: BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(color: c.border, width: 0.5),
+                      ),
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: _thumb,
+                          height: _thumb,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(color: c.border, width: 1),
+                            color: c.inputFill,
+                          ),
+                          clipBehavior: Clip.antiAlias,
+                          child: heroUrl.isNotEmpty
+                              ? Image.network(
+                                  heroUrl,
+                                  fit: BoxFit.cover,
+                                  width: _thumb,
+                                  height: _thumb,
+                                  errorBuilder: (_, __, ___) => const Center(
+                                    child: Icon(
+                                      Icons.tour_outlined,
+                                      size: 36,
+                                      color: Color(0xFFBC8CFF),
+                                    ),
+                                  ),
+                                )
+                              : const Center(
+                                  child: Icon(
+                                    Icons.tour_outlined,
+                                    size: 36,
+                                    color: Color(0xFFBC8CFF),
+                                  ),
+                                ),
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                primaryLine,
+                                maxLines: 3,
+                                overflow: TextOverflow.ellipsis,
+                                style: GoogleFonts.dmSans(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w600,
+                                  color: c.textPrimary,
+                                  height: 1.35,
+                                ),
+                              ),
+                              if (secondaryParts.isNotEmpty) ...[
+                                const SizedBox(height: 6),
+                                Text(
+                                  secondaryParts.join(' · '),
+                                  maxLines: 3,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: GoogleFonts.dmSans(
+                                    fontSize: 11,
+                                    color: c.muted,
+                                    height: 1.35,
+                                  ),
+                                ),
+                              ],
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+          const SizedBox(height: 8),
+        ],
+      ),
+    );
+  }
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 }
 
 // ──────────────────────────────────────────────────────────────
 //  Recent Bookings Card – live from Firestore
 // ──────────────────────────────────────────────────────────────
 class _RecentBookingsCard extends StatelessWidget {
+<<<<<<< HEAD
   final VoidCallback onViewAll;
   const _RecentBookingsCard({required this.onViewAll});
 
+=======
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
   @override
   Widget build(BuildContext context) {
     final c = context.adminColors;
@@ -1168,6 +1409,7 @@ class _RecentBookingsCard extends StatelessWidget {
                     color: c.textPrimary,
                   ),
                 ),
+<<<<<<< HEAD
                 InkWell(
                   onTap: onViewAll,
                   child: Text(
@@ -1176,6 +1418,13 @@ class _RecentBookingsCard extends StatelessWidget {
                       fontSize: 11,
                       color: const Color(0xFF58A6FF),
                     ),
+=======
+                Text(
+                  'View all →',
+                  style: GoogleFonts.dmSans(
+                    fontSize: 11,
+                    color: const Color(0xFF58A6FF),
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
                   ),
                 ),
               ],
@@ -1185,6 +1434,11 @@ class _RecentBookingsCard extends StatelessWidget {
           StreamBuilder<QuerySnapshot>(
             stream: FirebaseFirestore.instance
                 .collection('bookings')
+<<<<<<< HEAD
+=======
+                .orderBy('createdAt', descending: true)
+                .limit(6)
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
                 .snapshots(),
             builder: (context, snap) {
               if (!snap.hasData) {
@@ -1210,6 +1464,7 @@ class _RecentBookingsCard extends StatelessWidget {
                   ),
                 );
               }
+<<<<<<< HEAD
 
               // Sort in memory to handle mixed createdAt / created_at fields
               final sortedDocs = List<QueryDocumentSnapshot>.from(docs);
@@ -1248,6 +1503,18 @@ class _RecentBookingsCard extends StatelessWidget {
                   final initials = name.length >= 2
                       ? name.substring(0, 2).toUpperCase()
                       : name.isNotEmpty ? name[0].toUpperCase() : 'NA';
+=======
+              return Column(
+                children: docs.map((doc) {
+                  final d = doc.data() as Map<String, dynamic>;
+                  final name = d['customerName'] ?? 'Unknown';
+                  final tour = d['tourName'] ?? 'Tour';
+                  final amount = d['totalAmount'] ?? 0;
+                  final status = (d['status'] ?? 'pending').toString();
+                  final initials = name.length >= 2
+                      ? name.substring(0, 2).toUpperCase()
+                      : 'NA';
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
                   return _BookingRow(
                     initials: initials,
                     name: name,
@@ -1575,26 +1842,47 @@ class _ActivityRow extends StatelessWidget {
 // ──────────────────────────────────────────────────────────────
 //  Top tours by booking volume (from real bookings)
 // ──────────────────────────────────────────────────────────────
+<<<<<<< HEAD
 // ──────────────────────────────────────────────────────────────
 //  Top tours by booking volume (from real bookings)
 // ──────────────────────────────────────────────────────────────
 class _TopDestinationsCard extends StatelessWidget {
   final VoidCallback onViewAll;
   const _TopDestinationsCard({required this.onViewAll});
+=======
+class _TopDestinationsCard extends StatelessWidget {
+  const _TopDestinationsCard();
+
+  static const _palette = <Color>[
+    BrandColors.accent,
+    Color(0xFF58A6FF),
+    Color(0xFFF0A94A),
+    Color(0xFFBC8CFF),
+    Color(0xFFF47067),
+  ];
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 
   @override
   Widget build(BuildContext context) {
     final c = context.adminColors;
     return Container(
+<<<<<<< HEAD
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         color: c.surface,
         borderRadius: BorderRadius.circular(16),
+=======
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: c.surface,
+        borderRadius: BorderRadius.circular(12),
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
         border: Border.all(color: c.border),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+<<<<<<< HEAD
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -1663,6 +1951,79 @@ class _TopDestinationsCard extends StatelessWidget {
                     color: colors[index % colors.length],
                   );
                 }),
+=======
+          Text(
+            'Top tours (by bookings)',
+            style: GoogleFonts.dmSans(
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+              color: c.textPrimary,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            'Based on tour names in your bookings',
+            style: GoogleFonts.dmSans(
+              fontSize: 10,
+              color: c.muted,
+            ),
+          ),
+          const SizedBox(height: 10),
+          StreamBuilder<QuerySnapshot>(
+            stream:
+                FirebaseFirestore.instance.collection('bookings').snapshots(),
+            builder: (context, snap) {
+              if (!snap.hasData) {
+                return const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 24),
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      color: BrandColors.accent,
+                      strokeWidth: 2,
+                    ),
+                  ),
+                );
+              }
+              final counts = <String, int>{};
+              for (final doc in snap.data!.docs) {
+                final m = doc.data() as Map<String, dynamic>;
+                final name = (m['tourName'] ?? '').toString().trim();
+                if (name.isEmpty) continue;
+                counts[name] = (counts[name] ?? 0) + 1;
+              }
+              if (counts.isEmpty) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  child: Center(
+                    child: Text(
+                      'No bookings yet. Add bookings to see popular tours.',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.dmSans(
+                        fontSize: 12,
+                        color: c.muted,
+                      ),
+                    ),
+                  ),
+                );
+              }
+              final sorted = counts.entries.toList()
+                ..sort((a, b) => b.value.compareTo(a.value));
+              final top = sorted.take(5).toList();
+              final maxCount = top.first.value;
+              return Column(
+                children: top.asMap().entries.map((e) {
+                  final i = e.key;
+                  final entry = e.value;
+                  final pct =
+                      maxCount > 0 ? entry.value / maxCount : 0.0;
+                  return _DestBar(
+                    entry.key,
+                    '${entry.value} booking${entry.value == 1 ? '' : 's'}',
+                    pct,
+                    _palette[i % _palette.length],
+                  );
+                }).toList(),
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
               );
             },
           ),
@@ -1672,6 +2033,7 @@ class _TopDestinationsCard extends StatelessWidget {
   }
 }
 
+<<<<<<< HEAD
 class _DestData {
   final String name;
   final String location;
@@ -1693,11 +2055,21 @@ class _DestinationItem extends StatelessWidget {
     required this.percentage,
     required this.color,
   });
+=======
+class _DestBar extends StatelessWidget {
+  final String name;
+  final String location;
+  final double pct;
+  final Color color;
+
+  const _DestBar(this.name, this.location, this.pct, this.color);
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 
   @override
   Widget build(BuildContext context) {
     final c = context.adminColors;
     return Padding(
+<<<<<<< HEAD
       padding: const EdgeInsets.only(bottom: 20),
       child: Row(
         children: [
@@ -1715,11 +2087,36 @@ class _DestinationItem extends StatelessWidget {
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
                   color: c.muted,
+=======
+      padding: const EdgeInsets.symmetric(vertical: 6),
+      child: Row(
+        children: [
+          Container(
+            width: 22,
+            height: 22,
+            decoration: BoxDecoration(
+              color: c.inputFill,
+              borderRadius: BorderRadius.circular(6),
+            ),
+            child: Center(
+              child: Text(
+                name.isNotEmpty
+                    ? String.fromCharCode(name.runes.first)
+                    : '?',
+                style: GoogleFonts.dmSans(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600,
+                  color: color,
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
                 ),
               ),
             ),
           ),
+<<<<<<< HEAD
           const SizedBox(width: 16),
+=======
+          const SizedBox(width: 10),
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1727,6 +2124,7 @@ class _DestinationItem extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+<<<<<<< HEAD
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -1749,6 +2147,21 @@ class _DestinationItem extends StatelessWidget {
                     ),
                     Text(
                       '$percentage%',
+=======
+                    Expanded(
+                      child: Text(
+                        name,
+                        style: GoogleFonts.dmSans(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                          color: c.textPrimary,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    Text(
+                      '${(pct * 100).toInt()}%',
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
                       style: GoogleFonts.dmSans(
                         fontSize: 11,
                         color: c.muted,
@@ -1756,6 +2169,7 @@ class _DestinationItem extends StatelessWidget {
                     ),
                   ],
                 ),
+<<<<<<< HEAD
                 const SizedBox(height: 8),
                 Stack(
                   children: [
@@ -1777,6 +2191,27 @@ class _DestinationItem extends StatelessWidget {
                       ),
                     ),
                   ],
+=======
+                if (location.isNotEmpty) ...[
+                  const SizedBox(height: 2),
+                  Text(
+                    location,
+                    style: GoogleFonts.dmSans(
+                      fontSize: 10,
+                      color: c.muted,
+                    ),
+                  ),
+                ],
+                const SizedBox(height: 4),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(3),
+                  child: LinearProgressIndicator(
+                    value: pct,
+                    minHeight: 4,
+                    backgroundColor: c.inputFill,
+                    valueColor: AlwaysStoppedAnimation<Color>(color),
+                  ),
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
                 ),
               ],
             ),
@@ -1787,7 +2222,180 @@ class _DestinationItem extends StatelessWidget {
   }
 }
 
+<<<<<<< HEAD
 
+=======
+// ──────────────────────────────────────────────────────────────
+//  Upcoming Tours Card – live from Firestore
+// ──────────────────────────────────────────────────────────────
+class _UpcomingToursCard extends StatelessWidget {
+  const _UpcomingToursCard();
+
+  @override
+  Widget build(BuildContext context) {
+    final c = context.adminColors;
+    return Container(
+      decoration: BoxDecoration(
+        color: c.surface,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: c.border),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Upcoming Tours',
+                  style: GoogleFonts.dmSans(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: c.textPrimary,
+                  ),
+                ),
+                Text(
+                  'Manage →',
+                  style: GoogleFonts.dmSans(
+                    fontSize: 11,
+                    color: const Color(0xFF58A6FF),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 12),
+          StreamBuilder<QuerySnapshot>(
+            stream: FirebaseFirestore.instance
+                .collection('tours')
+                .where('isActive', isEqualTo: true)
+                .limit(5)
+                .snapshots(),
+            builder: (context, snap) {
+              if (!snap.hasData) {
+                return const Padding(
+                  padding: EdgeInsets.all(24),
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      color: BrandColors.accent,
+                      strokeWidth: 2,
+                    ),
+                  ),
+                );
+              }
+              final docs = snap.data!.docs;
+              if (docs.isEmpty) {
+                return Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
+                  child: Center(
+                    child: Text(
+                      'No active tours yet. Add tours under Tours.',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.dmSans(
+                        fontSize: 12,
+                        color: c.muted,
+                      ),
+                    ),
+                  ),
+                );
+              }
+              return Column(
+                children: docs.map((doc) {
+                  final d = doc.data() as Map<String, dynamic>;
+                  return _TourRow(
+                    emoji: d['emoji'] ?? '🗺',
+                    name: d['tourName'] ?? 'Tour',
+                    detail:
+                        '${d['duration'] ?? ''} · ${d['bookedCount'] ?? 0} booked',
+                    price: 'LKR ${d['basePrice'] ?? 0}',
+                  );
+                }).toList(),
+              );
+            },
+          ),
+          const SizedBox(height: 8),
+        ],
+      ),
+    );
+  }
+}
+
+class _TourRow extends StatelessWidget {
+  final String emoji;
+  final String name;
+  final String detail;
+  final String price;
+
+  const _TourRow({
+    required this.emoji,
+    required this.name,
+    required this.detail,
+    required this.price,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final c = context.adminColors;
+    return Container(
+      padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+      decoration: BoxDecoration(
+        border: Border(
+          bottom: BorderSide(color: c.border, width: 0.5),
+        ),
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: 36,
+            height: 36,
+            decoration: BoxDecoration(
+              color: c.inputFill,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Center(
+              child: Text(emoji, style: const TextStyle(fontSize: 18)),
+            ),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  name,
+                  style: GoogleFonts.dmSans(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    color: c.textPrimary,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
+                Text(
+                  detail,
+                  style: GoogleFonts.dmSans(
+                    fontSize: 10,
+                    color: c.muted,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Text(
+            price,
+            style: GoogleFonts.dmSans(
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+              color: BrandColors.accent,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 
 class _NavItem {
   final IconData icon;

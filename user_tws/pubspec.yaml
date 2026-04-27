@@ -1,5 +1,9 @@
 name: user_tws
+<<<<<<< HEAD
 description: "Bambare Travel Management System"
+=======
+description: "BeeTravel - Bambare Travel Management System"
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 publish_to: 'none'
 version: 1.0.0+1
 
@@ -21,15 +25,21 @@ dependencies:
   crypto: ^3.0.3
   smooth_page_indicator: ^1.1.0
   file_saver: ^0.2.14
+<<<<<<< HEAD
   path_provider: ^2.1.5
   media_store_plus: ^0.1.3
+=======
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
   flutter_map: ^7.0.2
   latlong2: ^0.9.1
   phone_numbers_parser: ^9.0.21
   intl_phone_field_v2: ^4.0.5
   pdf: ^3.12.0
+<<<<<<< HEAD
   speech_to_text: ^7.0.0
   url_launcher: ^6.3.2
+=======
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 
 dev_dependencies:
   flutter_test:
@@ -41,7 +51,10 @@ flutter:
   assets:
     - assets/
     - images/
+<<<<<<< HEAD
     - images/main/
+=======
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
     - images/home/
     - images/booking/Activity/
     - images/booking/Activity Background img/

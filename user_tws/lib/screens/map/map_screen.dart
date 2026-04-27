@@ -9,7 +9,10 @@ import 'package:latlong2/latlong.dart';
 import '../../core/theme.dart';
 import '../../models/tour.dart';
 import '../../services/tour_service.dart';
+<<<<<<< HEAD
 import 'map_reports_screen.dart';
+=======
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 import '../bookings/tour_detail_screen.dart';
 
 class MapScreen extends StatefulWidget {
@@ -107,6 +110,7 @@ class _MapScreenState extends State<MapScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // ── Header ──────────────────────────────────────
+<<<<<<< HEAD
             Padding(
               padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
               child: Row(
@@ -148,6 +152,26 @@ class _MapScreenState extends State<MapScreen> {
                         },
                       ),
                     ],
+=======
+            const Padding(
+              padding: EdgeInsets.fromLTRB(24, 24, 24, 0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Explore Map',
+                    style: TextStyle(
+                      color: AppTheme.black,
+                      fontSize: 26,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: -0.5,
+                    ),
+                  ),
+                  SizedBox(height: 4),
+                  Text(
+                    'Discover destinations near you',
+                    style: TextStyle(color: AppTheme.grey, fontSize: 13),
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
                   ),
                 ],
               ),
@@ -390,6 +414,7 @@ class _MapHintPill extends StatelessWidget {
   }
 }
 
+<<<<<<< HEAD
 class _TopActionPill extends StatelessWidget {
   const _TopActionPill({required this.label, required this.onTap});
 
@@ -420,6 +445,8 @@ class _TopActionPill extends StatelessWidget {
   }
 }
 
+=======
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 class _LollipopMarker extends StatelessWidget {
   const _LollipopMarker({
     required this.title,

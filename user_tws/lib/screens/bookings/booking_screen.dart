@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+import 'package:file_saver/file_saver.dart';
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,7 +14,10 @@ import '../../core/booking_background.dart';
 import '../../models/tour.dart';
 import '../../services/booking_receipt_pdf.dart';
 import '../../services/booking_service.dart';
+<<<<<<< HEAD
 import '../../utils/pdf_save.dart';
+=======
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 import 'my_bookings_screen.dart';
 
 class _BookingPayOpt {
@@ -81,6 +88,7 @@ class _BookingScreenState extends State<BookingScreen> {
   int _children = 0;
   int _rooms = 1;
 
+<<<<<<< HEAD
   bool get _showRoomsOption {
     final cat = widget.tour.category.trim().toLowerCase();
     final title = widget.tour.title.trim().toLowerCase();
@@ -91,6 +99,8 @@ class _BookingScreenState extends State<BookingScreen> {
     return !(isFood || isCookery);
   }
 
+=======
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
   // -- Step 2 State --
   final _formKey = GlobalKey<FormState>();
   final _firstNameCtrl = TextEditingController();
@@ -426,12 +436,18 @@ class _BookingScreenState extends State<BookingScreen> {
         ref.replaceAll(RegExp(r'[^\w\-]'), '_').replaceAll('__', '_');
     final guest = '${_firstNameCtrl.text.trim()} ${_lastNameCtrl.text.trim()}'
         .trim();
+<<<<<<< HEAD
     final guestsLabel = _showRoomsOption
         ? (() {
             final roomsWord = _rooms == 1 ? 'room' : 'rooms';
             return '$_adults adults${_children > 0 ? ', $_children children' : ''} · $_rooms $roomsWord';
           })()
         : '$_adults adults${_children > 0 ? ', $_children children' : ''}';
+=======
+    final roomsWord = _rooms == 1 ? 'room' : 'rooms';
+    final guestsLabel =
+        '$_adults adults${_children > 0 ? ', $_children children' : ''} · $_rooms $roomsWord';
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 
     setState(() => _downloading = true);
     try {
@@ -450,6 +466,7 @@ class _BookingScreenState extends State<BookingScreen> {
         totalLabel:
             '${widget.tour.currency} ${_formatCurrency(_totalPrice)}',
       );
+<<<<<<< HEAD
       final savedTo = await savePdfBytes(
         bytes: bytes,
         baseName: 'bambare_booking_$safeFile',
@@ -463,6 +480,17 @@ class _BookingScreenState extends State<BookingScreen> {
                 : 'PDF saved: $savedTo',
           ),
         ),
+=======
+      await FileSaver.instance.saveFile(
+        name: 'bambare_booking_$safeFile',
+        bytes: bytes,
+        ext: 'pdf',
+        mimeType: MimeType.pdf,
+      );
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('PDF receipt saved to your device')),
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
       );
     } catch (e) {
       if (!mounted) return;
@@ -519,7 +547,11 @@ class _BookingScreenState extends State<BookingScreen> {
         travelDate: _selectedDate,
         adults: _adults,
         children: _children,
+<<<<<<< HEAD
         rooms: _showRoomsOption ? _rooms : 0,
+=======
+        rooms: _rooms,
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
         totalPrice: _totalPrice,
         subtotalTours: _adultPrice + _childPrice,
         serviceFee: _serviceFee,
@@ -724,6 +756,7 @@ class _BookingScreenState extends State<BookingScreen> {
                   onDec: _children > 0 ? () => setState(() => _children--) : null,
                   onInc: _children < 5 ? () => setState(() => _children++) : null,
                 ),
+<<<<<<< HEAD
                 if (_showRoomsOption) ...[
                   const SizedBox(height: 16),
                   _CounterRow(
@@ -734,6 +767,16 @@ class _BookingScreenState extends State<BookingScreen> {
                     onInc: _rooms < 5 ? () => setState(() => _rooms++) : null,
                   ),
                 ],
+=======
+                const SizedBox(height: 16),
+                _CounterRow(
+                  label: 'Rooms',
+                  sub: 'Under 3',
+                  count: _rooms,
+                  onDec: _rooms > 1 ? () => setState(() => _rooms--) : null,
+                  onInc: _rooms < 5 ? () => setState(() => _rooms++) : null,
+                ),
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
                 const SizedBox(height: 32),
               ],
             ),

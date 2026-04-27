@@ -9,10 +9,16 @@ import '../../services/tour_service.dart';
 import 'tour_detail_screen.dart';
 
 class DiscoverToursScreen extends StatefulWidget {
+<<<<<<< HEAD
   const DiscoverToursScreen({super.key, this.initialCategory, this.initialQuery});
 
   final String? initialCategory;
   final String? initialQuery;
+=======
+  const DiscoverToursScreen({super.key, this.initialCategory});
+
+  final String? initialCategory;
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 
   static const _priceGreen = Color(0xFF2E7D32);
 
@@ -22,12 +28,16 @@ class DiscoverToursScreen extends StatefulWidget {
 
 class _DiscoverToursScreenState extends State<DiscoverToursScreen> {
   final _tourService = TourService();
+<<<<<<< HEAD
   final _searchCtrl = TextEditingController();
+=======
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 
   static const _accent = Color(0xFFE8B800);
   static const _ink = Colors.black87;
 
   late String _selectedCategory;
+<<<<<<< HEAD
   late String _searchQuery;
   final Set<String> _filterCategories = <String>{};
   final Set<String> _filterDurations = <String>{};
@@ -36,11 +46,14 @@ class _DiscoverToursScreenState extends State<DiscoverToursScreen> {
   static const double _maxPrice = 45000;
   RangeValues _priceRange = const RangeValues(_minPrice, _maxPrice);
   double _minRating = 0;
+=======
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 
   @override
   void initState() {
     super.initState();
     _selectedCategory = widget.initialCategory ?? 'All';
+<<<<<<< HEAD
     _searchQuery = (widget.initialQuery ?? '').trim();
     _searchCtrl.text = _searchQuery;
   }
@@ -289,6 +302,8 @@ class _DiscoverToursScreenState extends State<DiscoverToursScreen> {
         );
       },
     );
+=======
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
   }
   @override
   Widget build(BuildContext context) {
@@ -328,6 +343,10 @@ class _DiscoverToursScreenState extends State<DiscoverToursScreen> {
                         ),
                       ),
                     ),
+<<<<<<< HEAD
+=======
+                    const _SettingsButton(),
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
                   ],
                 ),
                 const SizedBox(height: 6),
@@ -351,6 +370,7 @@ class _DiscoverToursScreenState extends State<DiscoverToursScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
             child: Row(
               children: [
+<<<<<<< HEAD
                 Expanded(
                   child: _SearchBar(
                     controller: _searchCtrl,
@@ -369,6 +389,17 @@ class _DiscoverToursScreenState extends State<DiscoverToursScreen> {
                     ),
                     child: const Icon(Icons.tune_rounded, color: _ink, size: 22),
                   ),
+=======
+                const Expanded(child: _SearchBar()),
+                const SizedBox(width: 12),
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: _accent,
+                    borderRadius: BorderRadius.circular(14),
+                  ),
+                  child: const Icon(Icons.tune_rounded, color: _ink, size: 22),
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
                 ),
               ],
             ),
@@ -439,22 +470,29 @@ class _DiscoverToursScreenState extends State<DiscoverToursScreen> {
                   );
                 }
                 final displayTours = snapshot.data ?? <Tour>[];
+<<<<<<< HEAD
                 final query = _searchQuery.toLowerCase();
                 final queryTokens = query
                     .split(RegExp(r'\s+'))
                     .map((e) => e.trim())
                     .where((e) => e.isNotEmpty)
                     .toList();
+=======
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
                 final filteredTours = displayTours.where((t) {
                   if (_selectedCategory == 'All') return true;
                   final sel = _selectedCategory.toLowerCase();
                   if (t.category.toLowerCase() == sel) return true;
                   return t.visibility.matchesDiscoverCategory(_selectedCategory);
+<<<<<<< HEAD
                 }).where((t) {
                   if (query.isEmpty) return true;
                   final hay = '${t.title} ${t.locationLabel} ${t.category}'.toLowerCase();
                   return queryTokens.any(hay.contains);
                 }).where(_matchesFilterPanel).toList();
+=======
+                }).toList();
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 
                 if (displayTours.isEmpty) {
                   return const Center(
@@ -466,12 +504,17 @@ class _DiscoverToursScreenState extends State<DiscoverToursScreen> {
                 }
 
                 if (filteredTours.isEmpty) {
+<<<<<<< HEAD
                   final hasQuery = query.isNotEmpty;
                   final msg = hasQuery
                       ? 'No tours found for "$_searchQuery".'
                       : 'No tours found matching this category.';
                   return Center(
                     child: Text(msg),
+=======
+                  return const Center(
+                    child: Text('No tours found matching this category.'),
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
                   );
                 }
 
@@ -493,6 +536,7 @@ class _DiscoverToursScreenState extends State<DiscoverToursScreen> {
   }
 }
 
+<<<<<<< HEAD
 class _SearchBar extends StatelessWidget {
   const _SearchBar({
     required this.controller,
@@ -502,6 +546,32 @@ class _SearchBar extends StatelessWidget {
   static const double _radius = 26;
   final TextEditingController controller;
   final ValueChanged<String> onChanged;
+=======
+class _SettingsButton extends StatelessWidget {
+  const _SettingsButton();
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.white.withValues(alpha: 0.75),
+      borderRadius: BorderRadius.circular(12),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(12),
+        onTap: () {},
+        child: const Padding(
+          padding: EdgeInsets.all(8),
+          child: Icon(Icons.settings_outlined, color: Colors.black87, size: 22),
+        ),
+      ),
+    );
+  }
+}
+
+class _SearchBar extends StatelessWidget {
+  const _SearchBar();
+
+  static const double _radius = 26;
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 
   @override
   Widget build(BuildContext context) {
@@ -519,9 +589,13 @@ class _SearchBar extends StatelessWidget {
             ),
           ),
           child: TextField(
+<<<<<<< HEAD
             controller: controller,
             textInputAction: TextInputAction.search,
             onChanged: onChanged,
+=======
+            readOnly: true,
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
             style: GoogleFonts.plusJakartaSans(
               fontSize: 14,
               color: Colors.black87,
@@ -537,6 +611,7 @@ class _SearchBar extends StatelessWidget {
                 color: Colors.black54,
                 size: 22,
               ),
+<<<<<<< HEAD
               suffixIcon: IconButton(
                 icon: const Icon(
                   Icons.close_rounded,
@@ -548,6 +623,12 @@ class _SearchBar extends StatelessWidget {
                   controller.clear();
                   onChanged('');
                 },
+=======
+              suffixIcon: const Icon(
+                Icons.mic_none_rounded,
+                color: Colors.black54,
+                size: 22,
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
               ),
               filled: true,
               fillColor: Colors.transparent,

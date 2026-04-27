@@ -6,7 +6,10 @@ import '../../core/booking_background.dart';
 import '../../models/booking.dart';
 import '../../services/booking_service.dart';
 import 'booking_details_screen.dart';
+<<<<<<< HEAD
 import 'cancelled_booking_details_screen.dart';
+=======
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 
 class MyBookingsScreen extends StatefulWidget {
   const MyBookingsScreen({super.key});
@@ -229,11 +232,18 @@ class _BookingCard extends StatelessWidget {
     final isConfirmed = status == 'Confirmed';
     final isCancelled = booking.isCancelled;
     final isDone = booking.isCompleted;
+<<<<<<< HEAD
     final isCancelRequested = booking.isCancelRequested;
 
     Color badgeBg;
     Color badgeFg;
     if (isCancelled || isCancelRequested) {
+=======
+
+    Color badgeBg;
+    Color badgeFg;
+    if (isCancelled) {
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
       badgeBg = const Color(0xFFFFCDD2);
       badgeFg = const Color(0xFFC62828);
     } else if (isDone) {
@@ -281,9 +291,13 @@ class _BookingCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(
+<<<<<<< HEAD
                     isCancelRequested
                         ? 'Cancel Request Pending'
                         : (isCancelled ? 'Cancelled' : (isDone ? 'Completed' : status)),
+=======
+                    status,
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
                     style: GoogleFonts.plusJakartaSans(
                       fontSize: 10,
                       fontWeight: FontWeight.w700,
@@ -338,6 +352,7 @@ class _BookingCard extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
+<<<<<<< HEAD
                         final isCancelled = booking.isCancelled;
                         Navigator.push(
                           context,
@@ -345,6 +360,12 @@ class _BookingCard extends StatelessWidget {
                             builder: (_) => isCancelled
                                 ? CancelledBookingDetailsScreen(booking: booking)
                                 : BookingDetailsScreen(booking: booking),
+=======
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => BookingDetailsScreen(booking: booking),
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
                           ),
                         );
                       },

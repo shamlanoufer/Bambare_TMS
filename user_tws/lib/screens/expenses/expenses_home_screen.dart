@@ -4,19 +4,27 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../core/theme.dart';
 import '../../models/expense.dart';
 import '../../services/expense_service.dart';
+<<<<<<< HEAD
 import 'currency_converter_screen.dart';
 import 'expense_detail_screen.dart';
 import 'add_expense_screen.dart';
 import 'monthly_report_screen.dart';
 import 'budget_planner_screen.dart';
+=======
+import 'expense_detail_screen.dart';
+import 'new_expense_screen.dart';
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 
 class ExpensesHomeScreen extends StatelessWidget {
   const ExpensesHomeScreen({super.key});
 
   static const _accent = Color(0xFFFF8A1F);
+<<<<<<< HEAD
   // Use the same yellow for header box + floating buttons.
   static const _boxAccent = Color(0xFFF2C94C);
   static const _sectionTitle = Color(0xFF2C3E50);
+=======
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
   static const _card = Color(0xFFFFFFFF);
   static const _budget = 50000.0;
   static const _navClearance = 120.0; // keep above bottom nav bar
@@ -27,9 +35,14 @@ class ExpensesHomeScreen extends StatelessWidget {
     final svc = ExpenseService();
 
     return Scaffold(
+<<<<<<< HEAD
       backgroundColor: const Color(0xFFF7F8FA),
       body: SafeArea(
         bottom: false,
+=======
+      backgroundColor: AppTheme.white,
+      body: SafeArea(
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
         child: StreamBuilder<List<Expense>>(
           stream: svc.myExpensesStream(),
           builder: (context, snap) {
@@ -46,6 +59,7 @@ class ExpensesHomeScreen extends StatelessWidget {
             final monthTitle = _monthTitle(DateTime.now());
 
             return Stack(
+<<<<<<< HEAD
               fit: StackFit.expand,
               children: [
                 // Background image like reference.
@@ -77,12 +91,31 @@ class ExpensesHomeScreen extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(16, 10, 16, 0),
                       child: _TripBudgetCard(
+=======
+              children: [
+                ListView(
+                  padding: EdgeInsets.fromLTRB(20, 18, 20, 110 + bottomPad),
+                  children: [
+                    Text(
+                      'Expenses',
+                      style: GoogleFonts.plusJakartaSans(
+                        fontSize: 26,
+                        fontWeight: FontWeight.w900,
+                        color: AppTheme.black,
+                        letterSpacing: -0.4,
+                      ),
+                    ),
+                    const SizedBox(height: 14),
+
+                    _MonthlyHeaderCard(
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
                       title: '$monthTitle · Colombo trip',
                       total: total,
                       budget: _budget,
                       currency: 'LKR',
                       remainingPct: remainingPct,
                     ),
+<<<<<<< HEAD
                     ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(16, 10, 16, 0),
@@ -109,10 +142,16 @@ class ExpensesHomeScreen extends StatelessWidget {
                       padding: const EdgeInsets.fromLTRB(20, 22, 20, 0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
+=======
+                    const SizedBox(height: 14),
+
+                    Row(
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
                       children: [
                         Text(
                           'By category',
                           style: GoogleFonts.plusJakartaSans(
+<<<<<<< HEAD
                               fontSize: 15,
                               fontWeight: FontWeight.w700,
                               color: _sectionTitle,
@@ -162,12 +201,61 @@ class ExpensesHomeScreen extends StatelessWidget {
                             const Center(
                               child: Padding(
                               padding: EdgeInsets.all(28),
+=======
+                            fontSize: 14,
+                            fontWeight: FontWeight.w800,
+                            color: AppTheme.black,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    _CategoryGrid(
+                      items: normalized,
+                      currency: 'LKR',
+                    ),
+                    const SizedBox(height: 16),
+
+                    Row(
+                      children: [
+                        Text(
+                          'Recent transactions',
+                          style: GoogleFonts.plusJakartaSans(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w800,
+                            color: AppTheme.black,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+
+                    Container(
+                      decoration: BoxDecoration(
+                        color: _card,
+                        borderRadius: BorderRadius.circular(18),
+                        border: Border.all(color: Colors.black.withValues(alpha: 0.06)),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withValues(alpha: 0.05),
+                            blurRadius: 16,
+                            offset: const Offset(0, 8),
+                          ),
+                        ],
+                      ),
+                      child: snap.connectionState == ConnectionState.waiting &&
+                              !snap.hasData
+                          ? const Padding(
+                              padding: EdgeInsets.all(28),
+                              child: Center(
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
                                 child: CircularProgressIndicator(
                                   color: _accent,
                                   strokeWidth: 2,
                                 ),
                               ),
                             )
+<<<<<<< HEAD
                           else if (list.isEmpty)
                             Container(
                               width: double.infinity,
@@ -183,6 +271,11 @@ class ExpensesHomeScreen extends StatelessWidget {
                                   ),
                                 ],
                               ),
+=======
+                          : list.isEmpty
+                              ? Padding(
+                                  padding: const EdgeInsets.all(22),
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
                                   child: Text(
                                     'No expenses yet.\nTap + to add your first expense.',
                                     textAlign: TextAlign.center,
@@ -193,6 +286,7 @@ class ExpensesHomeScreen extends StatelessWidget {
                                     ),
                                   ),
                                 )
+<<<<<<< HEAD
                           else
                             Column(
                                   children: [
@@ -200,6 +294,12 @@ class ExpensesHomeScreen extends StatelessWidget {
                                   Padding(
                                     padding: const EdgeInsets.only(bottom: 10),
                                     child: _ExpenseCard(
+=======
+                              : Column(
+                                  children: [
+                                    for (final e in list.take(3)) ...[
+                                      _ExpenseRow(
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
                                         expense: e,
                                         onTap: () {
                                           Navigator.of(context).push(
@@ -209,9 +309,18 @@ class ExpensesHomeScreen extends StatelessWidget {
                                           );
                                         },
                                       ),
+<<<<<<< HEAD
                                         ),
                                     ],
                             ),
+=======
+                                      if (e.id != list.take(3).last.id)
+                                        Divider(
+                                          height: 1,
+                                          color: Colors.black.withValues(alpha: 0.06),
+                                        ),
+                                    ],
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
                                   ],
                                 ),
                     ),
@@ -221,6 +330,7 @@ class ExpensesHomeScreen extends StatelessWidget {
                 Positioned(
                   right: 22,
                   bottom: _navClearance + bottomPad,
+<<<<<<< HEAD
                   child: Material(
                     elevation: 8,
                     shadowColor: Colors.black.withValues(alpha: 0.25),
@@ -271,6 +381,19 @@ class ExpensesHomeScreen extends StatelessWidget {
                         ),
                       ),
                     ),
+=======
+                  child: FloatingActionButton(
+                    backgroundColor: _accent,
+                    foregroundColor: Colors.white,
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute<void>(
+                          builder: (_) => const NewExpenseScreen(),
+                        ),
+                      );
+                    },
+                    child: const Icon(Icons.add_rounded, size: 28),
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
                   ),
                 ),
               ],
@@ -305,8 +428,13 @@ List<_CategoryItem> _normalizedCategories(Map<String, double> raw) {
       .where((e) => e.key.toLowerCase() == k.toLowerCase())
       .fold<double>(0, (a, e) => a + e.value);
 
+<<<<<<< HEAD
   // Match reference: five main buckets + Other in grid.
   return <_CategoryItem>[
+=======
+  // Keep fixed order like reference.
+  final items = <_CategoryItem>[
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
     _CategoryItem('Food', g('Food')),
     _CategoryItem('Transport', g('Transport')),
     _CategoryItem('Hotel', g('Hotel') + g('Accommodation')),
@@ -314,6 +442,7 @@ List<_CategoryItem> _normalizedCategories(Map<String, double> raw) {
     _CategoryItem('Activities', g('Activities')),
     _CategoryItem('Other', g('Other')),
   ];
+<<<<<<< HEAD
 }
 
 String _formatThousands(num n) {
@@ -336,6 +465,13 @@ String _formatCompactK(double v) {
 
 class _TripBudgetCard extends StatelessWidget {
   const _TripBudgetCard({
+=======
+  return items;
+}
+
+class _MonthlyHeaderCard extends StatelessWidget {
+  const _MonthlyHeaderCard({
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
     required this.title,
     required this.total,
     required this.budget,
@@ -349,12 +485,17 @@ class _TripBudgetCard extends StatelessWidget {
   final String currency;
   final double remainingPct;
 
+<<<<<<< HEAD
   static const _yellow = Color(0xFFF2C94C);
   static const _yellow2 = Color(0xFFF6D365);
+=======
+  static const _accent = Color(0xFFFF8A1F);
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 
   @override
   Widget build(BuildContext context) {
     final spentPct = budget <= 0 ? 0.0 : (total / budget).clamp(0.0, 1.0);
+<<<<<<< HEAD
     final remainingWhole = (remainingPct * 100).round();
     final totalLabel = '$currency ${_formatThousands(total)}';
     final budgetLabel = '$currency ${_formatThousands(budget)}';
@@ -371,6 +512,21 @@ class _TripBudgetCard extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.10),
+=======
+    final remainingLabel = '${(remainingPct * 100).round()}%';
+    return Container(
+      padding: const EdgeInsets.all(18),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [Color(0xFFFFA13C), _accent],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(22),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.14),
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
             blurRadius: 18,
             offset: const Offset(0, 10),
           ),
@@ -380,19 +536,29 @@ class _TripBudgetCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
+<<<<<<< HEAD
             crossAxisAlignment: CrossAxisAlignment.start,
+=======
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
             children: [
               Expanded(
                 child: Text(
                   title,
                   style: GoogleFonts.plusJakartaSans(
+<<<<<<< HEAD
                     fontSize: 13,
                     fontWeight: FontWeight.w700,
                     color: Colors.black.withValues(alpha: 0.78),
+=======
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white.withValues(alpha: 0.92),
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
                   ),
                 ),
               ),
               Container(
+<<<<<<< HEAD
                 width: 86,
                 height: 56,
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
@@ -409,17 +575,42 @@ class _TripBudgetCard extends StatelessWidget {
                         fontSize: 14,
                         fontWeight: FontWeight.w900,
                         color: Colors.black.withValues(alpha: 0.85),
+=======
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.18),
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      remainingLabel,
+                      style: GoogleFonts.plusJakartaSans(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w900,
+                        color: Colors.white,
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
                         height: 1,
                       ),
                     ),
                     const SizedBox(height: 2),
                     Text(
+<<<<<<< HEAD
                       'Remaining',
                       style: GoogleFonts.plusJakartaSans(
                         fontSize: 10,
                         fontWeight: FontWeight.w800,
                         color: Colors.black.withValues(alpha: 0.65),
                         height: 1,
+=======
+                      'remaining',
+                      style: GoogleFonts.plusJakartaSans(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white.withValues(alpha: 0.9),
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
                       ),
                     ),
                   ],
@@ -429,6 +620,7 @@ class _TripBudgetCard extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           Text(
+<<<<<<< HEAD
             totalLabel,
             style: GoogleFonts.plusJakartaSans(
               fontSize: 30,
@@ -444,6 +636,23 @@ class _TripBudgetCard extends StatelessWidget {
               fontSize: 12,
               fontWeight: FontWeight.w700,
               color: Colors.black.withValues(alpha: 0.65),
+=======
+            '$currency ${total.toStringAsFixed(0)}',
+            style: GoogleFonts.plusJakartaSans(
+              fontSize: 28,
+              fontWeight: FontWeight.w900,
+              color: Colors.white,
+              letterSpacing: -0.6,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            '${(spentPct * 100).round()}% of $currency ${budget.toStringAsFixed(0)} budget',
+            style: GoogleFonts.plusJakartaSans(
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
+              color: Colors.white.withValues(alpha: 0.92),
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
             ),
           ),
           const SizedBox(height: 10),
@@ -452,9 +661,15 @@ class _TripBudgetCard extends StatelessWidget {
             child: LinearProgressIndicator(
               value: spentPct,
               minHeight: 7,
+<<<<<<< HEAD
               backgroundColor: Colors.black.withValues(alpha: 0.08),
               valueColor: AlwaysStoppedAnimation<Color>(
                 Colors.black.withValues(alpha: 0.35),
+=======
+              backgroundColor: Colors.white.withValues(alpha: 0.25),
+              valueColor: AlwaysStoppedAnimation<Color>(
+                Colors.white.withValues(alpha: 0.85),
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
               ),
             ),
           ),
@@ -465,6 +680,7 @@ class _TripBudgetCard extends StatelessWidget {
               Text(
                 '$currency 0',
                 style: GoogleFonts.plusJakartaSans(
+<<<<<<< HEAD
                   fontSize: 11,
                   fontWeight: FontWeight.w800,
                   color: Colors.black.withValues(alpha: 0.65),
@@ -476,6 +692,19 @@ class _TripBudgetCard extends StatelessWidget {
                   fontSize: 11,
                   fontWeight: FontWeight.w800,
                   color: Colors.black.withValues(alpha: 0.65),
+=======
+                  fontSize: 10,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white.withValues(alpha: 0.9),
+                ),
+              ),
+              Text(
+                '$currency ${budget.toStringAsFixed(0)}',
+                style: GoogleFonts.plusJakartaSans(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white.withValues(alpha: 0.9),
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
                 ),
               ),
             ],
@@ -493,6 +722,7 @@ class _CategoryItem {
 }
 
 class _CategoryGrid extends StatelessWidget {
+<<<<<<< HEAD
   const _CategoryGrid({required this.items});
   final List<_CategoryItem> items;
 
@@ -511,20 +741,69 @@ class _CategoryGrid extends StatelessWidget {
         return (Icons.adjust_rounded, const Color(0xFFC2185B), const Color(0xFFFCE4EC));
       default:
         return (Icons.category_rounded, const Color(0xFF546E7A), const Color(0xFFECEFF1));
+=======
+  const _CategoryGrid({required this.items, required this.currency});
+  final List<_CategoryItem> items;
+  final String currency;
+
+  (IconData, Color, Color) _style(String label) {
+    switch (label.toLowerCase()) {
+      case 'food':
+        return (
+          Icons.restaurant_rounded,
+          const Color(0xFFFFF1E8),
+          const Color(0xFFFF8A1F),
+        );
+      case 'transport':
+        return (
+          Icons.directions_bus_filled_rounded,
+          const Color(0xFFEFF7F3),
+          const Color(0xFF2E7D32),
+        );
+      case 'hotel':
+        return (
+          Icons.apartment_rounded,
+          const Color(0xFFEFF4FF),
+          const Color(0xFF1565C0),
+        );
+      case 'shopping':
+        return (
+          Icons.shopping_bag_rounded,
+          const Color(0xFFEFF4FF),
+          const Color(0xFF5E35B1),
+        );
+      case 'activities':
+        return (
+          Icons.celebration_rounded,
+          const Color(0xFFFFF7DF),
+          const Color(0xFFB8860B),
+        );
+      default:
+        return (
+          Icons.push_pin_rounded,
+          const Color(0xFFF3F3F3),
+          const Color(0xFF616161),
+        );
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
     }
   }
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     // Narrower track + square tiles (width/height ≈ 1) so white cards read smaller; icon chip unchanged.
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 14),
       child: GridView.count(
+=======
+    return GridView.count(
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       crossAxisCount: 3,
       mainAxisSpacing: 10,
       crossAxisSpacing: 10,
+<<<<<<< HEAD
         childAspectRatio: 1,
       children: [
         for (final it in items)
@@ -569,22 +848,149 @@ class _CategoryGrid extends StatelessWidget {
                   style: GoogleFonts.plusJakartaSans(
                     fontSize: 14,
                         fontWeight: FontWeight.w800,
+=======
+      childAspectRatio: 1.05,
+      children: [
+        for (final it in items)
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+            decoration: BoxDecoration(
+              color: _style(it.label).$2,
+              borderRadius: BorderRadius.circular(18),
+              border: Border.all(color: Colors.black.withValues(alpha: 0.04)),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: 34,
+                  height: 34,
+                  decoration: BoxDecoration(
+                    color: Colors.white.withValues(alpha: 0.92),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Icon(
+                    _style(it.label).$1,
+                    size: 18,
+                    color: _style(it.label).$3,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  it.label,
+                  style: GoogleFonts.plusJakartaSans(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w700,
+                    color: AppTheme.grey,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  it.amount.toStringAsFixed(0),
+                  style: GoogleFonts.plusJakartaSans(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w900,
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
                     color: AppTheme.black,
                   ),
                 ),
               ],
+<<<<<<< HEAD
                 ),
             ),
           ),
       ],
+=======
+            ),
+          ),
+      ],
+    );
+  }
+}
+
+class _ExpenseRow extends StatelessWidget {
+  const _ExpenseRow({required this.expense, required this.onTap});
+  final Expense expense;
+  final VoidCallback onTap;
+
+  IconData _icon(String cat) {
+    final c = cat.toLowerCase();
+    if (c.contains('food')) return Icons.restaurant_rounded;
+    if (c.contains('transport') || c.contains('travel')) return Icons.directions_car_rounded;
+    if (c.contains('shopping')) return Icons.shopping_bag_rounded;
+    if (c.contains('activity')) return Icons.local_activity_rounded;
+    if (c.contains('hotel') || c.contains('accommodation')) return Icons.hotel_rounded;
+    return Icons.receipt_long_rounded;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final timeLabel = _relativeTime(expense.spentAt);
+    return InkWell(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(14, 12, 14, 12),
+        child: Row(
+          children: [
+            Container(
+              width: 38,
+              height: 38,
+              decoration: BoxDecoration(
+                color: const Color(0xFFFFE6D2),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Icon(_icon(expense.category), color: const Color(0xFFFF8A1F), size: 18),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    expense.note.isEmpty ? expense.category : expense.note,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: GoogleFonts.plusJakartaSans(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w800,
+                      color: AppTheme.black,
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    '$timeLabel · ${expense.category}',
+                    style: GoogleFonts.plusJakartaSans(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w600,
+                      color: AppTheme.grey,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Text(
+              '-${expense.currency} ${expense.amount.toStringAsFixed(0)}',
+              style: GoogleFonts.plusJakartaSans(
+                fontSize: 12,
+                fontWeight: FontWeight.w900,
+                color: const Color(0xFFC62828),
+              ),
+            ),
+          ],
+        ),
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
       ),
     );
   }
 }
 
+<<<<<<< HEAD
 (_ExpenseVisual visual, String dayPart, String timePart) _expenseMeta(Expense expense) {
   final visual = _categoryVisual(expense.category);
   final t = expense.spentAt;
+=======
+String _relativeTime(DateTime t) {
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
   final now = DateTime.now();
   final today = DateTime(now.year, now.month, now.day);
   final d = DateTime(t.year, t.month, t.day);
@@ -597,6 +1003,7 @@ class _CategoryGrid extends StatelessWidget {
     h -= 12;
   }
   final timeStr = '$h:$m $ap';
+<<<<<<< HEAD
   final String dayPart;
   if (d == today) {
     dayPart = 'Today';
@@ -1388,5 +1795,11 @@ class _TopTabsBar extends StatelessWidget {
       ),
     );
   }
+=======
+  if (d == today) return 'Today, $timeStr';
+  final y = today.subtract(const Duration(days: 1));
+  if (d == y) return 'Yesterday';
+  return '${t.day}/${t.month}/${t.year}';
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 }
 

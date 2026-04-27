@@ -2,11 +2,17 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+<<<<<<< HEAD
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import '../../core/nav_insets.dart';
 import '../../models/tour.dart';
 import '../../services/tour_service.dart';
 import '../bookings/discover_tours_screen.dart';
+=======
+import '../../core/nav_insets.dart';
+import '../../models/tour.dart';
+import '../../services/tour_service.dart';
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
 import '../bookings/tour_detail_screen.dart';
 import 'activity_detail_screen.dart';
 
@@ -162,6 +168,7 @@ class _HomeGreeting extends StatelessWidget {
   }
 }
 
+<<<<<<< HEAD
 class _HomeSearchBar extends StatefulWidget {
   const _HomeSearchBar();
 
@@ -263,6 +270,12 @@ class _HomeSearchBarState extends State<_HomeSearchBar> {
   }
 
   @override
+=======
+class _HomeSearchBar extends StatelessWidget {
+  const _HomeSearchBar();
+
+  @override
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(30),
@@ -284,6 +297,7 @@ class _HomeSearchBarState extends State<_HomeSearchBar> {
               const Icon(Icons.search, color: Colors.white70),
               const SizedBox(width: 12),
               Expanded(
+<<<<<<< HEAD
                 child: TextField(
                   controller: _ctrl,
                   onSubmitted: (_) => _openDiscover(),
@@ -307,6 +321,17 @@ class _HomeSearchBarState extends State<_HomeSearchBar> {
                 onPressed: _startVoiceSearch,
                 icon: Icon(_listening ? Icons.mic : Icons.mic_none_rounded, color: Colors.white70),
               ),
+=======
+                child: Text(
+                  'Search tours, destinations...',
+                  style: GoogleFonts.outfit(
+                    color: Colors.white.withValues(alpha: 0.85),
+                    fontSize: 16,
+                  ),
+                ),
+              ),
+              const Icon(Icons.mic, color: Colors.white70),
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
             ],
           ),
         ),

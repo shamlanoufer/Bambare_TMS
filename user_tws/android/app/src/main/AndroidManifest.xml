@@ -1,7 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<<<<<<< HEAD
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <application
         android:label="Bambare Travel"
+=======
+    <application
+        android:label="user_tws"
+>>>>>>> a28bf1f775365ea426a204b88ca42cc04604a505
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
